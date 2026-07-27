@@ -32,12 +32,26 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 12),
               SegmentedButton<ThemeMode>(
                 segments: const <ButtonSegment<ThemeMode>>[
-                  ButtonSegment(value: ThemeMode.light, icon: Icon(Icons.light_mode), label: Text('浅色')),
-                  ButtonSegment(value: ThemeMode.dark, icon: Icon(Icons.dark_mode), label: Text('深色')),
-                  ButtonSegment(value: ThemeMode.system, icon: Icon(Icons.brightness_auto), label: Text('自动')),
+                  ButtonSegment(
+                    value: ThemeMode.light,
+                    icon: Icon(Icons.light_mode),
+                    label: Text('浅色'),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.dark,
+                    icon: Icon(Icons.dark_mode),
+                    label: Text('深色'),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.system,
+                    icon: Icon(Icons.brightness_auto),
+                    label: Text('自动'),
+                  ),
                 ],
                 selected: <ThemeMode>{controller.themeMode},
-                onSelectionChanged: (value) => controller.updateThemeMode(value.first),
+                onSelectionChanged: (value) {
+                  controller.updateThemeMode(value.first);
+                },
               ),
               const Divider(height: 36),
               SwitchListTile(
@@ -53,19 +67,25 @@ class SettingsScreen extends StatelessWidget {
                 spacing: 20,
                 runSpacing: 20,
                 children: colors.map((color) {
-                  final selected = controller.seedColor.value == color.value;
+                  final selected =
+                      controller.seedColor.toARGB32() == color.toARGB32();
                   return InkWell(
                     borderRadius: BorderRadius.circular(40),
-                    onTap: () => controller.updateColor(color),
-                    child: CircleAvatar(
-                      radius: selected ? 34 : 32,
-                      backgroundColor: color.withValues(alpha: .25),
+                    onTap: controller.useDynamicColor
+                        ? null
+                        : () => controller.updateColor(color),
+                    child: Opacity(
+                      opacity: controller.useDynamicColor ? 0.45 : 1,
                       child: CircleAvatar(
-                        radius: 22,
-                        backgroundColor: color,
-                        child: selected
-                            ? const Icon(Icons.check, color: Colors.white)
-                            : null,
+                        radius: selected ? 34 : 32,
+                        backgroundColor: color.withValues(alpha: .25),
+                        child: CircleAvatar(
+                          radius: 22,
+                          backgroundColor: color,
+                          child: selected
+                              ? const Icon(Icons.check, color: Colors.white)
+                              : null,
+                        ),
                       ),
                     ),
                   );
