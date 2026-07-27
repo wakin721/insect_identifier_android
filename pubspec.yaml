@@ -13,6 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   crop_your_image: 2.0.0
+  dynamic_color: 1.8.1
   image_picker: 1.2.3
   path_provider: 2.1.6
   ultralytics_yolo: 0.6.10
