@@ -1,0 +1,35 @@
+# Dart and Flutter
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Android local and signing files
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/upload-keystore.jks
+android/app/*.keystore
+android/app/*.jks
+
+# Generated mobile model
+assets/models/*.tflite
+!assets/models/.gitkeep
+models/*.tflite
+models/*_saved_model/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Misc
+.DS_Store
+*.log

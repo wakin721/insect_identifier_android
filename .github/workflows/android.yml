@@ -1,0 +1,169 @@
+name: Android CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "3.44.8"
+  PYTHON_VERSION: "3.12"
+  ULTRALYTICS_VERSION: "8.4.104"
+  ANDROID_API_LEVEL: "36"
+  ANDROID_BUILD_TOOLS: "36.0.0"
+  ANDROID_NDK_VERSION: "28.2.13676358"
+
+jobs:
+  build-android:
+    name: Export model and build Android
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-export.txt
+
+      - name: Validate repository inputs
+        run: python tool/validate_project.py
+
+      - name: Restore exported LiteRT model
+        id: model-cache
+        uses: actions/cache@v4
+        with:
+          path: assets/models/insect_classifier.tflite
+          key: litert-v2-${{ runner.os }}-${{ hashFiles('models/best.pt', 'assets/data/taxonomy_zh.json', 'tool/export_model.py', 'requirements-export.txt') }}
+
+      - name: Install model export dependencies
+        if: steps.model-cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            --index-url https://download.pytorch.org/whl/cpu \
+            torch==2.10.0 torchvision==0.25.0
+          python -m pip install -r requirements-export.txt
+
+      - name: Export YOLO classifier to LiteRT
+        if: steps.model-cache.outputs.cache-hit != 'true'
+        run: |
+          python tool/export_model.py \
+            --input models/best.pt \
+            --output assets/models/insect_classifier.tflite \
+            --imgsz 416
+
+      - name: Verify exported model exists
+        run: |
+          test -s assets/models/insect_classifier.tflite
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("assets/models/insect_classifier.tflite")
+          with path.open("rb") as handle:
+              header = handle.read(8)
+          if header[4:8] != b"TFL3":
+              raise SystemExit("Invalid LiteRT/TFLite header")
+          print(f"Model size: {path.stat().st_size / 1024 / 1024:.2f} MiB")
+          PY
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager \
+            "platforms;android-${ANDROID_API_LEVEL}" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
+            "ndk;${ANDROID_NDK_VERSION}" \
+            "cmake;3.22.1"
+
+      - name: Configure optional release signing
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${ANDROID_KEYSTORE_BASE64}" && \
+                -n "${ANDROID_KEYSTORE_PASSWORD}" && \
+                -n "${ANDROID_KEY_ALIAS}" && \
+                -n "${ANDROID_KEY_PASSWORD}" ]]; then
+            printf '%s' "${ANDROID_KEYSTORE_BASE64}" | base64 --decode > android/app/upload-keystore.jks
+            cat > android/key.properties <<PROPERTIES
+          storeFile=app/upload-keystore.jks
+          storePassword=${ANDROID_KEYSTORE_PASSWORD}
+          keyAlias=${ANDROID_KEY_ALIAS}
+          keyPassword=${ANDROID_KEY_PASSWORD}
+          PROPERTIES
+            echo "SIGNING_MODE=release" >> "${GITHUB_ENV}"
+          else
+            echo "SIGNING_MODE=debug-fallback" >> "${GITHUB_ENV}"
+          fi
+
+      - name: Resolve Flutter packages
+        run: flutter pub get
+
+      - name: Format Dart sources
+        run: dart format lib test
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run unit tests
+        run: flutter test
+
+      - name: Build split release APKs
+        run: flutter build apk --release --split-per-abi
+
+      - name: Build release Android App Bundle
+        run: flutter build appbundle --release
+
+      - name: Write build information
+        run: |
+          {
+            echo "commit=${GITHUB_SHA}"
+            echo "flutter=${FLUTTER_VERSION}"
+            echo "ultralytics=${ULTRALYTICS_VERSION}"
+            echo "signing=${SIGNING_MODE}"
+            echo "model_sha256=$(sha256sum models/best.pt | cut -d ' ' -f 1)"
+          } > build/build-info.txt
+
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: insect-identifier-android-${{ github.run_number }}
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+          path: |
+            build/app/outputs/flutter-apk/*-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+            build/build-info.txt
+            assets/models/insect_classifier.tflite

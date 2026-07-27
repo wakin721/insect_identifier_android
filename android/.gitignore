@@ -1,0 +1,6 @@
+.gradle/
+local.properties
+key.properties
+app/upload-keystore.jks
+app/*.keystore
+app/*.jks

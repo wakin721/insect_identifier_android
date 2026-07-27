@@ -1,0 +1,29 @@
+name: insect_identifier
+description: Android-only Material 3 insect image classification app powered by an Ultralytics YOLO classification model.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.8.1 <4.0.0"
+  flutter: ">=3.32.1"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  crop_your_image: 2.0.0
+  image_picker: 1.2.3
+  path_provider: 2.1.6
+  ultralytics_yolo: 0.6.10
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/taxonomy_zh.json
+    - assets/models/
