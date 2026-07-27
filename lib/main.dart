@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'app.dart';
 import 'controllers/app_controller.dart';
+import 'controllers/appearance_controller.dart';
 import 'repositories/history_repository.dart';
+import 'repositories/settings_repository.dart';
 import 'repositories/taxonomy_repository.dart';
 import 'services/insect_classifier.dart';
 
@@ -17,5 +19,15 @@ Future<void> main() async {
   );
   await controller.initialize();
 
-  runApp(InsectIdentifierApp(controller: controller));
+  final appearanceController = AppearanceController(
+    FileSettingsRepository(),
+  );
+  await appearanceController.initialize();
+
+  runApp(
+    InsectIdentifierApp(
+      controller: controller,
+      appearanceController: appearanceController,
+    ),
+  );
 }
