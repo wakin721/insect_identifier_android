@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/app_controller.dart';
-import 'history_screen.dart';
 import 'profile_screen.dart';
 import 'recognize_screen.dart';
 
