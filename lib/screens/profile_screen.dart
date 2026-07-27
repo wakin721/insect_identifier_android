@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/app_controller.dart';
+import '../controllers/appearance_controller.dart';
 import 'about_screen.dart';
 import 'history_screen.dart';
 import 'settings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({required this.controller, super.key});
+  const ProfileScreen({
+    required this.controller,
+    required this.appearanceController,
+    super.key,
+  });
 
   final AppController controller;
+  final AppearanceController appearanceController;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +38,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.palette_outlined),
-                title: const Text('设置'),
+                title: const Text('外观与主题'),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (_) => const SettingsScreen(),
+                    builder: (_) => SettingsScreen(
+                      controller: appearanceController,
+                    ),
                   ),
                 ),
               ),
