@@ -42,7 +42,10 @@ class _InsectIdentifierAppState extends State<InsectIdentifierApp> {
           locale: const Locale('zh', 'CN'),
           supportedLocales: const <Locale>[Locale('zh', 'CN')],
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: HomeShell(controller: widget.controller),
+          home: HomeShell(
+            controller: widget.controller,
+            appearanceController: widget.appearanceController,
+          ),
         );
       },
     );
