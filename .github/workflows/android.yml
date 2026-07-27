@@ -1,8 +1,11 @@
 name: Android CI
 
 on:
-  push:
   pull_request:
+    branches:
+      - main
+    types:
+      - closed
   workflow_dispatch:
 
 permissions:
@@ -22,13 +25,16 @@ env:
 
 jobs:
   build-android:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     name: Export model and build Android
     runs-on: ubuntu-latest
     timeout-minutes: 90
 
     steps:
-      - name: Check out repository
+      - name: Check out merged revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.merge_commit_sha || github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
