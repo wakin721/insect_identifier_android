@@ -240,8 +240,13 @@ def validate_build_configuration() -> None:
 
     if 'applicationId = "top.myneri.insectidentifier"' not in app_gradle:
         fail("Unexpected Android applicationId.")
-    if 'id("com.android.application") version "9.0.1"' not in settings_gradle:
-        fail("Android Gradle Plugin version is not pinned to 9.0.1.")
+    supported_agp_versions = [
+    'id("com.android.application") version "8.11.1"',
+    'id("com.android.application") version "9.0.1"',
+]
+
+    if not any(version in settings_gradle for version in supported_agp_versions):
+        fail("Unsupported Android Gradle Plugin version.")
 
 
 def main() -> int:
