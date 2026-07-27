@@ -2,4 +2,13 @@
 <resources>
     <color name="splash_background">#FFF7FA</color>
     <color name="ic_launcher_background">#984061</color>
+    <color name="ic_launcher_green_background">#386A20</color>
+    <color name="ic_launcher_teal_background">#006B5F</color>
+    <color name="ic_launcher_blue_background">#00639B</color>
+    <color name="ic_launcher_purple_background">#6750A4</color>
+    <color name="ic_launcher_rose_background">#984061</color>
+    <color name="ic_launcher_orange_background">#9A4520</color>
+    <color name="ic_launcher_cyan_background">#006874</color>
+    <color name="ic_launcher_gold_background">#7A5900</color>
+    <color name="ic_launcher_dynamic_background">#984061</color>
 </resources>
