@@ -20,61 +20,50 @@ class HistoryScreen extends StatelessWidget {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, _) {
-        if (controller.historyLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        return SafeArea(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 760),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 12, 8),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            '历史记录 · ${controller.history.length}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                        TextButton.icon(
-                          onPressed: controller.history.isEmpty
-                              ? null
-                              : () => _confirmClear(context),
-                          icon: const Icon(Icons.delete_sweep_outlined),
-                          label: const Text('清空'),
-                        ),
-                      ],
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          appBar: AppBar(
+            title: Text('历史识别 · ${controller.history.length}'),
+            actions: <Widget>[
+              IconButton(
+                tooltip: '清空全部历史',
+                onPressed: controller.history.isEmpty
+                    ? null
+                    : () => _confirmClear(context),
+                icon: const Icon(Icons.delete_sweep_outlined),
+              ),
+            ],
+          ),
+          body: controller.historyLoading
+              ? const Center(child: CircularProgressIndicator())
+              : SafeArea(
+                  top: false,
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 760),
+                      child: controller.history.isEmpty
+                          ? const _EmptyHistory()
+                          : ListView.separated(
+                              padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
+                              itemCount: controller.history.length,
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 10),
+                              itemBuilder: (context, index) {
+                                final record = controller.history[index];
+                                return _HistoryItem(
+                                  record: record,
+                                  taxon: controller.taxonomy.find(
+                                    record.predictions.first,
+                                  ),
+                                  onOpen: () => _openRecord(context, record),
+                                  onDelete: () =>
+                                      _confirmDelete(context, record),
+                                );
+                              },
+                            ),
                     ),
                   ),
-                  Expanded(
-                    child: controller.history.isEmpty
-                        ? const _EmptyHistory()
-                        : ListView.separated(
-                            padding: const EdgeInsets.fromLTRB(16, 4, 16, 28),
-                            itemCount: controller.history.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 10),
-                            itemBuilder: (context, index) {
-                              final record = controller.history[index];
-                              return _HistoryItem(
-                                record: record,
-                                taxon: controller.taxonomy.find(
-                                  record.predictions.first,
-                                ),
-                                onOpen: () => _openRecord(context, record),
-                                onDelete: () => _confirmDelete(context, record),
-                              );
-                            },
-                          ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
         );
       },
     );
