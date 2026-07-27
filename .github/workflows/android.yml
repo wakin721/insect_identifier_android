@@ -2,53 +2,104 @@ name: Android CI
 
 on:
   pull_request:
-    branches: [main]
-    types: [closed]
+    branches:
+      - main
+    types:
+      - closed
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: android-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "3.44.8"
+  PYTHON_VERSION: "3.12"
+  ULTRALYTICS_VERSION: "8.4.104"
+  ANDROID_API_LEVEL: "36"
+  ANDROID_BUILD_TOOLS: "36.0.0"
+  ANDROID_NDK_VERSION: "28.2.13676358"
+
 jobs:
   build-android:
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    name: Export model and build Android
     runs-on: ubuntu-latest
+    timeout-minutes: 90
+
     steps:
       - name: Check out merged revision
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.merge_commit_sha || github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-export.txt
 
       - name: Validate repository inputs
         run: python tool/validate_project.py
 
+      - name: Restore exported LiteRT model
+        id: model-cache
+        uses: actions/cache@v5
+        with:
+          path: assets/models/insect_classifier.tflite
+          key: litert-v2-${{ runner.os }}-${{ hashFiles('models/best.pt', 'assets/data/taxonomy_zh.json', 'tool/export_model.py', 'requirements-export.txt') }}
+
+      - name: Install model export dependencies
+        if: steps.model-cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            --index-url https://download.pytorch.org/whl/cpu \
+            torch==2.10.0 torchvision==0.25.0
+          python -m pip install -r requirements-export.txt
+
       - name: Export YOLO classifier to LiteRT
-        run: python tool/export_model.py --input models/best.pt --output assets/models/insect_classifier.tflite --imgsz 416
+        if: steps.model-cache.outputs.cache-hit != 'true'
+        run: |
+          python tool/export_model.py \
+            --input models/best.pt \
+            --output assets/models/insect_classifier.tflite \
+            --imgsz 416
+
+      - name: Verify exported model exists
+        run: |
+          test -s assets/models/insect_classifier.tflite
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.44.8"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
+          cache: true
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
+        with:
+          packages: ""
+          log-accepted-android-sdk-licenses: false
 
       - name: Install Android SDK components
         run: |
           sdkmanager \
-            "platforms;android-36" \
-            "build-tools;36.0.0" \
-            "ndk;28.2.13676358" \
+            "platforms;android-${ANDROID_API_LEVEL}" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
+            "ndk;${ANDROID_NDK_VERSION}" \
             "cmake;3.22.1"
 
       - name: Resolve Flutter packages
@@ -60,16 +111,16 @@ jobs:
       - name: Run unit tests
         run: flutter test
 
-      - name: Build APK
+      - name: Build split release APKs
         run: flutter build apk --release --split-per-abi
 
-      - name: Build App Bundle
+      - name: Build release Android App Bundle
         run: flutter build appbundle --release
 
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: android-release
+          name: insect-identifier-android-${{ github.run_number }}
           path: |
             build/app/outputs/flutter-apk/*-release.apk
             build/app/outputs/bundle/release/app-release.aab
