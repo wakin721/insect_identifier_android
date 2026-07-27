@@ -1,7 +1,7 @@
 name: insect_identifier
 description: Android-only Material 3 insect image classification app powered by an Ultralytics YOLO classification model.
 publish_to: "none"
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=3.8.1 <4.0.0"

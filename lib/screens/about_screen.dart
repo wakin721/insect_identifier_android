@@ -58,7 +58,7 @@ class AboutScreen extends StatelessWidget {
                       _AboutItem(
                         icon: Icons.info_outline_rounded,
                         title: '版本',
-                        value: '1.0.0 (1)',
+                        value: '1.0.1 (2)',
                       ),
                       Divider(height: 1),
                       _AboutItem(
