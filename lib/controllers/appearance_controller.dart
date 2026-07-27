@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../repositories/settings_repository.dart';
+import '../services/launcher_icon_service.dart';
 
 class AppearanceController extends ChangeNotifier {
   AppearanceController(this._repository);
@@ -10,6 +11,7 @@ class AppearanceController extends ChangeNotifier {
 
   AppearanceSettingsData get settings => _settings;
   bool get useDynamicColor => _settings.useDynamicColor;
+  Color get seedColor => Color(_settings.seedColorValue);
 
   ThemeMode get themeMode {
     switch (_settings.themeMode) {
@@ -22,10 +24,12 @@ class AppearanceController extends ChangeNotifier {
     }
   }
 
-  Color get seedColor => Color(_settings.seedColorValue);
-
   Future<void> initialize() async {
     _settings = await _repository.load();
+    await LauncherIconService.synchronize(
+      useDynamicColor: useDynamicColor,
+      seedColor: seedColor,
+    );
     notifyListeners();
   }
 
@@ -49,6 +53,10 @@ class AppearanceController extends ChangeNotifier {
       useDynamicColor: _settings.useDynamicColor,
       seedColorValue: color.toARGB32(),
     );
+    await LauncherIconService.synchronize(
+      useDynamicColor: useDynamicColor,
+      seedColor: color,
+    );
     notifyListeners();
     await _repository.save(_settings);
   }
@@ -58,6 +66,10 @@ class AppearanceController extends ChangeNotifier {
       themeMode: _settings.themeMode,
       useDynamicColor: value,
       seedColorValue: _settings.seedColorValue,
+    );
+    await LauncherIconService.synchronize(
+      useDynamicColor: value,
+      seedColor: seedColor,
     );
     notifyListeners();
     await _repository.save(_settings);
