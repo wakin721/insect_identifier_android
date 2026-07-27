@@ -9,6 +9,7 @@ class AppearanceController extends ChangeNotifier {
   AppearanceSettingsData _settings = AppearanceSettingsData.defaults;
 
   AppearanceSettingsData get settings => _settings;
+  bool get useDynamicColor => _settings.useDynamicColor;
 
   ThemeMode get themeMode {
     switch (_settings.themeMode) {
@@ -33,23 +34,23 @@ class AppearanceController extends ChangeNotifier {
       themeMode: switch (mode) {
         ThemeMode.light => 'light',
         ThemeMode.dark => 'dark',
-        _ => 'system',
+        ThemeMode.system => 'system',
       },
       useDynamicColor: _settings.useDynamicColor,
       seedColorValue: _settings.seedColorValue,
     );
-    await _repository.save(_settings);
     notifyListeners();
+    await _repository.save(_settings);
   }
 
   Future<void> updateColor(Color color) async {
     _settings = AppearanceSettingsData(
       themeMode: _settings.themeMode,
       useDynamicColor: _settings.useDynamicColor,
-      seedColorValue: color.value,
+      seedColorValue: color.toARGB32(),
     );
-    await _repository.save(_settings);
     notifyListeners();
+    await _repository.save(_settings);
   }
 
   Future<void> updateDynamicColor(bool value) async {
@@ -58,7 +59,7 @@ class AppearanceController extends ChangeNotifier {
       useDynamicColor: value,
       seedColorValue: _settings.seedColorValue,
     );
-    await _repository.save(_settings);
     notifyListeners();
+    await _repository.save(_settings);
   }
 }
