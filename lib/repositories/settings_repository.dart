@@ -3,10 +3,49 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
-abstract interface class SettingsRepository {
-  Future<int?> loadThemeColorValue();
+class AppearanceSettingsData {
+  const AppearanceSettingsData({
+    required this.themeMode,
+    required this.useDynamicColor,
+    required this.seedColorValue,
+  });
 
-  Future<void> saveThemeColorValue(int value);
+  static const defaults = AppearanceSettingsData(
+    themeMode: 'system',
+    useDynamicColor: false,
+    seedColorValue: 0xff386a20,
+  );
+
+  final String themeMode;
+  final bool useDynamicColor;
+  final int seedColorValue;
+
+  Map<String, Object> toJson() => <String, Object>{
+        'themeMode': themeMode,
+        'useDynamicColor': useDynamicColor,
+        'seedColor': seedColorValue,
+      };
+
+  factory AppearanceSettingsData.fromJson(Map<String, dynamic> json) {
+    final themeMode = json['themeMode'];
+    final useDynamicColor = json['useDynamicColor'];
+    final seedColor = json['seedColor'] ?? json['themeColor'];
+
+    return AppearanceSettingsData(
+      themeMode: themeMode is String ? themeMode : defaults.themeMode,
+      useDynamicColor: useDynamicColor is bool
+          ? useDynamicColor
+          : defaults.useDynamicColor,
+      seedColorValue:
+          seedColor is int ? seedColor : defaults.seedColorValue,
+    );
+  }
+}
+
+abstract interface class SettingsRepository {
+  Future<AppearanceSettingsData> load();
+
+  Future<void> save(AppearanceSettingsData settings);
 }
 
 class FileSettingsRepository implements SettingsRepository {
@@ -14,32 +53,31 @@ class FileSettingsRepository implements SettingsRepository {
   static const _fileName = 'settings.json';
 
   @override
-  Future<int?> loadThemeColorValue() async {
+  Future<AppearanceSettingsData> load() async {
     final file = await _settingsFile();
     if (!await file.exists()) {
-      return null;
+      return AppearanceSettingsData.defaults;
     }
 
     try {
       final decoded = jsonDecode(await file.readAsString());
       if (decoded is! Map<String, dynamic>) {
-        return null;
+        return AppearanceSettingsData.defaults;
       }
-      final value = decoded['themeColor'];
-      return value is int ? value : null;
+      return AppearanceSettingsData.fromJson(decoded);
     } on FormatException {
-      return null;
+      return AppearanceSettingsData.defaults;
     } on TypeError {
-      return null;
+      return AppearanceSettingsData.defaults;
     }
   }
 
   @override
-  Future<void> saveThemeColorValue(int value) async {
+  Future<void> save(AppearanceSettingsData settings) async {
     final file = await _settingsFile();
     final tempFile = File('${file.path}.tmp');
     final payload = const JsonEncoder.withIndent('  ').convert(
-      <String, Object>{'themeColor': value},
+      settings.toJson(),
     );
     await tempFile.writeAsString(payload, flush: true);
     if (await file.exists()) {
