@@ -127,6 +127,11 @@ jobs:
             echo "SIGNING_MODE=debug-fallback" >> "${GITHUB_ENV}"
           fi
 
+      - name: Force compatible Gradle environment
+        run: |
+          echo "android.builtInKotlin=false" >> android/gradle.properties
+          echo "android.newDsl=false" >> android/gradle.properties
+
       - name: Resolve Flutter packages
         run: flutter pub get
 
