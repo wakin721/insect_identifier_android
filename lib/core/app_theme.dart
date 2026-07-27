@@ -3,20 +3,30 @@ import 'package:flutter/material.dart';
 class AppTheme {
   const AppTheme._();
 
-  static ThemeData light([Color seedColor = const Color(0xff386a20)]) =>
-      _build(Brightness.light, seedColor);
+  static const Color defaultSeedColor = Color(0xff386a20);
 
-  static ThemeData dark([Color seedColor = const Color(0xff386a20)]) =>
-      _build(Brightness.dark, seedColor);
-
-  static ThemeData _build(Brightness brightness, Color seedColor) {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: seedColor,
-      brightness: brightness,
+  static ThemeData light([Color seedColor = defaultSeedColor]) {
+    return fromColorScheme(
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.light,
+      ),
     );
+  }
+
+  static ThemeData dark([Color seedColor = defaultSeedColor]) {
+    return fromColorScheme(
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.dark,
+      ),
+    );
+  }
+
+  static ThemeData fromColorScheme(ColorScheme colorScheme) {
     return ThemeData(
       useMaterial3: true,
-      brightness: brightness,
+      brightness: colorScheme.brightness,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
@@ -28,6 +38,12 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: colorScheme.surfaceContainer,
         indicatorColor: colorScheme.secondaryContainer,
+      ),
+      cardTheme: CardThemeData(
+        clipBehavior: Clip.antiAlias,
+        color: colorScheme.surfaceContainerLow,
+        elevation: 0,
+        margin: EdgeInsets.zero,
       ),
     );
   }
