@@ -8,19 +8,26 @@ class AppearanceSettingsData {
     required this.themeMode,
     required this.useDynamicColor,
     required this.seedColorValue,
+    this.schemaVersion = currentSchemaVersion,
   });
+
+  static const int currentSchemaVersion = 2;
+  static const int previousDefaultSeedColor = 0xff386a20;
+  static const int defaultSeedColor = 0xff984061;
 
   static const defaults = AppearanceSettingsData(
     themeMode: 'system',
     useDynamicColor: false,
-    seedColorValue: 0xff386a20,
+    seedColorValue: defaultSeedColor,
   );
 
   final String themeMode;
   final bool useDynamicColor;
   final int seedColorValue;
+  final int schemaVersion;
 
   Map<String, Object> toJson() => <String, Object>{
+        'schemaVersion': schemaVersion,
         'themeMode': themeMode,
         'useDynamicColor': useDynamicColor,
         'seedColor': seedColorValue,
@@ -30,14 +37,23 @@ class AppearanceSettingsData {
     final themeMode = json['themeMode'];
     final useDynamicColor = json['useDynamicColor'];
     final seedColor = json['seedColor'] ?? json['themeColor'];
+    final schemaVersion = json['schemaVersion'];
+
+    final storedSeedColor =
+        seedColor is int ? seedColor : defaults.seedColorValue;
+    final migratedSeedColor = schemaVersion is int &&
+            schemaVersion >= currentSchemaVersion
+        ? storedSeedColor
+        : storedSeedColor == previousDefaultSeedColor
+            ? defaultSeedColor
+            : storedSeedColor;
 
     return AppearanceSettingsData(
       themeMode: themeMode is String ? themeMode : defaults.themeMode,
       useDynamicColor: useDynamicColor is bool
           ? useDynamicColor
           : defaults.useDynamicColor,
-      seedColorValue:
-          seedColor is int ? seedColor : defaults.seedColorValue,
+      seedColorValue: migratedSeedColor,
     );
   }
 }
