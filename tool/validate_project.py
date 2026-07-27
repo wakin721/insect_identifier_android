@@ -212,6 +212,27 @@ def validate_icons() -> int:
     return len(expected)
 
 
+def validate_workflow_action_versions(workflow: str) -> None:
+    minimum_major_versions = {
+        "actions/checkout": 6,
+        "actions/setup-python": 6,
+        "actions/cache": 5,
+        "actions/setup-java": 5,
+        "actions/upload-artifact": 6,
+    }
+
+    for action, minimum_major in minimum_major_versions.items():
+        match = re.search(rf"uses:\s*{re.escape(action)}@v(?P<major>\d+)\b", workflow)
+        if match is None:
+            fail(f"Android workflow is missing action {action!r}.")
+        major = int(match.group("major"))
+        if major < minimum_major:
+            fail(
+                f"Android workflow uses outdated {action}@v{major}; "
+                f"expected v{minimum_major} or newer."
+            )
+
+
 def validate_build_configuration() -> None:
     pubspec = (ROOT / "pubspec.yaml").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/android.yml").read_text(encoding="utf-8")
@@ -232,18 +253,19 @@ def validate_build_configuration() -> None:
         "flutter test",
         "flutter build apk --release --split-per-abi",
         "flutter build appbundle --release",
-        "actions/upload-artifact@v4",
     ]
     for value in workflow_requirements:
         if value not in workflow:
             fail(f"Android workflow is missing step text {value!r}.")
 
+    validate_workflow_action_versions(workflow)
+
     if 'applicationId = "top.myneri.insectidentifier"' not in app_gradle:
         fail("Unexpected Android applicationId.")
     supported_agp_versions = [
-    'id("com.android.application") version "8.11.1"',
-    'id("com.android.application") version "9.0.1"',
-]
+        'id("com.android.application") version "8.11.1"',
+        'id("com.android.application") version "9.0.1"',
+    ]
 
     if not any(version in settings_gradle for version in supported_agp_versions):
         fail("Unsupported Android Gradle Plugin version.")
