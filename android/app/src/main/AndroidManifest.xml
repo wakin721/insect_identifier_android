@@ -1,17 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:name="${applicationName}"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher_rose"
+        android:roundIcon="@mipmap/ic_launcher_rose"
         android:label="虫鉴"
         android:supportsRtl="true"
         android:theme="@style/NormalTheme">
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -21,24 +20,21 @@
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
         </activity>
 
-        <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
-    </application>
+        <activity-alias android:name=".LauncherRose" android:enabled="true" android:exported="true" android:icon="@mipmap/ic_launcher_rose" android:targetActivity=".MainActivity">
+            <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".LauncherGreen" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_green" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherTeal" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_teal" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherBlue" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_blue" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherPurple" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_purple" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherOrange" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_orange" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherCyan" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_cyan" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherGold" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_gold" android:targetActivity=".MainActivity" />
+        <activity-alias android:name=".LauncherDynamic" android:enabled="false" android:exported="true" android:icon="@mipmap/ic_launcher_dynamic" android:targetActivity=".MainActivity" />
 
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT" />
-            <data android:mimeType="text/plain" />
-        </intent>
-    </queries>
+        <meta-data android:name="flutterEmbedding" android:value="2" />
+    </application>
 </manifest>
