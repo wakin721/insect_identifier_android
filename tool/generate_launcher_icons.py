@@ -13,7 +13,7 @@ BACKGROUND = "#984061"
 FOREGROUND = "#FFFFFF"
 VIEWPORT = 108
 SUPERSAMPLING = 4
-MARK_SCALE = 1.1
+MARK_SCALE = 0.9
 ICON_SIZES = {
     "mipmap-mdpi/ic_launcher.png": 48,
     "mipmap-hdpi/ic_launcher.png": 72,
