@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'controllers/app_controller.dart';
 import 'controllers/appearance_controller.dart';
+import 'core/app_info.dart';
 import 'core/app_theme.dart';
 import 'screens/home_shell.dart';
 
@@ -51,7 +52,7 @@ class _InsectIdentifierAppState extends State<InsectIdentifierApp> {
                   );
 
             return MaterialApp(
-              title: '虫鉴',
+              title: AppInfo.name,
               debugShowCheckedModeBanner: false,
               theme: AppTheme.fromColorScheme(lightScheme),
               darkTheme: AppTheme.fromColorScheme(darkScheme),

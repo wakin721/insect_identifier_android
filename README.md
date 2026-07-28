@@ -19,32 +19,41 @@
 仓库中的 `models/best.pt` 是 Ultralytics YOLO 分类模型，训练输入尺寸为 `416 x 416`。SHA-256：
 
 ```text
-c8721348aba1c541d124c0cd2b1fc7f89fe4ac5ddb4fbc18bf4132328c6f8e63
+3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e608
 ```
 
-模型共有 19 个类别。类别同时包含物种级、科级和总科级标签，因此应用会明确显示“识别层级”，不会把科级输出伪装成具体物种。分类学映射位于 `assets/data/taxonomy_zh.json`。
+模型共有 28 个类别。类别同时包含物种级、属级、科级和总科级标签，因此应用会明确显示“识别层级”，不会把高阶分类输出伪装成具体物种。分类学映射位于 `assets/data/taxonomy_zh.json`。
 
 | 索引 | 模型类别 | 中文显示 | 层级 |
 |---:|---|---|---|
 | 0 | *Acrida cinerea* | 中华剑角蝗 | 物种 |
 | 1 | Acrididae | 蝗科 | 科 |
 | 2 | Apidae | 蜜蜂科 | 科 |
-| 3 | Carabidae | 步甲科 | 科 |
-| 4 | Coenagrionidae | 蟌科 | 科 |
-| 5 | *Colias erate* | 斑缘豆粉蝶 | 物种 |
-| 6 | *Colias heos* | 黎明豆粉蝶 | 物种 |
-| 7 | *Colias poliographus* | 东亚豆粉蝶 | 物种 |
-| 8 | Curculionidae | 象甲科 | 科 |
-| 9 | Eumolpidae | 肖叶甲科 | 科 |
-| 10 | Libellulidae | 蜻科 | 科 |
-| 11 | Lycaenidae | 灰蝶科 | 科 |
-| 12 | Myrmeleontidae | 蚁蛉科 | 科 |
-| 13 | *Pieris rapae* | 菜粉蝶 | 物种 |
-| 14 | *Pontia daplidice* | 云粉蝶 | 物种 |
-| 15 | Scarabaeoidea | 金龟总科 | 总科 |
-| 16 | Syrphidae | 食蚜蝇科 | 科 |
-| 17 | Tenebrionidae | 拟步甲科 | 科 |
-| 18 | Vespidae | 胡蜂科 | 科 |
+| 3 | Asilidae | 盗虻科 | 科 |
+| 4 | Carabidae | 步甲科 | 科 |
+| 5 | Coenagrionidae | 蟌科 | 科 |
+| 6 | *Colias erate* | 斑缘豆粉蝶 | 物种 |
+| 7 | *Colias heos* | 黎明豆粉蝶 | 物种 |
+| 8 | *Colias poliographus* | 东亚豆粉蝶 | 物种 |
+| 9 | Curculionidae | 象甲科 | 科 |
+| 10 | Elateridae | 叩甲科 | 科 |
+| 11 | Eumolpidae | 肖叶甲科 | 科（模型标签） |
+| 12 | Libellulidae | 蜻科 | 科 |
+| 13 | Lycaenidae | 灰蝶科 | 科 |
+| 14 | Megachile | 切叶蜂属 | 属 |
+| 15 | Myrmeleontidae | 蚁蛉科 | 科 |
+| 16 | Noctuidae | 夜蛾科 | 科 |
+| 17 | Pentatomidae | 蝽科 | 科 |
+| 18 | Phragmatobia | Phragmatobia 属 | 属 |
+| 19 | *Pieris rapae* | 菜粉蝶 | 物种 |
+| 20 | *Polygonia c-album* | 白钩蛱蝶 | 物种 |
+| 21 | *Pontia daplidice* | 云粉蝶 | 物种 |
+| 22 | Sarcophagidae | 麻蝇科 | 科 |
+| 23 | Scarabaeoidea | 金龟总科 | 总科 |
+| 24 | Syrphidae | 食蚜蝇科 | 科 |
+| 25 | Tachinidae | 寄蝇科 | 科 |
+| 26 | Tenebrionidae | 拟步甲科 | 科 |
+| 27 | Vespidae | 胡蜂科 | 科 |
 
 > `Eumolpidae` 在部分现代分类系统中通常按肖叶甲亚科 `Eumolpinae` 处理。应用保留模型原始标签，并在结果页显示说明。
 
@@ -93,7 +102,7 @@ flutter build appbundle --release
 
 将整个目录提交到 GitHub 后，每次 `push`、Pull Request 或手动触发都会运行 `.github/workflows/android.yml`。流程会：
 
-1. 校验 `best.pt` 哈希和 19 个类别映射。
+1. 校验 `best.pt` 哈希和 28 个类别映射。
 2. 安装固定版本的 CPU PyTorch 与 Ultralytics LiteRT 导出依赖。
 3. 将 `models/best.pt` 导出为 `assets/models/insect_classifier.tflite`，并校验模型头、任务和标签顺序。
 4. 执行 `flutter analyze` 与 `flutter test`。
@@ -136,7 +145,7 @@ python tool/export_model.py --skip-checksum
 
 ## 数据与隐私
 
-推理在 Android 设备本地运行，应用代码不上传照片。历史图像和结果保存在应用私有文档目录；卸载应用会清除这些数据。识别结果仅用于辅助判断，置信度是模型在现有 19 个训练类别中的相对概率，不等同于正式分类鉴定。
+推理在 Android 设备本地运行，应用代码不上传照片。历史图像和结果保存在应用私有文档目录；卸载应用会清除这些数据。识别结果仅用于辅助判断，置信度是模型在现有 28 个训练类别中的相对概率，不等同于正式分类鉴定。
 
 ## 许可提示
 

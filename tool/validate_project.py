@@ -238,6 +238,7 @@ def validate_workflow_action_versions(workflow: str) -> None:
 
 def validate_build_configuration() -> None:
     pubspec = (ROOT / "pubspec.yaml").read_text(encoding="utf-8")
+    app_info = (ROOT / "lib/core/app_info.dart").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/android.yml").read_text(encoding="utf-8")
     app_gradle = (ROOT / "android/app/build.gradle.kts").read_text(encoding="utf-8")
     settings_gradle = (ROOT / "android/settings.gradle.kts").read_text(
@@ -250,6 +251,27 @@ def validate_build_configuration() -> None:
     for package in ("crop_your_image", "image_picker", "path_provider", "ultralytics_yolo"):
         if f"{package}:" not in pubspec:
             fail(f"pubspec.yaml is missing dependency {package!r}.")
+
+    pubspec_version = re.search(
+        r"^version:\s*(?P<version>\d+\.\d+\.\d+)\+(?P<build>\d+)\s*$",
+        pubspec,
+        re.MULTILINE,
+    )
+    app_version = re.search(
+        r"static const version = '(?P<version>\d+\.\d+\.\d+)';",
+        app_info,
+    )
+    app_build = re.search(
+        r"static const buildNumber = (?P<build>\d+);",
+        app_info,
+    )
+    if pubspec_version is None or app_version is None or app_build is None:
+        fail("Unable to read the application version configuration.")
+    if (
+        pubspec_version.group("version") != app_version.group("version")
+        or pubspec_version.group("build") != app_build.group("build")
+    ):
+        fail("pubspec.yaml and AppInfo contain different application versions.")
 
     workflow_requirements = [
         "python tool/validate_project.py",
