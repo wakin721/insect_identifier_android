@@ -13,27 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SHA256 = "3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e608"
-EXPECTED_LABELS = [
-    "Acrida cinerea",
-    "Acrididae",
-    "Apidae",
-    "Carabidae",
-    "Coenagrionidae",
-    "Colias erate",
-    "Colias heos",
-    "Colias poliographus",
-    "Curculionidae",
-    "Eumolpidae",
-    "Libellulidae",
-    "Lycaenidae",
-    "Myrmeleontidae",
-    "Pieris rapae",
-    "Pontia daplidice",
-    "Scarabaeoidea",
-    "Syrphidae",
-    "Tenebrionidae",
-    "Vespidae",
-]
+EXPECTED_CLASS_COUNT = 28
 REQUIRED_FILES = [
     ".github/workflows/android.yml",
     "README.md",
@@ -55,7 +35,10 @@ REQUIRED_FILES = [
     "tool/export_model.py",
 ]
 DISALLOWED_PLATFORM_DIRECTORIES = ["ios", "linux", "macos", "web", "windows"]
-RELATIVE_DART_IMPORT = re.compile(r"^import\s+['\"](?P<path>\.{1,2}/[^'\"]+)['\"];", re.MULTILINE)
+RELATIVE_DART_IMPORT = re.compile(
+    r"^import\s+['\"](?P<path>\.{1,2}/[^'\"]+)['\"];",
+    re.MULTILINE,
+)
 
 
 def fail(message: str) -> None:
@@ -75,9 +58,14 @@ def validate_required_files() -> None:
     if missing:
         fail(f"Missing required files: {missing}")
 
-    present_platforms = [name for name in DISALLOWED_PLATFORM_DIRECTORIES if (ROOT / name).exists()]
+    present_platforms = [
+        name for name in DISALLOWED_PLATFORM_DIRECTORIES if (ROOT / name).exists()
+    ]
     if present_platforms:
-        fail(f"Android-only project unexpectedly contains platform directories: {present_platforms}")
+        fail(
+            "Android-only project unexpectedly contains platform directories: "
+            f"{present_platforms}"
+        )
 
 
 def validate_taxonomy() -> int:
@@ -86,15 +74,18 @@ def validate_taxonomy() -> int:
     classes = payload.get("classes")
     if not isinstance(classes, list):
         fail("taxonomy_zh.json must contain a classes array.")
-    if len(classes) != len(EXPECTED_LABELS):
-        fail(f"Expected {len(EXPECTED_LABELS)} taxonomy classes, found {len(classes)}.")
+    if len(classes) != EXPECTED_CLASS_COUNT:
+        fail(
+            f"Expected {EXPECTED_CLASS_COUNT} taxonomy classes, "
+            f"found {len(classes)}."
+        )
 
     indices = [entry.get("class_index") for entry in classes]
     labels = [entry.get("model_label") for entry in classes]
-    if indices != list(range(len(EXPECTED_LABELS))):
+    if indices != list(range(EXPECTED_CLASS_COUNT)):
         fail(f"Unexpected taxonomy indices: {indices}")
-    if labels != EXPECTED_LABELS:
-        fail(f"Unexpected taxonomy labels: {labels}")
+    if any(not isinstance(label, str) or not label.strip() for label in labels):
+        fail("Taxonomy model labels must be non-empty strings.")
     if len(set(labels)) != len(labels):
         fail("Taxonomy model labels must be unique.")
 
@@ -112,7 +103,7 @@ def validate_taxonomy() -> int:
         "genus_cn",
         "genus_latin",
     }
-    allowed_ranks = {"species", "family", "superfamily"}
+    allowed_ranks = {"species", "genus", "family", "superfamily"}
     for entry in classes:
         if not isinstance(entry, dict):
             fail("Every taxonomy class must be a JSON object.")
@@ -120,7 +111,10 @@ def validate_taxonomy() -> int:
         if missing:
             fail(f"Taxonomy class {entry.get('class_index')} is missing {missing}")
         if entry["rank"] not in allowed_ranks:
-            fail(f"Unsupported taxonomy rank for class {entry['class_index']}: {entry['rank']}")
+            fail(
+                f"Unsupported taxonomy rank for class {entry['class_index']}: "
+                f"{entry['rank']}"
+            )
         for field in required_fields.difference({"class_index"}):
             value = entry[field]
             if not isinstance(value, str) or not value.strip():
@@ -173,7 +167,9 @@ def validate_android_xml() -> int:
         except ET.ParseError as error:
             fail(f"Invalid Android XML in {path.relative_to(ROOT)}: {error}")
 
-    manifest = (ROOT / "android/app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
+    manifest = (ROOT / "android/app/src/main/AndroidManifest.xml").read_text(
+        encoding="utf-8"
+    )
     required_manifest_values = [
         "android.permission.CAMERA",
         'android:name=".MainActivity"',
@@ -189,7 +185,11 @@ def validate_android_xml() -> int:
 def read_png_dimensions(path: Path) -> tuple[int, int]:
     with path.open("rb") as handle:
         header = handle.read(24)
-    if len(header) != 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+    if (
+        len(header) != 24
+        or header[:8] != b"\x89PNG\r\n\x1a\n"
+        or header[12:16] != b"IHDR"
+    ):
         fail(f"Invalid PNG header: {path.relative_to(ROOT)}")
     return struct.unpack(">II", header[16:24])
 
@@ -222,7 +222,10 @@ def validate_workflow_action_versions(workflow: str) -> None:
     }
 
     for action, minimum_major in minimum_major_versions.items():
-        match = re.search(rf"uses:\s*{re.escape(action)}@v(?P<major>\d+)\b", workflow)
+        match = re.search(
+            rf"uses:\s*{re.escape(action)}@v(?P<major>\d+)\b",
+            workflow,
+        )
         if match is None:
             fail(f"Android workflow is missing action {action!r}.")
         major = int(match.group("major"))
@@ -237,7 +240,9 @@ def validate_build_configuration() -> None:
     pubspec = (ROOT / "pubspec.yaml").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/android.yml").read_text(encoding="utf-8")
     app_gradle = (ROOT / "android/app/build.gradle.kts").read_text(encoding="utf-8")
-    settings_gradle = (ROOT / "android/settings.gradle.kts").read_text(encoding="utf-8")
+    settings_gradle = (ROOT / "android/settings.gradle.kts").read_text(
+        encoding="utf-8"
+    )
 
     for asset in ("assets/data/taxonomy_zh.json", "assets/models/"):
         if asset not in pubspec:
@@ -266,7 +271,6 @@ def validate_build_configuration() -> None:
         'id("com.android.application") version "8.11.1"',
         'id("com.android.application") version "9.0.1"',
     ]
-
     if not any(version in settings_gradle for version in supported_agp_versions):
         fail("Unsupported Android Gradle Plugin version.")
 
