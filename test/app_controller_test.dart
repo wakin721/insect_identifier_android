@@ -18,7 +18,7 @@ void main() {
     final controller = AppController(
       taxonomy: await TaxonomyRepository.loadFromAssets(),
       historyRepository: _MemoryHistoryRepository(),
-      classifierFactory: (_) => classifier,
+      classifierFactory: (_, _) => classifier,
     );
 
     final firstPreparation = controller.prepareModel();
@@ -41,7 +41,7 @@ void main() {
     final controller = AppController(
       taxonomy: await TaxonomyRepository.loadFromAssets(),
       historyRepository: _MemoryHistoryRepository(),
-      classifierFactory: (variant) {
+      classifierFactory: (variant, _) {
         return classifiers.putIfAbsent(
           variant,
           _TrackingClassifier.new,
@@ -56,6 +56,37 @@ void main() {
     expect(controller.modelState, ModelRuntimeState.idle);
     expect(classifiers[ModelVariant.fp32]!.disposeCalls, 1);
     expect(classifiers[ModelVariant.w8a16]!.disposeCalls, 0);
+    controller.dispose();
+  });
+
+  test('switching GPU preference recreates and disposes classifier', () async {
+    final classifiers = <_TrackingClassifier>[];
+    final configurations = <(ModelVariant, bool)>[];
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (variant, useGpu) {
+        configurations.add((variant, useGpu));
+        final classifier = _TrackingClassifier();
+        classifiers.add(classifier);
+        return classifier;
+      },
+    );
+
+    expect(controller.useGpu, isTrue);
+    await controller.switchUseGpu(false);
+
+    expect(controller.modelVariant, ModelVariant.fp32);
+    expect(controller.useGpu, isFalse);
+    expect(
+      configurations,
+      <(ModelVariant, bool)>[
+        (ModelVariant.fp32, true),
+        (ModelVariant.fp32, false),
+      ],
+    );
+    expect(classifiers.first.disposeCalls, 1);
+    expect(classifiers.last.disposeCalls, 0);
     controller.dispose();
   });
 }

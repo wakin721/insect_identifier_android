@@ -26,7 +26,7 @@ void main() {
     final appController = AppController(
       taxonomy: taxonomy,
       historyRepository: _MemoryHistoryRepository(),
-      classifierFactory: (_) => _ImmediateClassifier(),
+      classifierFactory: (_, _) => _ImmediateClassifier(),
     );
 
     await tester.pumpWidget(
@@ -56,11 +56,35 @@ void main() {
     expect(find.text('开发者选项'), findsOneWidget);
     expect(find.text('FP32'), findsOneWidget);
     expect(find.text('W8A16'), findsOneWidget);
+    expect(find.text('使用 GPU 推理'), findsOneWidget);
     expect(find.text('当前'), findsNothing);
     expect(find.text('启用开发者选项'), findsOneWidget);
 
-    await tester.ensureVisible(find.byType(Switch));
-    await tester.tap(find.byType(Switch));
+    await tester.scrollUntilVisible(
+      find.text('使用 GPU 推理'),
+      200,
+    );
+    final gpuSwitch = find.descendant(
+      of: find.widgetWithText(SwitchListTile, '使用 GPU 推理'),
+      matching: find.byType(Switch),
+    );
+    await tester.ensureVisible(gpuSwitch);
+    await tester.tap(gpuSwitch);
+    await tester.pumpAndSettle();
+
+    expect(developerController.useGpu, isFalse);
+    expect(appController.useGpu, isFalse);
+
+    await tester.scrollUntilVisible(
+      find.text('启用开发者选项'),
+      200,
+    );
+    final developerModeSwitch = find.descendant(
+      of: find.widgetWithText(SwitchListTile, '启用开发者选项'),
+      matching: find.byType(Switch),
+    );
+    await tester.ensureVisible(developerModeSwitch);
+    await tester.tap(developerModeSwitch);
     await tester.pumpAndSettle();
 
     expect(developerController.developerModeEnabled, isFalse);

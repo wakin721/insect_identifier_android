@@ -9,38 +9,46 @@ class DeveloperSettingsData {
   const DeveloperSettingsData({
     required this.developerModeEnabled,
     required this.modelVariant,
+    required this.useGpu,
   });
 
   static const defaults = DeveloperSettingsData(
     developerModeEnabled: false,
     modelVariant: ModelVariant.fp32,
+    useGpu: true,
   );
 
   final bool developerModeEnabled;
   final ModelVariant modelVariant;
+  final bool useGpu;
 
   DeveloperSettingsData copyWith({
     bool? developerModeEnabled,
     ModelVariant? modelVariant,
+    bool? useGpu,
   }) {
     return DeveloperSettingsData(
       developerModeEnabled:
           developerModeEnabled ?? this.developerModeEnabled,
       modelVariant: modelVariant ?? this.modelVariant,
+      useGpu: useGpu ?? this.useGpu,
     );
   }
 
   Map<String, Object> toJson() => <String, Object>{
-        'schemaVersion': 2,
+        'schemaVersion': 3,
         'developerModeEnabled': developerModeEnabled,
         'modelVariant': modelVariant.storageValue,
+        'useGpu': useGpu,
       };
 
   factory DeveloperSettingsData.fromJson(Map<String, dynamic> json) {
     final enabled = json['developerModeEnabled'];
+    final useGpu = json['useGpu'];
     return DeveloperSettingsData(
       developerModeEnabled: enabled is bool ? enabled : false,
       modelVariant: ModelVariant.fromStorageValue(json['modelVariant']),
+      useGpu: useGpu is bool ? useGpu : true,
     );
   }
 }

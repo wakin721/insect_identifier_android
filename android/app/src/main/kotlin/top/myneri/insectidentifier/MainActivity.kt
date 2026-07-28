@@ -10,6 +10,8 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
+    private var backgroundYoloChannel: BackgroundYoloChannel? = null
+
     private val prefs by lazy {
         getSharedPreferences("launcher_icon", Context.MODE_PRIVATE)
     }
@@ -21,6 +23,9 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        backgroundYoloChannel?.dispose()
+        backgroundYoloChannel =
+            BackgroundYoloChannel(flutterEngine.dartExecutor.binaryMessenger)
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             LAUNCHER_ICON_CHANNEL,
@@ -38,6 +43,12 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+    }
+
+    override fun onDestroy() {
+        backgroundYoloChannel?.dispose()
+        backgroundYoloChannel = null
+        super.onDestroy()
     }
 
     private fun applyPendingLauncherIcon() {

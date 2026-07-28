@@ -51,21 +51,22 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
         return;
       }
 
-      final cropResult = Navigator.of(context).push<Uint8List>(
-        MaterialPageRoute<Uint8List>(
-          builder: (context) => CropScreen(imageBytes: sourceBytes),
-        ),
+      final cropRoute = MaterialPageRoute<Uint8List>(
+        builder: (context) => CropScreen(imageBytes: sourceBytes),
       );
+      final cropResult = Navigator.of(context).push<Uint8List>(cropRoute);
       await WidgetsBinding.instance.endOfFrame;
       unawaited(widget.controller.prepareModel());
 
       final croppedBytes = await cropResult;
+      // The popped future completes before the reverse transition. Wait for
+      // the route overlay to be removed so neither cancellation nor inference
+      // can interrupt the crop page animation.
+      await cropRoute.completed;
       if (croppedBytes == null || !mounted) {
         return;
       }
 
-      // Let the busy state paint after the crop route closes before native
-      // image decoding and inference begin.
       await WidgetsBinding.instance.endOfFrame;
       final record = await widget.controller.recognize(croppedBytes);
       if (!mounted) {

@@ -20,7 +20,7 @@ class ModelStatusBanner extends StatelessWidget {
         ? (
             Icons.memory_outlined,
             '本地模型待命',
-            '正在加载本地模型，不上传照片',
+            '正在加载并预热本地模型，不上传照片',
             colorScheme.primary,
           )
         : switch (state) {
@@ -33,13 +33,13 @@ class ModelStatusBanner extends StatelessWidget {
             ModelRuntimeState.loading => (
                 Icons.hourglass_top_rounded,
                 '正在分析照片',
-                '正在加载模型并计算 Top 3',
+                '正在解码照片并计算 Top 3',
                 colorScheme.tertiary,
               ),
             ModelRuntimeState.ready => (
                 Icons.offline_bolt_rounded,
                 '本地模型已就绪',
-                'LiteRT 推理可离线运行',
+                'LiteRT 推理引擎已预热，可离线运行',
                 colorScheme.primary,
               ),
             ModelRuntimeState.error => (

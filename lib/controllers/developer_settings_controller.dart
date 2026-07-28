@@ -11,6 +11,7 @@ class DeveloperSettingsController extends ChangeNotifier {
 
   bool get developerModeEnabled => _settings.developerModeEnabled;
   ModelVariant get modelVariant => _settings.modelVariant;
+  bool get useGpu => _settings.useGpu;
 
   Future<void> initialize() async {
     _settings = await _repository.load();
@@ -42,6 +43,16 @@ class DeveloperSettingsController extends ChangeNotifier {
       return;
     }
     final next = _settings.copyWith(modelVariant: variant);
+    await _repository.save(next);
+    _settings = next;
+    notifyListeners();
+  }
+
+  Future<void> updateUseGpu(bool useGpu) async {
+    if (useGpu == this.useGpu) {
+      return;
+    }
+    final next = _settings.copyWith(useGpu: useGpu);
     await _repository.save(next);
     _settings = next;
     notifyListeners();

@@ -18,7 +18,7 @@ void main() {
     );
 
     expect(find.text('本地模型待命'), findsOneWidget);
-    expect(find.text('正在加载本地模型，不上传照片'), findsOneWidget);
+    expect(find.text('正在加载并预热本地模型，不上传照片'), findsOneWidget);
     expect(find.byIcon(Icons.memory_outlined), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
@@ -36,6 +36,7 @@ void main() {
     );
 
     expect(find.text('本地模型已就绪'), findsOneWidget);
+    expect(find.text('LiteRT 推理引擎已预热，可离线运行'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 }

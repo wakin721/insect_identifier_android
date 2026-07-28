@@ -6,7 +6,7 @@ import 'package:insect_identifier/models/model_variant.dart';
 import 'package:insect_identifier/repositories/developer_settings_repository.dart';
 
 void main() {
-  test('developer settings default to disabled FP32', () async {
+  test('developer settings default to disabled FP32 with GPU', () async {
     final repository = _MemoryDeveloperSettingsRepository();
     final controller = DeveloperSettingsController(repository);
 
@@ -14,20 +14,23 @@ void main() {
 
     expect(controller.developerModeEnabled, isFalse);
     expect(controller.modelVariant, ModelVariant.fp32);
+    expect(controller.useGpu, isTrue);
   });
 
-  test('developer mode and W8A16 selection are persisted', () async {
+  test('developer mode, model and inference device are persisted', () async {
     final repository = _MemoryDeveloperSettingsRepository();
     final controller = DeveloperSettingsController(repository);
     await controller.initialize();
 
     await controller.enableDeveloperMode();
     await controller.updateModelVariant(ModelVariant.w8a16);
+    await controller.updateUseGpu(false);
 
     final restored = DeveloperSettingsController(repository);
     await restored.initialize();
     expect(restored.developerModeEnabled, isTrue);
     expect(restored.modelVariant, ModelVariant.w8a16);
+    expect(restored.useGpu, isFalse);
 
     await restored.disableDeveloperMode();
 
@@ -35,6 +38,7 @@ void main() {
     await disabled.initialize();
     expect(disabled.developerModeEnabled, isFalse);
     expect(disabled.modelVariant, ModelVariant.w8a16);
+    expect(disabled.useGpu, isFalse);
   });
 
   test('legacy W8A32 selection migrates to W8A16', () {
@@ -46,6 +50,19 @@ void main() {
     );
 
     expect(settings.modelVariant, ModelVariant.w8a16);
+    expect(settings.useGpu, isTrue);
+  });
+
+  test('GPU preference survives JSON serialization', () {
+    final encoded = DeveloperSettingsData.defaults
+        .copyWith(useGpu: false)
+        .toJson();
+    final restored = DeveloperSettingsData.fromJson(
+      Map<String, dynamic>.from(encoded),
+    );
+
+    expect(encoded['schemaVersion'], 3);
+    expect(restored.useGpu, isFalse);
   });
 
   test('invalid stored model falls back to FP32', () async {
@@ -71,6 +88,7 @@ void main() {
 
     expect(settings.developerModeEnabled, isTrue);
     expect(settings.modelVariant, ModelVariant.fp32);
+    expect(settings.useGpu, isTrue);
   });
 }
 

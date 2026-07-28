@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:ultralytics_yolo/ultralytics_yolo.dart';
 
 import '../models/model_variant.dart';
@@ -8,6 +9,7 @@ import 'classification_output_parser.dart';
 
 typedef InsectClassifierFactory = InsectClassifier Function(
   ModelVariant variant,
+  bool useGpu,
 );
 
 abstract interface class InsectClassifier {
@@ -43,11 +45,19 @@ class YoloInsectClassifier implements InsectClassifier {
 
   @override
   Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
-    final yolo = await _ensureModelLoaded();
-    final output = await yolo.predict(
-      imageBytes,
-      confidenceThreshold: 0.0,
+    await _ensureModelLoaded();
+    final output = await _backgroundInferenceChannel
+        .invokeMapMethod<String, dynamic>(
+      'predictSingleImage',
+      <String, Object>{
+        'instanceId': 'default',
+        'image': imageBytes,
+        'confidenceThreshold': 0.0,
+      },
     );
+    if (output == null) {
+      throw StateError('Android 后台推理没有返回结果。');
+    }
     final predictions = ClassificationOutputParser.topPredictions(
       output,
       limit: 3,
@@ -88,6 +98,10 @@ class YoloInsectClassifier implements InsectClassifier {
       if (!loaded) {
         throw StateError('无法加载 Android LiteRT 分类模型。');
       }
+      await _backgroundInferenceChannel.invokeMethod<void>(
+        'predictorInstance',
+        const <String, Object>{'instanceId': 'default'},
+      );
       _isLoaded = true;
       return yolo;
     } finally {
@@ -109,4 +123,8 @@ class YoloInsectClassifier implements InsectClassifier {
     _yolo = null;
     _isLoaded = false;
   }
+
+  static const MethodChannel _backgroundInferenceChannel = MethodChannel(
+    'top.myneri.insectidentifier/background_yolo',
+  );
 }

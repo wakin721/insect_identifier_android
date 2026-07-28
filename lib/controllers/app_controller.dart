@@ -16,10 +16,12 @@ class AppController extends ChangeNotifier {
     required HistoryRepository historyRepository,
     required InsectClassifierFactory classifierFactory,
     ModelVariant initialModelVariant = ModelVariant.fp32,
+    bool initialUseGpu = true,
   })  : _historyRepository = historyRepository,
         _classifierFactory = classifierFactory,
         _modelVariant = initialModelVariant,
-        _classifier = classifierFactory(initialModelVariant);
+        _useGpu = initialUseGpu,
+        _classifier = classifierFactory(initialModelVariant, initialUseGpu);
 
   final TaxonomyRepository taxonomy;
   final HistoryRepository _historyRepository;
@@ -32,6 +34,7 @@ class AppController extends ChangeNotifier {
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
   Future<void>? _modelPreparation;
   ModelVariant _modelVariant;
+  bool _useGpu;
   String? _lastError;
 
   List<RecognitionRecord> get history => _history;
@@ -39,6 +42,7 @@ class AppController extends ChangeNotifier {
   bool get recognizing => _recognizing;
   ModelRuntimeState get modelState => _modelState;
   ModelVariant get modelVariant => _modelVariant;
+  bool get useGpu => _useGpu;
   String? get lastError => _lastError;
 
   Future<void> initialize() async {
@@ -134,11 +138,28 @@ class AppController extends ChangeNotifier {
   }
 
   Future<void> switchModelVariant(ModelVariant variant) async {
-    if (variant == _modelVariant) {
+    await _switchInferenceConfiguration(
+      modelVariant: variant,
+      useGpu: _useGpu,
+    );
+  }
+
+  Future<void> switchUseGpu(bool useGpu) async {
+    await _switchInferenceConfiguration(
+      modelVariant: _modelVariant,
+      useGpu: useGpu,
+    );
+  }
+
+  Future<void> _switchInferenceConfiguration({
+    required ModelVariant modelVariant,
+    required bool useGpu,
+  }) async {
+    if (modelVariant == _modelVariant && useGpu == _useGpu) {
       return;
     }
     if (_recognizing) {
-      throw StateError('识别进行中，暂时无法切换模型。');
+      throw StateError('识别进行中，暂时无法切换推理配置。');
     }
 
     final activePreparation = _modelPreparation;
@@ -146,12 +167,13 @@ class AppController extends ChangeNotifier {
       await activePreparation;
     }
     if (_recognizing) {
-      throw StateError('识别进行中，暂时无法切换模型。');
+      throw StateError('识别进行中，暂时无法切换推理配置。');
     }
 
     final previousClassifier = _classifier;
-    _classifier = _classifierFactory(variant);
-    _modelVariant = variant;
+    _classifier = _classifierFactory(modelVariant, useGpu);
+    _modelVariant = modelVariant;
+    _useGpu = useGpu;
     _modelPreparation = null;
     _modelState = ModelRuntimeState.idle;
     _lastError = null;
