@@ -52,7 +52,9 @@ class ProfileScreen extends StatelessWidget {
                 title: const Text('关于'),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute<void>(
-                    builder: (_) => const AboutScreen(),
+                    builder: (_) => AboutScreen(
+                      modelClassCount: controller.taxonomy.classes.length,
+                    ),
                   ),
                 ),
               ),
