@@ -192,6 +192,77 @@ void main() {
     failedClassifier.completeDisposal();
     controller.dispose();
   });
+
+  test('cancelling recognition returns immediately and ignores stale output',
+      () async {
+    final activeClassifier = _PendingClassifier();
+    final replacementClassifier = _TrackingClassifier();
+    final historyRepository = _MemoryHistoryRepository();
+    var factoryCalls = 0;
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: historyRepository,
+      classifierFactory: (_, _) {
+        factoryCalls += 1;
+        return factoryCalls == 1
+            ? activeClassifier
+            : replacementClassifier;
+      },
+    );
+
+    final recognition = controller.recognize(Uint8List.fromList(<int>[1]));
+    expect(controller.recognizing, isTrue);
+
+    expect(controller.cancelRecognition(), isTrue);
+    expect(controller.recognizing, isFalse);
+    expect(controller.modelState, ModelRuntimeState.idle);
+    expect(factoryCalls, 2);
+    await expectLater(
+      recognition.timeout(const Duration(milliseconds: 200)),
+      throwsA(isA<RecognitionCancelledException>()),
+    );
+
+    activeClassifier.completeClassification();
+    await Future<void>.delayed(Duration.zero);
+
+    expect(historyRepository.saveCalls, 0);
+    expect(controller.history, isEmpty);
+    expect(activeClassifier.disposeCalls, 1);
+    expect(controller.cancelRecognition(), isFalse);
+    controller.dispose();
+  });
+
+  test('cancelling while saving removes the abandoned record', () async {
+    final activeClassifier = _ImmediatePredictionClassifier();
+    final replacementClassifier = _TrackingClassifier();
+    final historyRepository = _ControllableHistoryRepository();
+    var factoryCalls = 0;
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: historyRepository,
+      classifierFactory: (_, _) {
+        factoryCalls += 1;
+        return factoryCalls == 1
+            ? activeClassifier
+            : replacementClassifier;
+      },
+    );
+
+    final recognition = controller.recognize(Uint8List.fromList(<int>[1]));
+    await historyRepository.saveStarted;
+
+    expect(controller.cancelRecognition(), isTrue);
+    historyRepository.completeSave();
+    await expectLater(
+      recognition,
+      throwsA(isA<RecognitionCancelledException>()),
+    );
+
+    expect(historyRepository.deleteCalls, 1);
+    expect(controller.history, isEmpty);
+    expect(controller.modelState, ModelRuntimeState.idle);
+    controller.dispose();
+  });
 }
 
 class _ControllableClassifier implements InsectClassifier {
@@ -225,6 +296,8 @@ class _ControllableClassifier implements InsectClassifier {
 }
 
 class _MemoryHistoryRepository implements HistoryRepository {
+  int saveCalls = 0;
+
   @override
   Future<void> clear() async {}
 
@@ -241,9 +314,104 @@ class _MemoryHistoryRepository implements HistoryRepository {
     required Uint8List imageBytes,
     required List<RecognitionPrediction> predictions,
   }) {
+    saveCalls += 1;
     throw UnimplementedError();
   }
 }
+
+class _ControllableHistoryRepository implements HistoryRepository {
+  final Completer<void> _saveStarted = Completer<void>();
+  final Completer<RecognitionRecord> _savedRecord =
+      Completer<RecognitionRecord>();
+
+  int deleteCalls = 0;
+
+  Future<void> get saveStarted => _saveStarted.future;
+
+  void completeSave() {
+    _savedRecord.complete(
+      RecognitionRecord(
+        id: 'cancelled-record',
+        createdAt: DateTime.utc(2026),
+        imagePath: 'cancelled.jpg',
+        predictions: _predictions,
+      ),
+    );
+  }
+
+  @override
+  Future<void> clear() async {}
+
+  @override
+  Future<void> delete(RecognitionRecord record) async {
+    deleteCalls += 1;
+  }
+
+  @override
+  Future<List<RecognitionRecord>> loadAll() async {
+    return const <RecognitionRecord>[];
+  }
+
+  @override
+  Future<RecognitionRecord> save({
+    required Uint8List imageBytes,
+    required List<RecognitionPrediction> predictions,
+  }) {
+    _saveStarted.complete();
+    return _savedRecord.future;
+  }
+}
+
+class _PendingClassifier implements InsectClassifier {
+  final Completer<List<RecognitionPrediction>> _classification =
+      Completer<List<RecognitionPrediction>>();
+
+  int disposeCalls = 0;
+
+  @override
+  bool get isLoaded => true;
+
+  void completeClassification() {
+    _classification.complete(_predictions);
+  }
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) {
+    return _classification.future;
+  }
+
+  @override
+  Future<void> dispose() async {
+    disposeCalls += 1;
+  }
+
+  @override
+  Future<void> load() async {}
+}
+
+class _ImmediatePredictionClassifier implements InsectClassifier {
+  @override
+  bool get isLoaded => true;
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
+    return _predictions;
+  }
+
+  @override
+  Future<void> dispose() async {}
+
+  @override
+  Future<void> load() async {}
+}
+
+const _predictions = <RecognitionPrediction>[
+  RecognitionPrediction(
+    classIndex: 0,
+    modelLabel: 'test-insect',
+    confidence: 0.9,
+  ),
+];
 
 class _TrackingClassifier implements InsectClassifier {
   int disposeCalls = 0;

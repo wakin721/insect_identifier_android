@@ -3,12 +3,20 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../models/model_variant.dart';
+import '../models/recognition_prediction.dart';
 import '../models/recognition_record.dart';
 import '../repositories/history_repository.dart';
 import '../repositories/taxonomy_repository.dart';
 import '../services/insect_classifier.dart';
 
 enum ModelRuntimeState { idle, loading, ready, error }
+
+class RecognitionCancelledException implements Exception {
+  const RecognitionCancelledException();
+
+  @override
+  String toString() => '识别已取消';
+}
 
 class AppController extends ChangeNotifier {
   AppController({
@@ -34,6 +42,8 @@ class AppController extends ChangeNotifier {
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
   Future<void>? _modelPreparation;
   int _configurationGeneration = 0;
+  int _recognitionGeneration = 0;
+  Completer<void>? _recognitionCancellation;
   ModelVariant _modelVariant;
   bool _useGpu;
   String? _lastError;
@@ -67,18 +77,37 @@ class AppController extends ChangeNotifier {
       throw StateError('已有识别任务正在运行。');
     }
 
+    final classifier = _classifier;
+    final generation = ++_recognitionGeneration;
+    final cancellation = Completer<void>();
+    _recognitionCancellation = cancellation;
     _recognizing = true;
     _modelState = ModelRuntimeState.loading;
     _lastError = null;
     notifyListeners();
 
+    final classification = Future<List<RecognitionPrediction>>.sync(
+      () => classifier.classify(croppedImage),
+    );
     try {
-      final predictions = await _classifier.classify(croppedImage);
-      _modelState = ModelRuntimeState.ready;
+      final predictions = await Future.any(
+        <Future<List<RecognitionPrediction>>>[
+          classification,
+          cancellation.future.then<List<RecognitionPrediction>>(
+            (_) => throw const RecognitionCancelledException(),
+          ),
+        ],
+      );
+      _throwIfRecognitionCancelled(generation, classifier);
       final record = await _historyRepository.save(
         imageBytes: croppedImage,
         predictions: predictions,
       );
+      if (!_isActiveRecognition(generation, classifier)) {
+        await _deleteCancelledRecord(record);
+        throw const RecognitionCancelledException();
+      }
+      _modelState = ModelRuntimeState.ready;
       _history = List<RecognitionRecord>.unmodifiable(
         <RecognitionRecord>[
           record,
@@ -87,13 +116,80 @@ class AppController extends ChangeNotifier {
       );
       return record;
     } catch (error) {
+      if (!_isActiveRecognition(generation, classifier) ||
+          error is RecognitionCancelledException) {
+        throw const RecognitionCancelledException();
+      }
       _modelState = ModelRuntimeState.error;
       _lastError = error.toString();
       rethrow;
     } finally {
-      _recognizing = false;
-      notifyListeners();
+      if (!identical(classifier, _classifier)) {
+        unawaited(_disposeClassifierAfter(classification, classifier));
+      }
+      if (generation == _recognitionGeneration) {
+        _recognitionCancellation = null;
+        _recognizing = false;
+        notifyListeners();
+      }
     }
+  }
+
+  bool cancelRecognition() {
+    if (!_recognizing) {
+      return false;
+    }
+
+    final cancellation = _recognitionCancellation;
+    _recognitionGeneration += 1;
+    _configurationGeneration += 1;
+    _modelPreparation = null;
+    _classifier = _classifierFactory(_modelVariant, _useGpu);
+    _recognitionCancellation = null;
+    _recognizing = false;
+    _modelState = ModelRuntimeState.idle;
+    _lastError = null;
+    cancellation?.complete();
+    notifyListeners();
+    return true;
+  }
+
+  bool _isActiveRecognition(
+    int generation,
+    InsectClassifier classifier,
+  ) {
+    return _recognizing &&
+        generation == _recognitionGeneration &&
+        identical(classifier, _classifier);
+  }
+
+  void _throwIfRecognitionCancelled(
+    int generation,
+    InsectClassifier classifier,
+  ) {
+    if (!_isActiveRecognition(generation, classifier)) {
+      throw const RecognitionCancelledException();
+    }
+  }
+
+  Future<void> _deleteCancelledRecord(RecognitionRecord record) async {
+    try {
+      await _historyRepository.delete(record);
+    } catch (_) {
+      // Cancellation must remain silent even if best-effort cleanup fails.
+    }
+  }
+
+  Future<void> _disposeClassifierAfter(
+    Future<List<RecognitionPrediction>> operation,
+    InsectClassifier classifier,
+  ) async {
+    try {
+      await operation;
+    } catch (_) {
+      // The abandoned operation can fail while its model is being retired.
+    }
+    await _disposeClassifier(classifier);
   }
 
   Future<void> prepareModel({

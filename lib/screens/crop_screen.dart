@@ -28,6 +28,12 @@ class _CropScreenState extends State<CropScreen> {
 
   bool get _busy => _cropping || _recognizing;
 
+  @override
+  void dispose() {
+    widget.controller.cancelRecognition();
+    super.dispose();
+  }
+
   void _startCrop() {
     if (_busy) {
       return;
@@ -46,6 +52,9 @@ class _CropScreenState extends State<CropScreen> {
         _recognizing = true;
       });
       await WidgetsBinding.instance.endOfFrame;
+      if (!mounted) {
+        return;
+      }
       try {
         final record = await widget.controller.recognize(
           result.croppedImage,
@@ -68,6 +77,9 @@ class _CropScreenState extends State<CropScreen> {
           return;
         }
         setState(() => _recognizing = false);
+        if (error is RecognitionCancelledException) {
+          return;
+        }
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -85,6 +97,11 @@ class _CropScreenState extends State<CropScreen> {
     }
   }
 
+  void _cancelAndClose() {
+    widget.controller.cancelRecognition();
+    Navigator.of(context).pop();
+  }
+
   String _recognitionErrorMessage(Object error) {
     final raw = error.toString();
     if (raw.contains('MODEL_NOT_FOUND') ||
@@ -100,12 +117,15 @@ class _CropScreenState extends State<CropScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !_busy,
+    return PopScope<void>(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          widget.controller.cancelRecognition();
+        }
+      },
       child: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          automaticallyImplyLeading: !_busy,
           title: const Text('裁切昆虫主体'),
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
@@ -117,28 +137,73 @@ class _CropScreenState extends State<CropScreen> {
                 padding: const EdgeInsets.all(12),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Crop(
-                    image: widget.imageBytes,
-                    controller: _cropController,
-                    onCropped: _handleCropResult,
-                    aspectRatio: 1,
-                    initialRectBuilder: InitialRectBuilder.withSizeAndRatio(
-                      size: 0.86,
-                      aspectRatio: 1,
-                    ),
-                    interactive: true,
-                    fixCropRect: true,
-                    radius: 18,
-                    baseColor: Colors.black,
-                    maskColor: Colors.black.withAlpha(150),
-                    progressIndicator: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    overlayBuilder: (context, rect) => const IgnorePointer(
-                      child: CustomPaint(
-                        painter: _CropGridPainter(),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      AbsorbPointer(
+                        absorbing: _busy,
+                        child: Crop(
+                          image: widget.imageBytes,
+                          controller: _cropController,
+                          onCropped: _handleCropResult,
+                          aspectRatio: 1,
+                          initialRectBuilder:
+                              InitialRectBuilder.withSizeAndRatio(
+                            size: 0.86,
+                            aspectRatio: 1,
+                          ),
+                          interactive: !_busy,
+                          fixCropRect: true,
+                          radius: 18,
+                          baseColor: Colors.black,
+                          maskColor: Colors.black.withAlpha(150),
+                          progressIndicator: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          overlayBuilder: (context, rect) =>
+                              const IgnorePointer(
+                            child: CustomPaint(
+                              painter: _CropGridPainter(),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      if (_busy)
+                        Positioned(
+                          top: 12,
+                          left: 12,
+                          right: 12,
+                          child: Center(
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withAlpha(190),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                  vertical: 8,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.lock_rounded,
+                                      size: 18,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 7),
+                                    Text(
+                                      '裁切区域已锁定',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ),
@@ -149,23 +214,23 @@ class _CropScreenState extends State<CropScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
                 child: Column(
                   children: <Widget>[
-                    const Text(
-                      '双指缩放并拖动照片，使昆虫完整位于方框内',
+                    Text(
+                      _busy
+                          ? '裁切位置已固定，可随时取消识别'
+                          : '双指缩放并拖动照片，使昆虫完整位于方框内',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70),
+                      style: const TextStyle(color: Colors.white70),
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: OutlinedButton(
-                            onPressed: _busy
-                                ? null
-                                : () => Navigator.of(context).pop(),
+                            onPressed: _cancelAndClose,
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.white,
                             ),
-                            child: const Text('取消'),
+                            child: Text(_recognizing ? '取消识别' : '取消'),
                           ),
                         ),
                         const SizedBox(width: 12),
