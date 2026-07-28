@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
-  const AboutScreen({super.key});
+  const AboutScreen({
+    required this.modelClassCount,
+    super.key,
+  });
+
+  final int modelClassCount;
 
   @override
   Widget build(BuildContext context) {
@@ -54,29 +59,29 @@ class AboutScreen extends StatelessWidget {
                 const SizedBox(height: 28),
                 Card(
                   child: Column(
-                    children: const <Widget>[
-                      _AboutItem(
+                    children: <Widget>[
+                      const _AboutItem(
                         icon: Icons.info_outline_rounded,
                         title: '版本',
-                        value: '1.0.1 (2)',
+                        value: '1.0.2 (3)',
                       ),
-                      Divider(height: 1),
-                      _AboutItem(
+                      const Divider(height: 1),
+                      const _AboutItem(
                         icon: Icons.model_training_outlined,
                         title: '识别模型',
                         value: 'Ultralytics YOLO 分类模型',
                       ),
-                      Divider(height: 1),
-                      _AboutItem(
+                      const Divider(height: 1),
+                      const _AboutItem(
                         icon: Icons.memory_rounded,
                         title: '推理方式',
                         value: '设备本地 LiteRT / TFLite',
                       ),
-                      Divider(height: 1),
+                      const Divider(height: 1),
                       _AboutItem(
                         icon: Icons.category_outlined,
                         title: '模型类别',
-                        value: '19 个分类标签',
+                        value: '$modelClassCount 个分类标签',
                       ),
                     ],
                   ),
@@ -129,7 +134,7 @@ class AboutScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          '模型标签包含物种级、科级和总科级分类。应用会按模型输出显示对应识别层级，不将高阶分类结果表述为具体物种。',
+                          '模型标签包含物种级、属级、科级和总科级分类。应用会按模型输出显示对应识别层级，不将高阶分类结果表述为具体物种。',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                             height: 1.5,
