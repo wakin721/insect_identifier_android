@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 import 'package:ultralytics_yolo/ultralytics_yolo.dart';
 
