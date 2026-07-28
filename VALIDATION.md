@@ -30,8 +30,8 @@ python tool/export_model.py --quantize w8a16 --data calibration
 flutter pub get
 flutter analyze
 flutter test
-flutter build apk --release --split-per-abi
-flutter build appbundle --release
+flutter build apk --release --target-platform android-arm64 --split-per-abi
+flutter build appbundle --release --target-platform android-arm64
 ```
 
-`.github/workflows/android.yml` performs those steps with pinned toolchain versions. A successful Actions run is the definitive build verification and produces the installable split APKs and AAB as workflow artifacts.
+`.github/workflows/android.yml` performs those steps with pinned toolchain versions. A successful Actions run is the definitive build verification and produces the installable arm64-v8a APK and arm64-only AAB as workflow artifacts.

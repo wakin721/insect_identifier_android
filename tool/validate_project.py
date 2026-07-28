@@ -459,8 +459,9 @@ def validate_build_configuration() -> None:
         "assets/models/insect_classifier_w8a16.tflite",
         "flutter analyze",
         "flutter test",
-        "flutter build apk --release --split-per-abi",
-        "flutter build appbundle --release",
+        "flutter build apk --release --target-platform android-arm64 --split-per-abi",
+        "flutter build appbundle --release --target-platform android-arm64",
+        "build/app/outputs/flutter-apk/app-arm64-v8a-release.apk",
     ]
     for value in workflow_requirements:
         if value not in workflow:
