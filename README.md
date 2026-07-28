@@ -13,7 +13,7 @@
 - 连续点击关于页面版本号 7 次可启用开发者模式，并切换 FP32/W8A16 模型；默认使用 FP32，也可在开发者选项中关闭该模式。
 - 每个结果显示俗名、拉丁学名、识别层级、目、科、属和置信度。
 - 识别历史完全保存在应用私有目录，可查看、单条删除或全部清空。
-- GitHub Actions 自动完成模型导出、代码分析、单元测试、分 ABI APK 与 AAB 构建。
+- GitHub Actions 自动完成模型导出、代码分析、单元测试、arm64-v8a APK 与 AAB 构建。
 - 可选 GitHub Secrets 发布签名；未配置时自动使用调试签名完成 CI 构建。
 
 ## 模型信息
@@ -125,8 +125,8 @@ W8A16 的准确率。如果训练集数量不足，可增加
 ```bash
 flutter pub get
 flutter run
-flutter build apk --release --split-per-abi
-flutter build appbundle --release
+flutter build apk --release --target-platform android-arm64 --split-per-abi
+flutter build appbundle --release --target-platform android-arm64
 ```
 
 生成的 APK 位于 `build/app/outputs/flutter-apk/`，AAB 位于 `build/app/outputs/bundle/release/`。
@@ -139,7 +139,7 @@ flutter build appbundle --release
 2. 安装固定版本的 CPU PyTorch 与 Ultralytics LiteRT 导出依赖。
 3. 校验仓库中的 `calibration` 数据集及清单哈希，使用该校准集将 `models/best.pt` 分别导出为 `insect_classifier_fp32.tflite` 和 `insect_classifier_w8a16.tflite`，并校验模型头、任务和标签顺序。
 4. 执行 `flutter analyze` 与 `flutter test`。
-5. 构建 `armeabi-v7a`、`arm64-v8a`、`x86_64` APK 和 Play Store AAB。
+5. 仅构建 `arm64-v8a` APK 和只包含 arm64 原生运行库的 Play Store AAB。
 6. 把 APK、AAB、LiteRT 模型及构建信息上传到 GitHub Actions Artifacts。
 
 模型缓存键包含 `calibration/**/*` 的内容哈希。提交新的校准图片或清单后，

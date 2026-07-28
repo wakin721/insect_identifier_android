@@ -115,18 +115,18 @@ jobs:
       - name: Run unit tests
         run: flutter test
 
-      - name: Build split release APKs
-        run: flutter build apk --release --split-per-abi
+      - name: Build arm64-v8a release APK
+        run: flutter build apk --release --target-platform android-arm64 --split-per-abi
 
-      - name: Build release Android App Bundle
-        run: flutter build appbundle --release
+      - name: Build arm64-v8a release Android App Bundle
+        run: flutter build appbundle --release --target-platform android-arm64
 
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v6
         with:
           name: insect-identifier-android-${{ github.run_number }}
           path: |
-            build/app/outputs/flutter-apk/*-release.apk
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
             build/app/outputs/bundle/release/app-release.aab
             assets/models/insect_classifier_fp32.tflite
             assets/models/insect_classifier_w8a16.tflite
