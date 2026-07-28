@@ -27,6 +27,16 @@ class DeveloperSettingsController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> disableDeveloperMode() async {
+    if (!developerModeEnabled) {
+      return;
+    }
+    final next = _settings.copyWith(developerModeEnabled: false);
+    await _repository.save(next);
+    _settings = next;
+    notifyListeners();
+  }
+
   Future<void> updateModelVariant(ModelVariant variant) async {
     if (variant == modelVariant) {
       return;

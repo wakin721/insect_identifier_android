@@ -40,6 +40,11 @@ void main() {
       ),
     );
 
+    expect(
+      find.textContaining('本程序不提供任何担保'),
+      findsNothing,
+    );
+
     final version = find.text('版本 ${AppInfo.versionLabel}');
     for (var tap = 0; tap < 7; tap += 1) {
       await tester.tap(version);
@@ -50,6 +55,16 @@ void main() {
     expect(developerController.developerModeEnabled, isTrue);
     expect(find.text('开发者选项'), findsOneWidget);
     expect(find.text('FP32'), findsOneWidget);
+    expect(find.text('W8A16'), findsOneWidget);
+    expect(find.text('当前'), findsNothing);
+    expect(find.text('启用开发者选项'), findsOneWidget);
+
+    await tester.ensureVisible(find.byType(Switch));
+    await tester.tap(find.byType(Switch));
+    await tester.pumpAndSettle();
+
+    expect(developerController.developerModeEnabled, isFalse);
+    expect(find.text('推理模型'), findsNothing);
 
     appController.dispose();
     developerController.dispose();

@@ -31,7 +31,7 @@ class DeveloperSettingsData {
   }
 
   Map<String, Object> toJson() => <String, Object>{
-        'schemaVersion': 1,
+        'schemaVersion': 2,
         'developerModeEnabled': developerModeEnabled,
         'modelVariant': modelVariant.storageValue,
       };

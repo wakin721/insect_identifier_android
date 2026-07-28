@@ -5,11 +5,11 @@ enum ModelVariant {
     assetPath: 'assets/models/insect_classifier_fp32.tflite',
     description: '兼容性优先的默认模型，权重和激活均使用 FP32。',
   ),
-  w8a32(
-    storageValue: 'w8a32',
-    displayName: 'W8A32',
-    assetPath: 'assets/models/insect_classifier_w8a32.tflite',
-    description: 'INT8 权重与 FP32 激活，模型更小，性能取决于设备。',
+  w8a16(
+    storageValue: 'w8a16',
+    displayName: 'W8A16',
+    assetPath: 'assets/models/insect_classifier_w8a16.tflite',
+    description: 'INT8 权重与校准后的 INT16 激活，模型更小，性能取决于设备。',
   );
 
   const ModelVariant({
@@ -25,6 +25,9 @@ enum ModelVariant {
   final String description;
 
   static ModelVariant fromStorageValue(Object? value) {
+    if (value == 'w8a32') {
+      return ModelVariant.w8a16;
+    }
     return ModelVariant.values.firstWhere(
       (variant) => variant.storageValue == value,
       orElse: () => ModelVariant.fp32,

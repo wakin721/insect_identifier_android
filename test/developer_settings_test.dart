@@ -16,18 +16,36 @@ void main() {
     expect(controller.modelVariant, ModelVariant.fp32);
   });
 
-  test('developer mode and model selection are persisted', () async {
+  test('developer mode and W8A16 selection are persisted', () async {
     final repository = _MemoryDeveloperSettingsRepository();
     final controller = DeveloperSettingsController(repository);
     await controller.initialize();
 
     await controller.enableDeveloperMode();
-    await controller.updateModelVariant(ModelVariant.w8a32);
+    await controller.updateModelVariant(ModelVariant.w8a16);
 
     final restored = DeveloperSettingsController(repository);
     await restored.initialize();
     expect(restored.developerModeEnabled, isTrue);
-    expect(restored.modelVariant, ModelVariant.w8a32);
+    expect(restored.modelVariant, ModelVariant.w8a16);
+
+    await restored.disableDeveloperMode();
+
+    final disabled = DeveloperSettingsController(repository);
+    await disabled.initialize();
+    expect(disabled.developerModeEnabled, isFalse);
+    expect(disabled.modelVariant, ModelVariant.w8a16);
+  });
+
+  test('legacy W8A32 selection migrates to W8A16', () {
+    final settings = DeveloperSettingsData.fromJson(
+      <String, dynamic>{
+        'developerModeEnabled': true,
+        'modelVariant': 'w8a32',
+      },
+    );
+
+    expect(settings.modelVariant, ModelVariant.w8a16);
   });
 
   test('invalid stored model falls back to FP32', () async {

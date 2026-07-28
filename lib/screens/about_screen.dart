@@ -249,7 +249,7 @@ class _AboutScreenState extends State<AboutScreen> {
               const SizedBox(height: 6),
               Text(
                 'Copyright © 2026 wakin721 and contributors\n'
-                'GNU AGPL-3.0 · 本程序不提供任何担保',
+                'GNU AGPL-3.0',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,

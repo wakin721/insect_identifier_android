@@ -7,10 +7,10 @@
 - Material 3 深色/浅色界面与底部导航。
 - Android 相机拍照、系统相册导入。
 - 可缩放、拖动的 1:1 裁切界面。
-- `best.pt` 自动导出为 FP32 与 W8A32 两种 Android LiteRT/TFLite 模型。
+- `best.pt` 自动导出为 FP32 与 W8A16 两种 Android LiteRT/TFLite 模型。
 - 本地 YOLO 分类推理，读取模型返回的 Top 5 并展示排序后的 Top 3。
 - 应用首帧显示后自动预加载本地模型，避免首次裁切完成后才开始初始化。
-- 连续点击关于页面版本号 7 次可启用开发者模式，并切换 FP32/W8A32 模型；默认使用 FP32。
+- 连续点击关于页面版本号 7 次可启用开发者模式，并切换 FP32/W8A16 模型；默认使用 FP32，也可在开发者选项中关闭该模式。
 - 每个结果显示俗名、拉丁学名、识别层级、目、科、属和置信度。
 - 识别历史完全保存在应用私有目录，可查看、单条删除或全部清空。
 - GitHub Actions 自动完成模型导出、代码分析、单元测试、分 ABI APK 与 AAB 构建。
@@ -63,13 +63,14 @@
 
 ```text
 assets/data/taxonomy_zh.json        中文名与分类学映射
-assets/models/                      CI 生成的 FP32 与 W8A32 LiteRT 模型
+assets/models/                      CI 生成的 FP32 与 W8A16 LiteRT 模型
 models/best.pt                      原始 YOLO 分类权重
 lib/controllers/                    应用状态与识别流程
 lib/repositories/                   分类映射和本地历史存储
 lib/screens/                        识别、裁切、结果、历史页面
 lib/services/                       YOLO 推理及 Top 3 解析
 tool/export_model.py                .pt -> LiteRT/TFLite 导出与校验
+tool/build_calibration_dataset.py   从分类训练集分层抽取 W8A16 校准集
 tool/generate_launcher_icons.py     生成无纹理昆虫剪影兼容图标
 tool/validate_project.py            无 Flutter 依赖的快速输入校验
 VALIDATION.md                       本次交付的校验范围与限制
@@ -88,8 +89,36 @@ python -m pip install \
   torch==2.10.0 torchvision==0.25.0
 python -m pip install -r requirements-export.txt
 python tool/export_model.py --quantize fp32
-python tool/export_model.py --quantize w8a32
+python tool/export_model.py --quantize w8a16 --data calibration
 ```
+
+W8A16 需要校准激活范围。仓库中的 `calibration` 包含真实昆虫照片的代表性分类
+数据；导出时应通过 `--data calibration` 使用该数据，并重新比较 FP32 与 W8A16
+的 Top-1/Top-5 准确率。
+
+可从现有 `D:\insects\1\dataset_416\train\<类别>\图片` 数据集确定性地构建校准集：
+
+```powershell
+python tool\build_calibration_dataset.py `
+  --source 'D:\insects\1\dataset_416' `
+  --output 'D:\insects\1\calibration_416' `
+  --per-class 20 `
+  --seed 20260728
+
+python tool\export_model.py `
+  --quantize w8a16 `
+  --data 'D:\insects\1\calibration_416'
+```
+
+脚本不会修改源数据。它会按 28 类去重并分层抽样，为每类放置 1 张图片到
+`train`、20 张图片到 `val`，同时写入包含源相对路径、文件哈希和数据集哈希的
+`calibration_manifest.json`。默认在类别不足或同一图片出现在不同类别时终止；
+确实需要使用不足数量时可增加 `--allow-shortfall`。
+
+源数据中的 `dataset_416\calibration` 默认不会参与抽样，应保留用于比较 FP32 和
+W8A16 的准确率。如果训练集数量不足，可增加
+`--source-splits train calibration` 合并抽样，
+但需要另行准备未参与校准的独立测试集。
 
 再运行或构建 Android：
 
@@ -108,10 +137,13 @@ flutter build appbundle --release
 
 1. 校验 `best.pt` 哈希和 28 个类别映射。
 2. 安装固定版本的 CPU PyTorch 与 Ultralytics LiteRT 导出依赖。
-3. 将 `models/best.pt` 分别导出为 `insect_classifier_fp32.tflite` 和 `insect_classifier_w8a32.tflite`，并校验模型头、任务和标签顺序。
+3. 校验仓库中的 `calibration` 数据集及清单哈希，使用该校准集将 `models/best.pt` 分别导出为 `insect_classifier_fp32.tflite` 和 `insect_classifier_w8a16.tflite`，并校验模型头、任务和标签顺序。
 4. 执行 `flutter analyze` 与 `flutter test`。
 5. 构建 `armeabi-v7a`、`arm64-v8a`、`x86_64` APK 和 Play Store AAB。
 6. 把 APK、AAB、LiteRT 模型及构建信息上传到 GitHub Actions Artifacts。
+
+模型缓存键包含 `calibration/**/*` 的内容哈希。提交新的校准图片或清单后，
+GitHub Actions 会自动废弃旧缓存，并使用更新后的校准集重新导出 W8A16 模型。
 
 ### 发布签名
 
@@ -143,7 +175,7 @@ base64 -w 0 upload-keystore.jks
 
 ```bash
 python tool/export_model.py --quantize fp32 --skip-checksum
-python tool/export_model.py --quantize w8a32 --skip-checksum
+python tool/export_model.py --quantize w8a16 --data /path/to/insect-dataset --skip-checksum
 ```
 
 不要仅跳过校验而不更新分类映射，否则结果名称与模型输出可能错位。
