@@ -1,0 +1,108 @@
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:insect_identifier/controllers/app_controller.dart';
+import 'package:insect_identifier/controllers/developer_settings_controller.dart';
+import 'package:insect_identifier/core/app_info.dart';
+import 'package:insect_identifier/models/model_variant.dart';
+import 'package:insect_identifier/models/recognition_prediction.dart';
+import 'package:insect_identifier/models/recognition_record.dart';
+import 'package:insect_identifier/repositories/developer_settings_repository.dart';
+import 'package:insect_identifier/repositories/history_repository.dart';
+import 'package:insect_identifier/repositories/taxonomy_repository.dart';
+import 'package:insect_identifier/screens/about_screen.dart';
+import 'package:insect_identifier/services/insect_classifier.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('seven consecutive version taps enable developer mode',
+      (tester) async {
+    final developerController = DeveloperSettingsController(
+      _MemoryDeveloperSettingsRepository(),
+    );
+    await developerController.initialize();
+    final taxonomy = await TaxonomyRepository.loadFromAssets();
+    final appController = AppController(
+      taxonomy: taxonomy,
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (_) => _ImmediateClassifier(),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: AboutScreen(
+          modelClassCount: taxonomy.classes.length,
+          classes: taxonomy.classes,
+          appController: appController,
+          developerSettingsController: developerController,
+        ),
+      ),
+    );
+
+    final version = find.text('版本 ${AppInfo.versionLabel}');
+    for (var tap = 0; tap < 7; tap += 1) {
+      await tester.tap(version);
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    await tester.pumpAndSettle();
+
+    expect(developerController.developerModeEnabled, isTrue);
+    expect(find.text('开发者选项'), findsOneWidget);
+    expect(find.text('FP32'), findsOneWidget);
+
+    appController.dispose();
+    developerController.dispose();
+  });
+}
+
+class _MemoryDeveloperSettingsRepository
+    implements DeveloperSettingsRepository {
+  DeveloperSettingsData settings = DeveloperSettingsData.defaults;
+
+  @override
+  Future<DeveloperSettingsData> load() async => settings;
+
+  @override
+  Future<void> save(DeveloperSettingsData settings) async {
+    this.settings = settings;
+  }
+}
+
+class _ImmediateClassifier implements InsectClassifier {
+  @override
+  bool get isLoaded => false;
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
+    return const <RecognitionPrediction>[];
+  }
+
+  @override
+  Future<void> dispose() async {}
+
+  @override
+  Future<void> load() async {}
+}
+
+class _MemoryHistoryRepository implements HistoryRepository {
+  @override
+  Future<void> clear() async {}
+
+  @override
+  Future<void> delete(RecognitionRecord record) async {}
+
+  @override
+  Future<List<RecognitionRecord>> loadAll() async {
+    return const <RecognitionRecord>[];
+  }
+
+  @override
+  Future<RecognitionRecord> save({
+    required Uint8List imageBytes,
+    required List<RecognitionPrediction> predictions,
+  }) {
+    throw UnimplementedError();
+  }
+}

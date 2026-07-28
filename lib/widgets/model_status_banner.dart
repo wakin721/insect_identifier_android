@@ -15,32 +15,40 @@ class ModelStatusBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final (icon, title, subtitle, color) = switch (state) {
-      ModelRuntimeState.idle => (
-          Icons.memory_outlined,
-          '本地模型待命',
-          '选择图片后预加载，不上传照片',
-          colorScheme.primary,
-        ),
-      ModelRuntimeState.loading => (
-          Icons.hourglass_top_rounded,
-          '正在分析照片',
-          '正在加载模型并计算 Top 3',
-          colorScheme.tertiary,
-        ),
-      ModelRuntimeState.ready => (
-          Icons.offline_bolt_rounded,
-          '本地模型已就绪',
-          'LiteRT 推理可离线运行',
-          colorScheme.primary,
-        ),
-      ModelRuntimeState.error => (
-          Icons.error_outline_rounded,
-          '模型运行异常',
-          '请检查模型导出文件或重新识别',
-          colorScheme.error,
-        ),
-    };
+    final preparing = state == ModelRuntimeState.loading && !recognizing;
+    final (icon, title, subtitle, color) = preparing
+        ? (
+            Icons.memory_outlined,
+            '本地模型待命',
+            '正在加载本地模型，不上传照片',
+            colorScheme.primary,
+          )
+        : switch (state) {
+            ModelRuntimeState.idle => (
+                Icons.memory_outlined,
+                '本地模型待命',
+                '即将加载本地模型，不上传照片',
+                colorScheme.primary,
+              ),
+            ModelRuntimeState.loading => (
+                Icons.hourglass_top_rounded,
+                '正在分析照片',
+                '正在加载模型并计算 Top 3',
+                colorScheme.tertiary,
+              ),
+            ModelRuntimeState.ready => (
+                Icons.offline_bolt_rounded,
+                '本地模型已就绪',
+                'LiteRT 推理可离线运行',
+                colorScheme.primary,
+              ),
+            ModelRuntimeState.error => (
+                Icons.error_outline_rounded,
+                '模型运行异常',
+                '请检查模型导出文件或重新识别',
+                colorScheme.error,
+              ),
+          };
 
     return Card(
       margin: EdgeInsets.zero,
@@ -73,6 +81,16 @@ class ModelStatusBanner extends StatelessWidget {
                 ],
               ),
             ),
+            if (preparing) ...<Widget>[
+              const SizedBox(width: 12),
+              const SizedBox.square(
+                dimension: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  semanticsLabel: '正在加载本地模型',
+                ),
+              ),
+            ],
           ],
         ),
       ),

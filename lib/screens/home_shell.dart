@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/app_controller.dart';
 import '../controllers/appearance_controller.dart';
+import '../controllers/developer_settings_controller.dart';
 import 'profile_screen.dart';
 import 'recognize_screen.dart';
 
@@ -9,11 +10,13 @@ class HomeShell extends StatefulWidget {
   const HomeShell({
     required this.controller,
     required this.appearanceController,
+    required this.developerSettingsController,
     super.key,
   });
 
   final AppController controller;
   final AppearanceController appearanceController;
+  final DeveloperSettingsController developerSettingsController;
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -33,6 +36,7 @@ class _HomeShellState extends State<HomeShell> {
           ProfileScreen(
             controller: widget.controller,
             appearanceController: widget.appearanceController,
+            developerSettingsController: widget.developerSettingsController,
           ),
         ],
       ),

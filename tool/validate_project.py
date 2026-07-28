@@ -29,14 +29,20 @@ REQUIRED_FILES = [
     "android/gradle.properties",
     "android/gradle/wrapper/gradle-wrapper.properties",
     "android/settings.gradle.kts",
+    "lib/controllers/developer_settings_controller.dart",
     "lib/main.dart",
-    "lib/screens/license_screen.dart",
+    "lib/models/model_variant.dart",
+    "lib/repositories/developer_settings_repository.dart",
+    "lib/screens/developer_options_screen.dart",
     "models/best.pt",
     "pubspec.yaml",
     "requirements-export.txt",
     "test/app_controller_test.dart",
+    "test/about_screen_test.dart",
     "test/classification_output_parser_test.dart",
+    "test/developer_settings_test.dart",
     "test/history_repository_test.dart",
+    "test/model_status_banner_test.dart",
     "tool/export_model.py",
     "tool/generate_launcher_icons.py",
 ]
@@ -157,8 +163,15 @@ def validate_dart_sources() -> int:
                 )
 
     main_text = (ROOT / "lib/main.dart").read_text(encoding="utf-8")
-    if "YoloInsectClassifier" not in main_text or "FileHistoryRepository" not in main_text:
-        fail("lib/main.dart is not wired to the classifier and history repository.")
+    if (
+        "YoloInsectClassifier" not in main_text
+        or "FileHistoryRepository" not in main_text
+        or "FileDeveloperSettingsRepository" not in main_text
+    ):
+        fail(
+            "lib/main.dart is not wired to the classifier, history, "
+            "and developer settings repositories."
+        )
 
     return len(dart_files)
 
@@ -250,13 +263,15 @@ def validate_build_configuration() -> None:
     pubspec = (ROOT / "pubspec.yaml").read_text(encoding="utf-8")
     app_info = (ROOT / "lib/core/app_info.dart").read_text(encoding="utf-8")
     workflow = (ROOT / ".github/workflows/android.yml").read_text(encoding="utf-8")
+    export_requirements = (ROOT / "requirements-export.txt").read_text(
+        encoding="utf-8"
+    )
     app_gradle = (ROOT / "android/app/build.gradle.kts").read_text(encoding="utf-8")
     settings_gradle = (ROOT / "android/settings.gradle.kts").read_text(
         encoding="utf-8"
     )
 
     for asset in (
-        "LICENSE",
         "assets/data/taxonomy_zh.json",
         "assets/images/app_icon.png",
         "assets/models/",
@@ -272,6 +287,8 @@ def validate_build_configuration() -> None:
     for package in ("crop_your_image", "image_picker", "path_provider", "ultralytics_yolo"):
         if f"{package}:" not in pubspec:
             fail(f"pubspec.yaml is missing dependency {package!r}.")
+    if "ai-edge-quantizer==0.8.0" not in export_requirements:
+        fail("requirements-export.txt must pin the W8A32 quantizer.")
 
     pubspec_version = re.search(
         r"^version:\s*(?P<version>\d+\.\d+\.\d+)\+(?P<build>\d+)\s*$",
@@ -297,6 +314,10 @@ def validate_build_configuration() -> None:
     workflow_requirements = [
         "python tool/validate_project.py",
         "python tool/export_model.py",
+        "--quantize fp32",
+        "--quantize w8a32",
+        "assets/models/insect_classifier_fp32.tflite",
+        "assets/models/insect_classifier_w8a32.tflite",
         "flutter analyze",
         "flutter test",
         "flutter build apk --release --split-per-abi",

@@ -100,7 +100,8 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
     if (raw.contains('camera_access_denied')) {
       message = '未获得相机权限。请在 Android 系统设置中允许“昆虫识别”使用相机。';
     } else if (raw.contains('MODEL_NOT_FOUND') ||
-        raw.contains('insect_classifier.tflite')) {
+        raw.contains('insect_classifier_fp32.tflite') ||
+        raw.contains('insect_classifier_w8a32.tflite')) {
       message = '未找到移动端模型。请先运行 tool/export_model.py，或让 GitHub Actions 完成模型导出。';
     } else {
       message = '识别失败：$raw';

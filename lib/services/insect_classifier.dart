@@ -2,8 +2,13 @@ import 'dart:typed_data';
 
 import 'package:ultralytics_yolo/ultralytics_yolo.dart';
 
+import '../models/model_variant.dart';
 import '../models/recognition_prediction.dart';
 import 'classification_output_parser.dart';
+
+typedef InsectClassifierFactory = InsectClassifier Function(
+  ModelVariant variant,
+);
 
 abstract interface class InsectClassifier {
   bool get isLoaded;
@@ -17,7 +22,7 @@ abstract interface class InsectClassifier {
 
 class YoloInsectClassifier implements InsectClassifier {
   YoloInsectClassifier({
-    this.modelPath = 'assets/models/insect_classifier.tflite',
+    this.modelPath = 'assets/models/insect_classifier_fp32.tflite',
     this.useGpu = true,
   });
 

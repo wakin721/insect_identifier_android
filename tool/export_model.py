@@ -17,8 +17,8 @@ EXPECTED_MODEL_SHA256 = "3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Export an Ultralytics classification checkpoint to the FP32 LiteRT "
-            "model consumed by the Android Flutter app."
+            "Export an Ultralytics classification checkpoint to an FP32 or "
+            "W8A32 LiteRT model consumed by the Android Flutter app."
         )
     )
     parser.add_argument(
@@ -30,8 +30,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("assets/models/insect_classifier.tflite"),
-        help="Destination LiteRT/TFLite file.",
+        default=None,
+        help=(
+            "Destination LiteRT/TFLite file. Defaults to a variant-specific "
+            "path under assets/models."
+        ),
+    )
+    parser.add_argument(
+        "--quantize",
+        choices=("fp32", "w8a32"),
+        default="fp32",
+        help="LiteRT model precision. FP32 is the application default.",
     )
     parser.add_argument(
         "--taxonomy",
@@ -137,7 +146,10 @@ def main() -> int:
     args = parse_args()
     input_path = args.input.resolve()
     taxonomy_path = args.taxonomy.resolve()
-    output_path = args.output.resolve()
+    default_output = Path(
+        f"assets/models/insect_classifier_{args.quantize}.tflite"
+    )
+    output_path = (args.output or default_output).resolve()
 
     if args.imgsz <= 0:
         raise ValueError("--imgsz must be a positive integer.")
@@ -169,6 +181,7 @@ def main() -> int:
     print(f"Checkpoint:  {input_path}")
     print(f"SHA-256:     {actual_hash}")
     print(f"Image size:  {args.imgsz} x {args.imgsz}")
+    print(f"Precision:   {args.quantize.upper()}")
 
     model = YOLO(str(input_path))
     if model.task != "classify":
@@ -180,12 +193,15 @@ def main() -> int:
             f"Model:    {model_labels}\nTaxonomy: {expected_labels}"
         )
 
-    exported = model.export(
-        format="litert",
-        imgsz=args.imgsz,
-        device="cpu",
-        batch=1,
-    )
+    export_options: dict[str, Any] = {
+        "format": "litert",
+        "imgsz": args.imgsz,
+        "device": "cpu",
+        "batch": 1,
+    }
+    if args.quantize == "w8a32":
+        export_options["quantize"] = "w8a32"
+    exported = model.export(**export_options)
     exported_path = Path(str(exported)).resolve()
     if not exported_path.is_file():
         candidates = sorted(exported_path.rglob("*.tflite")) if exported_path.exists() else []
