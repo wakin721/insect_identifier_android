@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:insect_identifier/controllers/app_controller.dart';
+import 'package:insect_identifier/models/model_variant.dart';
 import 'package:insect_identifier/models/recognition_prediction.dart';
 import 'package:insect_identifier/models/recognition_record.dart';
 import 'package:insect_identifier/repositories/history_repository.dart';
@@ -17,7 +18,7 @@ void main() {
     final controller = AppController(
       taxonomy: await TaxonomyRepository.loadFromAssets(),
       historyRepository: _MemoryHistoryRepository(),
-      classifier: classifier,
+      classifierFactory: (_) => classifier,
     );
 
     final firstPreparation = controller.prepareModel();
@@ -32,6 +33,29 @@ void main() {
 
     expect(classifier.isLoaded, isTrue);
     expect(controller.modelState, ModelRuntimeState.ready);
+    controller.dispose();
+  });
+
+  test('switching model disposes the previous classifier', () async {
+    final classifiers = <ModelVariant, _TrackingClassifier>{};
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (variant) {
+        return classifiers.putIfAbsent(
+          variant,
+          _TrackingClassifier.new,
+        );
+      },
+    );
+
+    expect(controller.modelVariant, ModelVariant.fp32);
+    await controller.switchModelVariant(ModelVariant.w8a32);
+
+    expect(controller.modelVariant, ModelVariant.w8a32);
+    expect(controller.modelState, ModelRuntimeState.idle);
+    expect(classifiers[ModelVariant.fp32]!.disposeCalls, 1);
+    expect(classifiers[ModelVariant.w8a32]!.disposeCalls, 0);
     controller.dispose();
   });
 }
@@ -85,4 +109,24 @@ class _MemoryHistoryRepository implements HistoryRepository {
   }) {
     throw UnimplementedError();
   }
+}
+
+class _TrackingClassifier implements InsectClassifier {
+  int disposeCalls = 0;
+
+  @override
+  bool get isLoaded => false;
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
+    return const <RecognitionPrediction>[];
+  }
+
+  @override
+  Future<void> dispose() async {
+    disposeCalls += 1;
+  }
+
+  @override
+  Future<void> load() async {}
 }

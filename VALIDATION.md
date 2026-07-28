@@ -1,16 +1,16 @@
 # Validation status
 
-Validation date: 2026-07-27
+Validation date: 2026-07-28
 
 ## Completed in the delivery environment
 
-- Confirmed `models/best.pt` SHA-256: `c8721348aba1c541d124c0cd2b1fc7f89fe4ac5ddb4fbc18bf4132328c6f8e63`.
-- Confirmed the bundled taxonomy contains 19 contiguous classes in the checkpoint label order.
+- Confirmed `models/best.pt` SHA-256: `3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e608`.
+- Confirmed the bundled taxonomy contains 28 contiguous classes in the checkpoint label order.
 - Parsed all JSON and Android XML files successfully.
-- Parsed `pubspec.yaml`, `analysis_options.yaml`, `.metadata`, and the GitHub Actions workflow as YAML.
+- Checked `pubspec.yaml`, application version metadata, and required GitHub Actions build steps.
 - Checked all relative Dart imports, required Flutter assets, Android package paths, launcher-icon PNG headers and dimensions.
 - Compiled the Python validation and model-export scripts with Python 3.13.
-- Checked every GitHub Actions `run` block with `bash -n`.
+- Checked the workflow action versions and both FP32/W8A32 export commands.
 - Confirmed the project contains only the Android platform target.
 
 Run the same repository checks with:
@@ -24,7 +24,8 @@ python tool/validate_project.py
 The delivery environment does not contain the Flutter SDK, Android SDK, Gradle distribution, Ultralytics LiteRT export dependencies, or Android emulator/device. Therefore the following commands were not executed locally:
 
 ```bash
-python tool/export_model.py
+python tool/export_model.py --quantize fp32
+python tool/export_model.py --quantize w8a32
 flutter pub get
 flutter analyze
 flutter test

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../models/model_variant.dart';
 import '../models/recognition_record.dart';
 import '../repositories/history_repository.dart';
 import '../repositories/taxonomy_repository.dart';
@@ -13,25 +14,31 @@ class AppController extends ChangeNotifier {
   AppController({
     required this.taxonomy,
     required HistoryRepository historyRepository,
-    required InsectClassifier classifier,
+    required InsectClassifierFactory classifierFactory,
+    ModelVariant initialModelVariant = ModelVariant.fp32,
   })  : _historyRepository = historyRepository,
-        _classifier = classifier;
+        _classifierFactory = classifierFactory,
+        _modelVariant = initialModelVariant,
+        _classifier = classifierFactory(initialModelVariant);
 
   final TaxonomyRepository taxonomy;
   final HistoryRepository _historyRepository;
-  final InsectClassifier _classifier;
+  final InsectClassifierFactory _classifierFactory;
+  InsectClassifier _classifier;
 
   List<RecognitionRecord> _history = const <RecognitionRecord>[];
   bool _historyLoading = true;
   bool _recognizing = false;
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
   Future<void>? _modelPreparation;
+  ModelVariant _modelVariant;
   String? _lastError;
 
   List<RecognitionRecord> get history => _history;
   bool get historyLoading => _historyLoading;
   bool get recognizing => _recognizing;
   ModelRuntimeState get modelState => _modelState;
+  ModelVariant get modelVariant => _modelVariant;
   String? get lastError => _lastError;
 
   Future<void> initialize() async {
@@ -84,7 +91,9 @@ class AppController extends ChangeNotifier {
     }
   }
 
-  Future<void> prepareModel() {
+  Future<void> prepareModel({
+    Duration delayBeforeLoad = Duration.zero,
+  }) {
     if (_classifier.isLoaded) {
       if (_modelState != ModelRuntimeState.ready) {
         _modelState = ModelRuntimeState.ready;
@@ -98,16 +107,19 @@ class AppController extends ChangeNotifier {
       return activePreparation;
     }
 
-    final preparation = _prepareModel();
+    final preparation = _prepareModel(delayBeforeLoad);
     _modelPreparation = preparation;
     return preparation;
   }
 
-  Future<void> _prepareModel() async {
+  Future<void> _prepareModel(Duration delayBeforeLoad) async {
     _modelState = ModelRuntimeState.loading;
     _lastError = null;
     notifyListeners();
     try {
+      if (delayBeforeLoad > Duration.zero) {
+        await Future<void>.delayed(delayBeforeLoad);
+      }
       await _classifier.load();
       if (!_recognizing) {
         _modelState = ModelRuntimeState.ready;
@@ -119,6 +131,32 @@ class AppController extends ChangeNotifier {
       _modelPreparation = null;
       notifyListeners();
     }
+  }
+
+  Future<void> switchModelVariant(ModelVariant variant) async {
+    if (variant == _modelVariant) {
+      return;
+    }
+    if (_recognizing) {
+      throw StateError('识别进行中，暂时无法切换模型。');
+    }
+
+    final activePreparation = _modelPreparation;
+    if (activePreparation != null) {
+      await activePreparation;
+    }
+    if (_recognizing) {
+      throw StateError('识别进行中，暂时无法切换模型。');
+    }
+
+    final previousClassifier = _classifier;
+    _classifier = _classifierFactory(variant);
+    _modelVariant = variant;
+    _modelPreparation = null;
+    _modelState = ModelRuntimeState.idle;
+    _lastError = null;
+    notifyListeners();
+    await previousClassifier.dispose();
   }
 
   Future<void> deleteRecord(RecognitionRecord record) async {
