@@ -19,7 +19,7 @@ class ModelStatusBanner extends StatelessWidget {
       ModelRuntimeState.idle => (
           Icons.memory_outlined,
           '本地模型待命',
-          '首次识别时加载，不上传照片',
+          '选择图片后预加载，不上传照片',
           colorScheme.primary,
         ),
       ModelRuntimeState.loading => (

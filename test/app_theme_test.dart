@@ -29,6 +29,8 @@ void main() {
     );
 
     final shape = theme.cardTheme.shape! as RoundedRectangleBorder;
+    expect(theme.cardTheme.elevation, 0);
+    expect(theme.cardTheme.shadowColor, Colors.transparent);
     expect(shape.side.style, BorderStyle.solid);
     expect((shape.side.color.toARGB32() >> 24) & 0xff, greaterThan(0));
   });

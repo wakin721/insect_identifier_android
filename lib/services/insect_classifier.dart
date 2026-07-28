@@ -8,6 +8,8 @@ import 'classification_output_parser.dart';
 abstract interface class InsectClassifier {
   bool get isLoaded;
 
+  Future<void> load();
+
   Future<List<RecognitionPrediction>> classify(Uint8List imageBytes);
 
   Future<void> dispose();
@@ -24,9 +26,15 @@ class YoloInsectClassifier implements InsectClassifier {
 
   YOLO? _yolo;
   bool _isLoaded = false;
+  Future<YOLO>? _modelLoading;
 
   @override
   bool get isLoaded => _isLoaded;
+
+  @override
+  Future<void> load() async {
+    await _ensureModelLoaded();
+  }
 
   @override
   Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
@@ -51,6 +59,11 @@ class YoloInsectClassifier implements InsectClassifier {
       return existing;
     }
 
+    final loading = _modelLoading;
+    if (loading != null) {
+      return loading;
+    }
+
     final yolo = existing ??
         YOLO(
           modelPath: modelPath,
@@ -59,16 +72,34 @@ class YoloInsectClassifier implements InsectClassifier {
         );
     _yolo = yolo;
 
-    final loaded = await yolo.loadModel();
-    if (!loaded) {
-      throw StateError('无法加载 Android LiteRT 分类模型。');
+    final future = _loadModel(yolo);
+    _modelLoading = future;
+    return future;
+  }
+
+  Future<YOLO> _loadModel(YOLO yolo) async {
+    try {
+      final loaded = await yolo.loadModel();
+      if (!loaded) {
+        throw StateError('无法加载 Android LiteRT 分类模型。');
+      }
+      _isLoaded = true;
+      return yolo;
+    } finally {
+      _modelLoading = null;
     }
-    _isLoaded = true;
-    return yolo;
   }
 
   @override
   Future<void> dispose() async {
+    final loading = _modelLoading;
+    if (loading != null) {
+      try {
+        await loading;
+      } on Object {
+        // A failed load has no resources that need to be retained.
+      }
+    }
     await _yolo?.dispose();
     _yolo = null;
     _isLoaded = false;

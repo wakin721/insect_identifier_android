@@ -16,9 +16,11 @@ EXPECTED_SHA256 = "3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e
 EXPECTED_CLASS_COUNT = 28
 REQUIRED_FILES = [
     ".github/workflows/android.yml",
+    "LICENSE",
     "README.md",
     "analysis_options.yaml",
     "assets/data/taxonomy_zh.json",
+    "assets/images/app_icon.png",
     "assets/models/.gitkeep",
     "android/app/build.gradle.kts",
     "android/app/src/main/AndroidManifest.xml",
@@ -28,11 +30,15 @@ REQUIRED_FILES = [
     "android/gradle/wrapper/gradle-wrapper.properties",
     "android/settings.gradle.kts",
     "lib/main.dart",
+    "lib/screens/license_screen.dart",
     "models/best.pt",
     "pubspec.yaml",
     "requirements-export.txt",
+    "test/app_controller_test.dart",
     "test/classification_output_parser_test.dart",
+    "test/history_repository_test.dart",
     "tool/export_model.py",
+    "tool/generate_launcher_icons.py",
 ]
 DISALLOWED_PLATFORM_DIRECTORIES = ["ios", "linux", "macos", "web", "windows"]
 RELATIVE_DART_IMPORT = re.compile(
@@ -209,7 +215,11 @@ def validate_icons() -> int:
             fail(f"Missing Android launcher icon: {path.relative_to(ROOT)}")
         if read_png_dimensions(path) != (size, size):
             fail(f"Unexpected launcher icon dimensions: {path.relative_to(ROOT)}")
-    return len(expected)
+
+    app_icon = ROOT / "assets/images/app_icon.png"
+    if read_png_dimensions(app_icon) != (512, 512):
+        fail("Unexpected About screen app icon dimensions.")
+    return len(expected) + 1
 
 
 def validate_workflow_action_versions(workflow: str) -> None:
@@ -245,9 +255,20 @@ def validate_build_configuration() -> None:
         encoding="utf-8"
     )
 
-    for asset in ("assets/data/taxonomy_zh.json", "assets/models/"):
+    for asset in (
+        "LICENSE",
+        "assets/data/taxonomy_zh.json",
+        "assets/images/app_icon.png",
+        "assets/models/",
+    ):
         if asset not in pubspec:
             fail(f"pubspec.yaml does not declare asset {asset!r}.")
+
+    license_path = ROOT / "LICENSE"
+    if sha256(license_path) != (
+        "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    ):
+        fail("LICENSE must match the unmodified GNU AGPL-3.0 text.")
     for package in ("crop_your_image", "image_picker", "path_provider", "ultralytics_yolo"):
         if f"{package}:" not in pubspec:
             fail(f"pubspec.yaml is missing dependency {package!r}.")

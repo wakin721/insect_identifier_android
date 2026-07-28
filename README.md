@@ -68,6 +68,7 @@ lib/repositories/                   分类映射和本地历史存储
 lib/screens/                        识别、裁切、结果、历史页面
 lib/services/                       YOLO 推理及 Top 3 解析
 tool/export_model.py                .pt -> LiteRT/TFLite 导出与校验
+tool/generate_launcher_icons.py     生成无纹理昆虫剪影兼容图标
 tool/validate_project.py            无 Flutter 依赖的快速输入校验
 VALIDATION.md                       本次交付的校验范围与限制
 .github/workflows/android.yml        Android 自动构建流程
@@ -147,7 +148,10 @@ python tool/export_model.py --skip-checksum
 
 推理在 Android 设备本地运行，应用代码不上传照片。历史图像和结果保存在应用私有文档目录；卸载应用会清除这些数据。识别结果仅用于辅助判断，置信度是模型在现有 28 个训练类别中的相对概率，不等同于正式分类鉴定。
 
-## 许可提示
+## 许可证
 
-本工程依赖 `ultralytics_yolo` 和 Ultralytics 导出工具。Ultralytics 提供 AGPL-3.0 与企业许可方案。公开分发、闭源商业发布或将本工程集成到商业产品前，应根据实际使用方式核对许可义务，必要时取得 Ultralytics Enterprise License。
-"# insect_identifier_android" 
+Copyright © 2026 wakin721 and contributors。
+
+除另有说明的内容外，本项目采用 [GNU Affero General Public License Version 3](LICENSE) 发布，不提供任何担保。你可以依照该许可运行、研究、修改和传播本项目；分发 APK 或其他目标文件时，须同时依照 AGPL-3.0 提供完整的对应源代码。
+
+本工程依赖同样采用 AGPL-3.0 的 `ultralytics_yolo` 和 Ultralytics 导出工具。闭源发布或不希望履行 AGPL-3.0 源代码公开义务时，需要另行取得适用的 Ultralytics Enterprise License。模型权重与训练数据还可能涉及独立的所有权和数据集授权，发布前应一并确认。

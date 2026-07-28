@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -22,18 +23,30 @@ abstract interface class HistoryRepository {
 }
 
 class FileHistoryRepository implements HistoryRepository {
+  FileHistoryRepository({
+    Future<Directory> Function()? documentsDirectoryProvider,
+  }) : _documentsDirectoryProvider =
+            documentsDirectoryProvider ?? getApplicationDocumentsDirectory;
+
   static const _folderName = 'insect_identifier';
   static const _indexFileName = 'history.json';
   static const _imagesFolderName = 'images';
 
+  final Future<Directory> Function() _documentsDirectoryProvider;
   final Random _random = Random();
+  List<RecognitionRecord>? _cachedRecords;
 
   @override
   Future<List<RecognitionRecord>> loadAll() async {
+    final cachedRecords = _cachedRecords;
+    if (cachedRecords != null) {
+      return cachedRecords;
+    }
+
     final root = await _ensureRootDirectory();
     final indexFile = File(_childPath(root.path, _indexFileName));
     if (!await indexFile.exists()) {
-      return const <RecognitionRecord>[];
+      return _cacheRecords(const <RecognitionRecord>[]);
     }
 
     try {
@@ -49,11 +62,11 @@ class FileHistoryRepository implements HistoryRepository {
           .where((record) => record.predictions.isNotEmpty)
           .toList();
       records.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      return records;
+      return _cacheRecords(records);
     } on FormatException {
-      return const <RecognitionRecord>[];
+      return _cacheRecords(const <RecognitionRecord>[]);
     } on TypeError {
-      return const <RecognitionRecord>[];
+      return _cacheRecords(const <RecognitionRecord>[]);
     }
   }
 
@@ -73,7 +86,7 @@ class FileHistoryRepository implements HistoryRepository {
     final imageFile = File(
       _childPath(imagesDirectory.path, '$id$extension'),
     );
-    await imageFile.writeAsBytes(imageBytes, flush: true);
+    await imageFile.writeAsBytes(imageBytes);
 
     final record = RecognitionRecord(
       id: id,
@@ -82,8 +95,9 @@ class FileHistoryRepository implements HistoryRepository {
       predictions: List<RecognitionPrediction>.unmodifiable(predictions),
     );
 
-    final records = await loadAll();
-    await _writeIndex(root, <RecognitionRecord>[record, ...records]);
+    final nextRecords = <RecognitionRecord>[record, ...await loadAll()];
+    await _writeIndex(root, nextRecords);
+    _cacheRecords(nextRecords);
     return record;
   }
 
@@ -98,6 +112,7 @@ class FileHistoryRepository implements HistoryRepository {
       await imageFile.delete();
     }
     await _writeIndex(root, next);
+    _cacheRecords(next);
   }
 
   @override
@@ -109,10 +124,11 @@ class FileHistoryRepository implements HistoryRepository {
     }
     await imagesDirectory.create(recursive: true);
     await _writeIndex(root, const <RecognitionRecord>[]);
+    _cacheRecords(const <RecognitionRecord>[]);
   }
 
   Future<Directory> _ensureRootDirectory() async {
-    final documents = await getApplicationDocumentsDirectory();
+    final documents = await _documentsDirectoryProvider();
     final root = Directory(_childPath(documents.path, _folderName));
     await root.create(recursive: true);
     return root;
@@ -124,14 +140,23 @@ class FileHistoryRepository implements HistoryRepository {
   ) async {
     final indexFile = File(_childPath(root.path, _indexFileName));
     final tempFile = File('${indexFile.path}.tmp');
-    final payload = const JsonEncoder.withIndent('  ').convert(
-      records.map((record) => record.toJson()).toList(),
+    final jsonRecords = records
+        .map((record) => record.toJson())
+        .toList(growable: false);
+    final payload = await Isolate.run(
+      () => const JsonEncoder.withIndent('  ').convert(jsonRecords),
     );
-    await tempFile.writeAsString(payload, flush: true);
+    await tempFile.writeAsString(payload);
     if (await indexFile.exists()) {
       await indexFile.delete();
     }
     await tempFile.rename(indexFile.path);
+  }
+
+  List<RecognitionRecord> _cacheRecords(List<RecognitionRecord> records) {
+    final cached = List<RecognitionRecord>.unmodifiable(records);
+    _cachedRecords = cached;
+    return cached;
   }
 
   static String _childPath(String parent, String child) {

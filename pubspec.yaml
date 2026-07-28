@@ -26,5 +26,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - LICENSE
     - assets/data/taxonomy_zh.json
+    - assets/images/app_icon.png
     - assets/models/
