@@ -4,6 +4,11 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="1.1"
+        android:scaleY="1.1">
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#FFFFFFFF"
@@ -28,4 +33,5 @@
     <path
         android:fillColor="#FFFFFFFF"
         android:pathData="M43,47C43,40 47,37 54,37C61,37 65,40 65,47V70C65,80 61,84 54,84C47,84 43,80 43,70Z" />
+    </group>
 </vector>

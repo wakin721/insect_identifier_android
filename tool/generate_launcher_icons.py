@@ -13,6 +13,7 @@ BACKGROUND = "#984061"
 FOREGROUND = "#FFFFFF"
 VIEWPORT = 108
 SUPERSAMPLING = 4
+MARK_SCALE = 1.1
 ICON_SIZES = {
     "mipmap-mdpi/ic_launcher.png": 48,
     "mipmap-hdpi/ic_launcher.png": 72,
@@ -25,7 +26,8 @@ APP_ICON_SIZE = 512
 
 
 def scaled(value: float, factor: float) -> int:
-    return round(value * factor)
+    center = VIEWPORT / 2
+    return round((center + (value - center) * MARK_SCALE) * factor)
 
 
 def draw_rounded_line(
@@ -36,7 +38,7 @@ def draw_rounded_line(
     width: float,
 ) -> None:
     coordinates = [(scaled(x, factor), scaled(y, factor)) for x, y in points]
-    line_width = scaled(width, factor)
+    line_width = round(width * MARK_SCALE * factor)
     radius = line_width // 2
     draw.line(coordinates, fill=FOREGROUND, width=line_width, joint="curve")
     for x, y in (coordinates[0], coordinates[-1]):

@@ -169,37 +169,10 @@ class _CropScreenState extends State<CropScreen> {
                         ),
                       ),
                       if (_busy)
-                        Positioned(
-                          top: 12,
-                          left: 12,
-                          right: 12,
-                          child: Center(
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Colors.black.withAlpha(190),
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 8,
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.lock_rounded,
-                                      size: 18,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 7),
-                                    Text(
-                                      '裁切区域已锁定',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                        const Positioned.fill(
+                          child: IgnorePointer(
+                            child: ColoredBox(
+                              color: Color(0x73000000),
                             ),
                           ),
                         ),
@@ -215,9 +188,11 @@ class _CropScreenState extends State<CropScreen> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      _busy
-                          ? '裁切位置已固定，可随时取消识别'
-                          : '双指缩放并拖动照片，使昆虫完整位于方框内',
+                      _cropping
+                          ? '正在裁切，请稍候'
+                          : _recognizing
+                              ? '正在识别'
+                              : '双指缩放并拖动照片，使昆虫完整位于方框内',
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white70),
                     ),
