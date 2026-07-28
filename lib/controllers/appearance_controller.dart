@@ -26,7 +26,7 @@ class AppearanceController extends ChangeNotifier {
 
   Future<void> initialize() async {
     _settings = await _repository.load();
-    await LauncherIconService.synchronize(
+    await LauncherIconService.schedule(
       useDynamicColor: useDynamicColor,
       seedColor: seedColor,
     );
@@ -53,7 +53,7 @@ class AppearanceController extends ChangeNotifier {
       useDynamicColor: _settings.useDynamicColor,
       seedColorValue: color.toARGB32(),
     );
-    await LauncherIconService.synchronize(
+    await LauncherIconService.schedule(
       useDynamicColor: useDynamicColor,
       seedColor: color,
     );
@@ -67,7 +67,7 @@ class AppearanceController extends ChangeNotifier {
       useDynamicColor: value,
       seedColorValue: _settings.seedColorValue,
     );
-    await LauncherIconService.synchronize(
+    await LauncherIconService.schedule(
       useDynamicColor: value,
       seedColor: seedColor,
     );
