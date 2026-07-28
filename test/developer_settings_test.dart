@@ -41,6 +41,22 @@ void main() {
     expect(disabled.useGpu, isFalse);
   });
 
+  test('W8A16 can be persisted with GPU enabled', () async {
+    final repository = _MemoryDeveloperSettingsRepository();
+    final controller = DeveloperSettingsController(repository);
+    await controller.initialize();
+
+    await controller.updateInferenceSettings(
+      modelVariant: ModelVariant.w8a16,
+      useGpu: true,
+    );
+
+    expect(controller.modelVariant, ModelVariant.w8a16);
+    expect(controller.useGpu, isTrue);
+    expect(repository.settings.modelVariant, ModelVariant.w8a16);
+    expect(repository.settings.useGpu, isTrue);
+  });
+
   test('legacy W8A32 selection migrates to W8A16', () {
     final settings = DeveloperSettingsData.fromJson(
       <String, dynamic>{

@@ -33,6 +33,7 @@ class AppController extends ChangeNotifier {
   bool _recognizing = false;
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
   Future<void>? _modelPreparation;
+  int _configurationGeneration = 0;
   ModelVariant _modelVariant;
   bool _useGpu;
   String? _lastError;
@@ -111,12 +112,22 @@ class AppController extends ChangeNotifier {
       return activePreparation;
     }
 
-    final preparation = _prepareModel(delayBeforeLoad);
+    final generation = _configurationGeneration;
+    final classifier = _classifier;
+    final preparation = _prepareModel(
+      delayBeforeLoad,
+      classifier,
+      generation,
+    );
     _modelPreparation = preparation;
     return preparation;
   }
 
-  Future<void> _prepareModel(Duration delayBeforeLoad) async {
+  Future<void> _prepareModel(
+    Duration delayBeforeLoad,
+    InsectClassifier classifier,
+    int generation,
+  ) async {
     _modelState = ModelRuntimeState.loading;
     _lastError = null;
     notifyListeners();
@@ -124,34 +135,38 @@ class AppController extends ChangeNotifier {
       if (delayBeforeLoad > Duration.zero) {
         await Future<void>.delayed(delayBeforeLoad);
       }
-      await _classifier.load();
-      if (!_recognizing) {
+      await classifier.load();
+      if (generation == _configurationGeneration && !_recognizing) {
         _modelState = ModelRuntimeState.ready;
       }
     } catch (error) {
-      _modelState = ModelRuntimeState.error;
-      _lastError = '模型预加载失败：$error';
+      if (generation == _configurationGeneration) {
+        _modelState = ModelRuntimeState.error;
+        _lastError = '模型预加载失败：$error';
+      }
     } finally {
-      _modelPreparation = null;
-      notifyListeners();
+      if (generation == _configurationGeneration) {
+        _modelPreparation = null;
+        notifyListeners();
+      }
     }
   }
 
   Future<void> switchModelVariant(ModelVariant variant) async {
-    await _switchInferenceConfiguration(
+    await switchInferenceConfiguration(
       modelVariant: variant,
       useGpu: _useGpu,
     );
   }
 
   Future<void> switchUseGpu(bool useGpu) async {
-    await _switchInferenceConfiguration(
+    await switchInferenceConfiguration(
       modelVariant: _modelVariant,
       useGpu: useGpu,
     );
   }
 
-  Future<void> _switchInferenceConfiguration({
+  Future<void> switchInferenceConfiguration({
     required ModelVariant modelVariant,
     required bool useGpu,
   }) async {
@@ -162,19 +177,12 @@ class AppController extends ChangeNotifier {
       throw StateError('识别进行中，暂时无法切换推理配置。');
     }
 
-    final activePreparation = _modelPreparation;
-    if (activePreparation != null) {
-      await activePreparation;
-    }
-    if (_recognizing) {
-      throw StateError('识别进行中，暂时无法切换推理配置。');
-    }
-
     final previousClassifier = _classifier;
+    _configurationGeneration += 1;
+    _modelPreparation = null;
     _classifier = _classifierFactory(modelVariant, useGpu);
     _modelVariant = modelVariant;
     _useGpu = useGpu;
-    _modelPreparation = null;
     _modelState = ModelRuntimeState.idle;
     _lastError = null;
     notifyListeners();

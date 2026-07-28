@@ -39,20 +39,30 @@ class DeveloperSettingsController extends ChangeNotifier {
   }
 
   Future<void> updateModelVariant(ModelVariant variant) async {
-    if (variant == modelVariant) {
-      return;
-    }
-    final next = _settings.copyWith(modelVariant: variant);
-    await _repository.save(next);
-    _settings = next;
-    notifyListeners();
+    await updateInferenceSettings(
+      modelVariant: variant,
+      useGpu: useGpu,
+    );
   }
 
   Future<void> updateUseGpu(bool useGpu) async {
-    if (useGpu == this.useGpu) {
+    await updateInferenceSettings(
+      modelVariant: modelVariant,
+      useGpu: useGpu,
+    );
+  }
+
+  Future<void> updateInferenceSettings({
+    required ModelVariant modelVariant,
+    required bool useGpu,
+  }) async {
+    if (modelVariant == this.modelVariant && useGpu == this.useGpu) {
       return;
     }
-    final next = _settings.copyWith(useGpu: useGpu);
+    final next = _settings.copyWith(
+      modelVariant: modelVariant,
+      useGpu: useGpu,
+    );
     await _repository.save(next);
     _settings = next;
     notifyListeners();

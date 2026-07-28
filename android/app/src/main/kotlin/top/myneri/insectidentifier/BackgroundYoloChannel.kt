@@ -6,6 +6,7 @@ import android.os.Looper
 import com.ultralytics.yolo.YOLOInstanceManager
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -18,10 +19,8 @@ import java.util.concurrent.Executors
  */
 class BackgroundYoloChannel(binaryMessenger: BinaryMessenger) {
     private val mainHandler = Handler(Looper.getMainLooper())
-    private val inferenceExecutor: ExecutorService =
-        Executors.newSingleThreadExecutor { runnable ->
-            Thread(runnable, "insect-yolo-inference")
-        }
+    private val inferenceExecutors =
+        ConcurrentHashMap<String, ExecutorService>()
     private val channel =
         MethodChannel(binaryMessenger, CHANNEL_NAME)
 
@@ -53,6 +52,12 @@ class BackgroundYoloChannel(binaryMessenger: BinaryMessenger) {
                         call.argument<String>("instanceId") ?: DEFAULT_INSTANCE_ID
                     instantiatePredictor(instanceId, result)
                 }
+                "disposeInstance" -> {
+                    val instanceId =
+                        call.argument<String>("instanceId") ?: DEFAULT_INSTANCE_ID
+                    disposeExecutor(instanceId)
+                    result.success(null)
+                }
                 else -> result.notImplemented()
             }
         }
@@ -62,7 +67,7 @@ class BackgroundYoloChannel(binaryMessenger: BinaryMessenger) {
         instanceId: String,
         result: MethodChannel.Result,
     ) {
-        inferenceExecutor.execute {
+        executorFor(instanceId).execute {
             try {
                 if (!YOLOInstanceManager.shared.hasInstance(instanceId)) {
                     postError(
@@ -91,7 +96,7 @@ class BackgroundYoloChannel(binaryMessenger: BinaryMessenger) {
         iouThreshold: Float?,
         result: MethodChannel.Result,
     ) {
-        inferenceExecutor.execute {
+        executorFor(instanceId).execute {
             val bitmap = BitmapFactory.decodeByteArray(
                 imageData,
                 0,
@@ -157,9 +162,32 @@ class BackgroundYoloChannel(binaryMessenger: BinaryMessenger) {
         mainHandler.post { result.error(code, message, null) }
     }
 
+    private fun executorFor(instanceId: String): ExecutorService {
+        return synchronized(inferenceExecutors) {
+            inferenceExecutors[instanceId] ?: Executors
+                .newSingleThreadExecutor { runnable ->
+                    Thread(runnable, "insect-yolo-$instanceId")
+                }.also { executor ->
+                    inferenceExecutors[instanceId] = executor
+                }
+        }
+    }
+
+    private fun disposeExecutor(instanceId: String) {
+        val executor = synchronized(inferenceExecutors) {
+            inferenceExecutors.remove(instanceId)
+        }
+        executor?.shutdownNow()
+    }
+
     fun dispose() {
         channel.setMethodCallHandler(null)
-        inferenceExecutor.shutdownNow()
+        val executors = synchronized(inferenceExecutors) {
+            inferenceExecutors.values.toList().also {
+                inferenceExecutors.clear()
+            }
+        }
+        executors.forEach { it.shutdownNow() }
     }
 
     companion object {

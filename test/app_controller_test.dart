@@ -89,6 +89,42 @@ void main() {
     expect(classifiers.last.disposeCalls, 0);
     controller.dispose();
   });
+
+  test('switching configuration does not wait for a stuck preparation',
+      () async {
+    final stuckClassifier = _ControllableClassifier();
+    final replacementClassifier = _TrackingClassifier();
+    var factoryCalls = 0;
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (_, _) {
+        factoryCalls += 1;
+        return factoryCalls == 1
+            ? stuckClassifier
+            : replacementClassifier;
+      },
+    );
+
+    final stuckPreparation = controller.prepareModel();
+    expect(controller.modelState, ModelRuntimeState.loading);
+
+    await controller
+        .switchInferenceConfiguration(
+          modelVariant: ModelVariant.w8a16,
+          useGpu: false,
+        )
+        .timeout(const Duration(milliseconds: 200));
+
+    expect(controller.modelVariant, ModelVariant.w8a16);
+    expect(controller.useGpu, isFalse);
+    expect(controller.modelState, ModelRuntimeState.idle);
+
+    stuckClassifier.completeLoad();
+    await stuckPreparation;
+    expect(controller.modelState, ModelRuntimeState.idle);
+    controller.dispose();
+  });
 }
 
 class _ControllableClassifier implements InsectClassifier {

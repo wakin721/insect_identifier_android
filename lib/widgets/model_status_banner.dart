@@ -45,7 +45,7 @@ class ModelStatusBanner extends StatelessWidget {
             ModelRuntimeState.error => (
                 Icons.error_outline_rounded,
                 '模型运行异常',
-                '请检查模型导出文件或重新识别',
+                '请切换模型、关闭 GPU 或重新识别',
                 colorScheme.error,
               ),
           };

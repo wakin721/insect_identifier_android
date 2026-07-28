@@ -125,8 +125,4 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: insect-identifier-android-${{ github.run_number }}
-          path: |
-            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-            build/app/outputs/bundle/release/app-release.aab
-            assets/models/insect_classifier_fp32.tflite
-            assets/models/insect_classifier_w8a16.tflite
+          path: build/app/outputs/flutter-apk/

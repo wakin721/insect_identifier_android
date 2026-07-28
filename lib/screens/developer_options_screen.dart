@@ -31,17 +31,29 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
       return;
     }
 
-    final previous = widget.developerSettingsController.modelVariant;
+    final previousModel =
+        widget.developerSettingsController.modelVariant;
+    final previousUseGpu = widget.developerSettingsController.useGpu;
     setState(() => _switchingInference = true);
     try {
-      await widget.appController.switchModelVariant(variant);
+      await widget.appController.switchInferenceConfiguration(
+        modelVariant: variant,
+        useGpu: previousUseGpu,
+      );
       try {
-        await widget.developerSettingsController.updateModelVariant(variant);
+        await widget.developerSettingsController.updateInferenceSettings(
+          modelVariant: variant,
+          useGpu: previousUseGpu,
+        );
       } catch (error) {
-        await widget.appController.switchModelVariant(previous);
+        await widget.appController.switchInferenceConfiguration(
+          modelVariant: previousModel,
+          useGpu: previousUseGpu,
+        );
         rethrow;
       }
-      unawaited(widget.appController.prepareModel());
+      await widget.appController.prepareModel();
+      _throwIfModelPreparationFailed();
       if (!mounted) {
         return;
       }
@@ -50,7 +62,7 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
         ..showSnackBar(
           SnackBar(
             content: Text(
-              '已切换到 ${variant.displayName}，正在加载模型。',
+              '已切换到 ${variant.displayName}，本地模型已就绪。',
             ),
           ),
         );
@@ -76,17 +88,29 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
       return;
     }
 
+    final modelVariant =
+        widget.developerSettingsController.modelVariant;
     final previous = widget.developerSettingsController.useGpu;
     setState(() => _switchingInference = true);
     try {
-      await widget.appController.switchUseGpu(useGpu);
+      await widget.appController.switchInferenceConfiguration(
+        modelVariant: modelVariant,
+        useGpu: useGpu,
+      );
       try {
-        await widget.developerSettingsController.updateUseGpu(useGpu);
+        await widget.developerSettingsController.updateInferenceSettings(
+          modelVariant: modelVariant,
+          useGpu: useGpu,
+        );
       } catch (error) {
-        await widget.appController.switchUseGpu(previous);
+        await widget.appController.switchInferenceConfiguration(
+          modelVariant: modelVariant,
+          useGpu: previous,
+        );
         rethrow;
       }
-      unawaited(widget.appController.prepareModel());
+      await widget.appController.prepareModel();
+      _throwIfModelPreparationFailed();
       if (!mounted) {
         return;
       }
@@ -96,8 +120,8 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
           SnackBar(
             content: Text(
               useGpu
-                  ? '已启用 GPU 推理，正在重新加载模型。'
-                  : '已切换为 CPU 推理，正在重新加载模型。',
+                  ? '已启用 GPU 推理，本地模型已就绪。'
+                  : '已切换为 CPU 推理，本地模型已就绪。',
             ),
           ),
         );
@@ -114,6 +138,14 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
       if (mounted) {
         setState(() => _switchingInference = false);
       }
+    }
+  }
+
+  void _throwIfModelPreparationFailed() {
+    if (widget.appController.modelState == ModelRuntimeState.error) {
+      throw StateError(
+        widget.appController.lastError ?? '模型加载失败，请切换推理配置后重试。',
+      );
     }
   }
 
@@ -196,7 +228,8 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                       secondary: const Icon(Icons.memory_rounded),
                       title: const Text('使用 GPU 推理'),
                       subtitle: const Text(
-                        '关闭时强制使用 CPU；开启时请求 GPU，模型或设备不兼容时可能回退到 CPU。',
+                        'FP32 和 W8A16 均可请求 GPU；初始化超过 20 秒会提示失败，'
+                        '此时可关闭 GPU 或切换模型。',
                       ),
                       value: widget.developerSettingsController.useGpu,
                       onChanged: !_switchingInference &&
