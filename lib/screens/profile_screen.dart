@@ -54,6 +54,7 @@ class ProfileScreen extends StatelessWidget {
                   MaterialPageRoute<void>(
                     builder: (_) => AboutScreen(
                       modelClassCount: controller.taxonomy.classes.length,
+                      classes: controller.taxonomy.classes,
                     ),
                   ),
                 ),
