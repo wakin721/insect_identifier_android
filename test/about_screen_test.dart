@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:insect_identifier/controllers/app_controller.dart';
 import 'package:insect_identifier/controllers/developer_settings_controller.dart';
 import 'package:insect_identifier/core/app_info.dart';
-import 'package:insect_identifier/models/model_variant.dart';
 import 'package:insect_identifier/models/recognition_prediction.dart';
 import 'package:insect_identifier/models/recognition_record.dart';
 import 'package:insect_identifier/repositories/developer_settings_repository.dart';
