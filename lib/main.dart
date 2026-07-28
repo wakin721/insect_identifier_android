@@ -23,8 +23,10 @@ Future<void> main() async {
     taxonomy: taxonomy,
     historyRepository: FileHistoryRepository(),
     initialModelVariant: developerSettingsController.modelVariant,
-    classifierFactory: (variant) => YoloInsectClassifier(
+    initialUseGpu: developerSettingsController.useGpu,
+    classifierFactory: (variant, useGpu) => YoloInsectClassifier(
       modelPath: variant.assetPath,
+      useGpu: useGpu,
     ),
   );
   await controller.initialize();

@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../controllers/app_controller.dart';
-import '../models/recognition_record.dart';
 import '../widgets/model_status_banner.dart';
 import 'crop_screen.dart';
-import 'result_screen.dart';
 
 class RecognizeScreen extends StatefulWidget {
   const RecognizeScreen({
@@ -51,27 +48,18 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
         return;
       }
 
-      final cropResult = Navigator.of(context).push<Uint8List>(
-        MaterialPageRoute<Uint8List>(
-          builder: (context) => CropScreen(imageBytes: sourceBytes),
+      final cropRoute = MaterialPageRoute<void>(
+        builder: (context) => CropScreen(
+          imageBytes: sourceBytes,
+          controller: widget.controller,
         ),
       );
+      final cropResult = Navigator.of(context).push<void>(cropRoute);
       await WidgetsBinding.instance.endOfFrame;
       unawaited(widget.controller.prepareModel());
 
-      final croppedBytes = await cropResult;
-      if (croppedBytes == null || !mounted) {
-        return;
-      }
-
-      // Let the busy state paint after the crop route closes before native
-      // image decoding and inference begin.
-      await WidgetsBinding.instance.endOfFrame;
-      final record = await widget.controller.recognize(croppedBytes);
-      if (!mounted) {
-        return;
-      }
-      await _showResult(record);
+      await cropResult;
+      await cropRoute.completed;
     } catch (error) {
       if (mounted) {
         _showError(error);
@@ -81,17 +69,6 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
         setState(() => _selectingImage = false);
       }
     }
-  }
-
-  Future<void> _showResult(RecognitionRecord record) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (context) => ResultScreen(
-          record: record,
-          taxonomy: widget.controller.taxonomy,
-        ),
-      ),
-    );
   }
 
   void _showError(Object error) {

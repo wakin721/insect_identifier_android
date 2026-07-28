@@ -22,26 +22,39 @@ class DeveloperOptionsScreen extends StatefulWidget {
 }
 
 class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
-  bool _switchingModel = false;
+  bool _switchingInference = false;
   bool _closingDeveloperMode = false;
 
   Future<void> _selectModel(ModelVariant variant) async {
-    if (_switchingModel ||
-        variant == widget.developerSettingsController.modelVariant) {
+    if (_switchingInference ||
+        (variant == widget.developerSettingsController.modelVariant &&
+            widget.appController.modelState != ModelRuntimeState.error)) {
       return;
     }
 
-    final previous = widget.developerSettingsController.modelVariant;
-    setState(() => _switchingModel = true);
+    final previousModel =
+        widget.developerSettingsController.modelVariant;
+    final previousUseGpu = widget.developerSettingsController.useGpu;
+    setState(() => _switchingInference = true);
     try {
-      await widget.appController.switchModelVariant(variant);
+      await widget.appController.switchInferenceConfiguration(
+        modelVariant: variant,
+        useGpu: previousUseGpu,
+      );
       try {
-        await widget.developerSettingsController.updateModelVariant(variant);
+        await widget.developerSettingsController.updateInferenceSettings(
+          modelVariant: variant,
+          useGpu: previousUseGpu,
+        );
       } catch (error) {
-        await widget.appController.switchModelVariant(previous);
+        await widget.appController.switchInferenceConfiguration(
+          modelVariant: previousModel,
+          useGpu: previousUseGpu,
+        );
         rethrow;
       }
-      unawaited(widget.appController.prepareModel());
+      await widget.appController.prepareModel();
+      _throwIfModelPreparationFailed();
       if (!mounted) {
         return;
       }
@@ -50,7 +63,7 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
         ..showSnackBar(
           SnackBar(
             content: Text(
-              '已切换到 ${variant.displayName}，正在加载模型。',
+              '已切换到 ${variant.displayName}，本地模型已就绪。',
             ),
           ),
         );
@@ -65,13 +78,80 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
         );
     } finally {
       if (mounted) {
-        setState(() => _switchingModel = false);
+        setState(() => _switchingInference = false);
       }
     }
   }
 
+  Future<void> _setUseGpu(bool useGpu) async {
+    if (_switchingInference ||
+        useGpu == widget.developerSettingsController.useGpu) {
+      return;
+    }
+
+    final modelVariant =
+        widget.developerSettingsController.modelVariant;
+    final previous = widget.developerSettingsController.useGpu;
+    setState(() => _switchingInference = true);
+    try {
+      await widget.appController.switchInferenceConfiguration(
+        modelVariant: modelVariant,
+        useGpu: useGpu,
+      );
+      try {
+        await widget.developerSettingsController.updateInferenceSettings(
+          modelVariant: modelVariant,
+          useGpu: useGpu,
+        );
+      } catch (error) {
+        await widget.appController.switchInferenceConfiguration(
+          modelVariant: modelVariant,
+          useGpu: previous,
+        );
+        rethrow;
+      }
+      await widget.appController.prepareModel();
+      _throwIfModelPreparationFailed();
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              useGpu
+                  ? '已启用 GPU 推理，本地模型已就绪。'
+                  : '已切换为 CPU 推理，本地模型已就绪。',
+            ),
+          ),
+        );
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text('推理设备切换失败：$error')),
+        );
+    } finally {
+      if (mounted) {
+        setState(() => _switchingInference = false);
+      }
+    }
+  }
+
+  void _throwIfModelPreparationFailed() {
+    if (widget.appController.modelState == ModelRuntimeState.error) {
+      throw StateError(
+        widget.appController.lastError ?? '模型加载失败，请切换推理配置后重试。',
+      );
+    }
+  }
+
   Future<void> _disableDeveloperMode() async {
-    if (_switchingModel ||
+    if (_switchingInference ||
         _closingDeveloperMode ||
         widget.appController.recognizing) {
       return;
@@ -127,7 +207,7 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                           _ModelVariantTile(
                             variant: variant,
                             selected: selected == variant,
-                            enabled: !_switchingModel &&
+                            enabled: !_switchingInference &&
                                 !_closingDeveloperMode &&
                                 !widget.appController.recognizing,
                             onTap: () => _selectModel(variant),
@@ -136,6 +216,30 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                             const Divider(height: 1),
                         ],
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    '推理设备',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 10),
+                  Card(
+                    child: SwitchListTile(
+                      secondary: const Icon(Icons.memory_rounded),
+                      title: const Text('使用 GPU 推理'),
+                      subtitle: const Text(
+                        'FP32 和 W8A16 均可请求 GPU；初始化超过 20 秒会提示失败，'
+                        '此时可关闭 GPU 或切换模型。',
+                      ),
+                      value: widget.developerSettingsController.useGpu,
+                      onChanged: !_switchingInference &&
+                              !_closingDeveloperMode &&
+                              !widget.appController.recognizing
+                          ? (useGpu) {
+                              unawaited(_setUseGpu(useGpu));
+                            }
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -183,10 +287,10 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                       secondary: const Icon(Icons.developer_mode_outlined),
                       title: const Text('启用开发者选项'),
                       subtitle: const Text(
-                        '关闭后保留当前推理模型；再次连续点击版本号 7 次可重新启用。',
+                        '关闭后保留当前推理模型和设备设置；再次连续点击版本号 7 次可重新启用。',
                       ),
                       value: true,
-                      onChanged: !_switchingModel &&
+                      onChanged: !_switchingInference &&
                               !_closingDeveloperMode &&
                               !widget.appController.recognizing
                           ? (enabled) {
@@ -197,7 +301,7 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                           : null,
                     ),
                   ),
-                  if (_switchingModel) ...<Widget>[
+                  if (_switchingInference) ...<Widget>[
                     const SizedBox(height: 20),
                     const Center(child: CircularProgressIndicator()),
                   ],

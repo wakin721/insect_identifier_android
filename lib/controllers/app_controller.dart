@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../models/model_variant.dart';
+import '../models/recognition_prediction.dart';
 import '../models/recognition_record.dart';
 import '../repositories/history_repository.dart';
 import '../repositories/taxonomy_repository.dart';
@@ -10,16 +11,25 @@ import '../services/insect_classifier.dart';
 
 enum ModelRuntimeState { idle, loading, ready, error }
 
+class RecognitionCancelledException implements Exception {
+  const RecognitionCancelledException();
+
+  @override
+  String toString() => '识别已取消';
+}
+
 class AppController extends ChangeNotifier {
   AppController({
     required this.taxonomy,
     required HistoryRepository historyRepository,
     required InsectClassifierFactory classifierFactory,
     ModelVariant initialModelVariant = ModelVariant.fp32,
+    bool initialUseGpu = true,
   })  : _historyRepository = historyRepository,
         _classifierFactory = classifierFactory,
         _modelVariant = initialModelVariant,
-        _classifier = classifierFactory(initialModelVariant);
+        _useGpu = initialUseGpu,
+        _classifier = classifierFactory(initialModelVariant, initialUseGpu);
 
   final TaxonomyRepository taxonomy;
   final HistoryRepository _historyRepository;
@@ -31,7 +41,11 @@ class AppController extends ChangeNotifier {
   bool _recognizing = false;
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
   Future<void>? _modelPreparation;
+  int _configurationGeneration = 0;
+  int _recognitionGeneration = 0;
+  Completer<void>? _recognitionCancellation;
   ModelVariant _modelVariant;
+  bool _useGpu;
   String? _lastError;
 
   List<RecognitionRecord> get history => _history;
@@ -39,6 +53,7 @@ class AppController extends ChangeNotifier {
   bool get recognizing => _recognizing;
   ModelRuntimeState get modelState => _modelState;
   ModelVariant get modelVariant => _modelVariant;
+  bool get useGpu => _useGpu;
   String? get lastError => _lastError;
 
   Future<void> initialize() async {
@@ -62,18 +77,37 @@ class AppController extends ChangeNotifier {
       throw StateError('已有识别任务正在运行。');
     }
 
+    final classifier = _classifier;
+    final generation = ++_recognitionGeneration;
+    final cancellation = Completer<void>();
+    _recognitionCancellation = cancellation;
     _recognizing = true;
     _modelState = ModelRuntimeState.loading;
     _lastError = null;
     notifyListeners();
 
+    final classification = Future<List<RecognitionPrediction>>.sync(
+      () => classifier.classify(croppedImage),
+    );
     try {
-      final predictions = await _classifier.classify(croppedImage);
-      _modelState = ModelRuntimeState.ready;
+      final predictions = await Future.any(
+        <Future<List<RecognitionPrediction>>>[
+          classification,
+          cancellation.future.then<List<RecognitionPrediction>>(
+            (_) => throw const RecognitionCancelledException(),
+          ),
+        ],
+      );
+      _throwIfRecognitionCancelled(generation, classifier);
       final record = await _historyRepository.save(
         imageBytes: croppedImage,
         predictions: predictions,
       );
+      if (!_isActiveRecognition(generation, classifier)) {
+        await _deleteCancelledRecord(record);
+        throw const RecognitionCancelledException();
+      }
+      _modelState = ModelRuntimeState.ready;
       _history = List<RecognitionRecord>.unmodifiable(
         <RecognitionRecord>[
           record,
@@ -82,13 +116,80 @@ class AppController extends ChangeNotifier {
       );
       return record;
     } catch (error) {
+      if (!_isActiveRecognition(generation, classifier) ||
+          error is RecognitionCancelledException) {
+        throw const RecognitionCancelledException();
+      }
       _modelState = ModelRuntimeState.error;
       _lastError = error.toString();
       rethrow;
     } finally {
-      _recognizing = false;
-      notifyListeners();
+      if (!identical(classifier, _classifier)) {
+        unawaited(_disposeClassifierAfter(classification, classifier));
+      }
+      if (generation == _recognitionGeneration) {
+        _recognitionCancellation = null;
+        _recognizing = false;
+        notifyListeners();
+      }
     }
+  }
+
+  bool cancelRecognition() {
+    if (!_recognizing) {
+      return false;
+    }
+
+    final cancellation = _recognitionCancellation;
+    _recognitionGeneration += 1;
+    _configurationGeneration += 1;
+    _modelPreparation = null;
+    _classifier = _classifierFactory(_modelVariant, _useGpu);
+    _recognitionCancellation = null;
+    _recognizing = false;
+    _modelState = ModelRuntimeState.idle;
+    _lastError = null;
+    cancellation?.complete();
+    notifyListeners();
+    return true;
+  }
+
+  bool _isActiveRecognition(
+    int generation,
+    InsectClassifier classifier,
+  ) {
+    return _recognizing &&
+        generation == _recognitionGeneration &&
+        identical(classifier, _classifier);
+  }
+
+  void _throwIfRecognitionCancelled(
+    int generation,
+    InsectClassifier classifier,
+  ) {
+    if (!_isActiveRecognition(generation, classifier)) {
+      throw const RecognitionCancelledException();
+    }
+  }
+
+  Future<void> _deleteCancelledRecord(RecognitionRecord record) async {
+    try {
+      await _historyRepository.delete(record);
+    } catch (_) {
+      // Cancellation must remain silent even if best-effort cleanup fails.
+    }
+  }
+
+  Future<void> _disposeClassifierAfter(
+    Future<List<RecognitionPrediction>> operation,
+    InsectClassifier classifier,
+  ) async {
+    try {
+      await operation;
+    } catch (_) {
+      // The abandoned operation can fail while its model is being retired.
+    }
+    await _disposeClassifier(classifier);
   }
 
   Future<void> prepareModel({
@@ -107,12 +208,22 @@ class AppController extends ChangeNotifier {
       return activePreparation;
     }
 
-    final preparation = _prepareModel(delayBeforeLoad);
+    final generation = _configurationGeneration;
+    final classifier = _classifier;
+    final preparation = _prepareModel(
+      delayBeforeLoad,
+      classifier,
+      generation,
+    );
     _modelPreparation = preparation;
     return preparation;
   }
 
-  Future<void> _prepareModel(Duration delayBeforeLoad) async {
+  Future<void> _prepareModel(
+    Duration delayBeforeLoad,
+    InsectClassifier classifier,
+    int generation,
+  ) async {
     _modelState = ModelRuntimeState.loading;
     _lastError = null;
     notifyListeners();
@@ -120,43 +231,71 @@ class AppController extends ChangeNotifier {
       if (delayBeforeLoad > Duration.zero) {
         await Future<void>.delayed(delayBeforeLoad);
       }
-      await _classifier.load();
-      if (!_recognizing) {
+      await classifier.load();
+      if (generation == _configurationGeneration && !_recognizing) {
         _modelState = ModelRuntimeState.ready;
       }
     } catch (error) {
-      _modelState = ModelRuntimeState.error;
-      _lastError = '模型预加载失败：$error';
+      if (generation == _configurationGeneration) {
+        _modelState = ModelRuntimeState.error;
+        _lastError = '模型预加载失败：$error';
+      }
     } finally {
-      _modelPreparation = null;
-      notifyListeners();
+      if (generation == _configurationGeneration) {
+        _modelPreparation = null;
+        notifyListeners();
+      }
     }
   }
 
   Future<void> switchModelVariant(ModelVariant variant) async {
-    if (variant == _modelVariant) {
+    await switchInferenceConfiguration(
+      modelVariant: variant,
+      useGpu: _useGpu,
+    );
+  }
+
+  Future<void> switchUseGpu(bool useGpu) async {
+    await switchInferenceConfiguration(
+      modelVariant: _modelVariant,
+      useGpu: useGpu,
+    );
+  }
+
+  Future<void> switchInferenceConfiguration({
+    required ModelVariant modelVariant,
+    required bool useGpu,
+  }) async {
+    final configurationUnchanged =
+        modelVariant == _modelVariant && useGpu == _useGpu;
+    if (configurationUnchanged &&
+        _modelState != ModelRuntimeState.error) {
       return;
     }
     if (_recognizing) {
-      throw StateError('识别进行中，暂时无法切换模型。');
-    }
-
-    final activePreparation = _modelPreparation;
-    if (activePreparation != null) {
-      await activePreparation;
-    }
-    if (_recognizing) {
-      throw StateError('识别进行中，暂时无法切换模型。');
+      throw StateError('识别进行中，暂时无法切换推理配置。');
     }
 
     final previousClassifier = _classifier;
-    _classifier = _classifierFactory(variant);
-    _modelVariant = variant;
+    _configurationGeneration += 1;
     _modelPreparation = null;
+    _classifier = _classifierFactory(modelVariant, useGpu);
+    _modelVariant = modelVariant;
+    _useGpu = useGpu;
     _modelState = ModelRuntimeState.idle;
     _lastError = null;
     notifyListeners();
-    await previousClassifier.dispose();
+    unawaited(_disposeClassifier(previousClassifier));
+  }
+
+  Future<void> _disposeClassifier(InsectClassifier classifier) async {
+    try {
+      await classifier.dispose().timeout(const Duration(seconds: 5));
+    } catch (_) {
+      // A failed native delegate can also stall during disposal. The active
+      // classifier has already been replaced, so cleanup must not block the
+      // user from selecting and loading another configuration.
+    }
   }
 
   Future<void> deleteRecord(RecognitionRecord record) async {
@@ -180,7 +319,7 @@ class AppController extends ChangeNotifier {
 
   @override
   void dispose() {
-    unawaited(_classifier.dispose());
+    unawaited(_disposeClassifier(_classifier));
     super.dispose();
   }
 }
