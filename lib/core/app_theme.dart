@@ -62,7 +62,8 @@ class AppTheme {
       cardTheme: CardThemeData(
         clipBehavior: Clip.antiAlias,
         color: cardBackground,
-        elevation: 1,
+        elevation: 0,
+        shadowColor: Colors.transparent,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

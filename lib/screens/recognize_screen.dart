@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -37,9 +38,9 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
       final selected = await _imagePicker.pickImage(
         source: source,
         preferredCameraDevice: CameraDevice.rear,
-        maxWidth: 2048,
-        maxHeight: 2048,
-        imageQuality: 95,
+        maxWidth: 1600,
+        maxHeight: 1600,
+        imageQuality: 92,
       );
       if (selected == null || !mounted) {
         return;
@@ -50,16 +51,22 @@ class _RecognizeScreenState extends State<RecognizeScreen> {
         return;
       }
 
-      final croppedBytes = await Navigator.of(context).push<Uint8List>(
+      final cropResult = Navigator.of(context).push<Uint8List>(
         MaterialPageRoute<Uint8List>(
           builder: (context) => CropScreen(imageBytes: sourceBytes),
         ),
       );
+      await WidgetsBinding.instance.endOfFrame;
+      unawaited(widget.controller.prepareModel());
+
+      final croppedBytes = await cropResult;
       if (croppedBytes == null || !mounted) {
         return;
       }
 
-      setState(() => _selectingImage = false);
+      // Let the busy state paint after the crop route closes before native
+      // image decoding and inference begin.
+      await WidgetsBinding.instance.endOfFrame;
       final record = await widget.controller.recognize(croppedBytes);
       if (!mounted) {
         return;
@@ -224,12 +231,8 @@ class _TipsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(20),
-      ),
+    return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(

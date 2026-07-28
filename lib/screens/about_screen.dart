@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/app_info.dart';
 import '../models/taxon_info.dart';
+import 'license_screen.dart';
 import 'model_labels_screen.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -116,19 +117,30 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const _SectionTitle('技术与许可'),
             const SizedBox(height: 10),
-            const Card(
+            Card(
               child: Column(
                 children: <Widget>[
-                  ListTile(
+                  const ListTile(
                     leading: Icon(Icons.code_outlined),
                     title: Text('主要技术'),
                     subtitle: Text('Flutter · Material 3 · Ultralytics YOLO · LiteRT'),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   ListTile(
-                    leading: Icon(Icons.description_outlined),
-                    title: Text('许可提示'),
-                    subtitle: Text('公开分发或商业使用前，请核对所用组件与模型的许可要求'),
+                    leading: const Icon(Icons.balance_outlined),
+                    title: const Text('GNU AGPL-3.0'),
+                    subtitle: const Text(
+                      'Copyright © 2026 wakin721 and contributors · '
+                      '本程序不提供任何担保',
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const LicenseScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -158,17 +170,14 @@ class _AppHeader extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Container(
-          width: 88,
-          height: 88,
-          decoration: BoxDecoration(
-            color: colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(26),
-          ),
-          child: Icon(
-            Icons.bug_report_rounded,
-            size: 48,
-            color: colorScheme.onPrimaryContainer,
+        ClipOval(
+          child: Image.asset(
+            'assets/images/app_icon.png',
+            semanticLabel: '虫鉴应用图标',
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.high,
+            width: 88,
+            height: 88,
           ),
         ),
         const SizedBox(height: 16),

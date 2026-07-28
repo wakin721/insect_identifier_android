@@ -25,6 +25,7 @@ class AppController extends ChangeNotifier {
   bool _historyLoading = true;
   bool _recognizing = false;
   ModelRuntimeState _modelState = ModelRuntimeState.idle;
+  Future<void>? _modelPreparation;
   String? _lastError;
 
   List<RecognitionRecord> get history => _history;
@@ -79,6 +80,43 @@ class AppController extends ChangeNotifier {
       rethrow;
     } finally {
       _recognizing = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> prepareModel() {
+    if (_classifier.isLoaded) {
+      if (_modelState != ModelRuntimeState.ready) {
+        _modelState = ModelRuntimeState.ready;
+        notifyListeners();
+      }
+      return Future<void>.value();
+    }
+
+    final activePreparation = _modelPreparation;
+    if (activePreparation != null) {
+      return activePreparation;
+    }
+
+    final preparation = _prepareModel();
+    _modelPreparation = preparation;
+    return preparation;
+  }
+
+  Future<void> _prepareModel() async {
+    _modelState = ModelRuntimeState.loading;
+    _lastError = null;
+    notifyListeners();
+    try {
+      await _classifier.load();
+      if (!_recognizing) {
+        _modelState = ModelRuntimeState.ready;
+      }
+    } catch (error) {
+      _modelState = ModelRuntimeState.error;
+      _lastError = '模型预加载失败：$error';
+    } finally {
+      _modelPreparation = null;
       notifyListeners();
     }
   }
