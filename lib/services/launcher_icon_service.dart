@@ -19,7 +19,11 @@ class LauncherIconService {
     0xff7a5900: 'gold',
   };
 
-  static Future<void> synchronize({
+  /// Records the desired launcher icon without changing Android components
+  /// while the app is visible. Android applies the pending icon after the
+  /// activity has moved to the background, avoiding an abrupt app exit on
+  /// launchers that restart the task when an activity alias is disabled.
+  static Future<void> schedule({
     required bool useDynamicColor,
     required Color seedColor,
   }) async {
@@ -29,13 +33,19 @@ class LauncherIconService {
 
     try {
       await _channel.invokeMethod<void>(
-        'setLauncherIcon',
+        'scheduleLauncherIcon',
         <String, Object>{'alias': alias},
       );
     } on MissingPluginException {
       // Unit tests and non-Android hosts do not register the platform channel.
     } on PlatformException catch (error) {
-      debugPrint('Unable to synchronize launcher icon: $error');
+      debugPrint('Unable to schedule launcher icon: $error');
     }
   }
+
+  /// Kept for compatibility with older callers. Icon changes are deferred.
+  static Future<void> synchronize({
+    required bool useDynamicColor,
+    required Color seedColor,
+  }) => schedule(useDynamicColor: useDynamicColor, seedColor: seedColor);
 }
