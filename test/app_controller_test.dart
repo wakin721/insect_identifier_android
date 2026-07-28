@@ -50,12 +50,12 @@ void main() {
     );
 
     expect(controller.modelVariant, ModelVariant.fp32);
-    await controller.switchModelVariant(ModelVariant.w8a32);
+    await controller.switchModelVariant(ModelVariant.w8a16);
 
-    expect(controller.modelVariant, ModelVariant.w8a32);
+    expect(controller.modelVariant, ModelVariant.w8a16);
     expect(controller.modelState, ModelRuntimeState.idle);
     expect(classifiers[ModelVariant.fp32]!.disposeCalls, 1);
-    expect(classifiers[ModelVariant.w8a32]!.disposeCalls, 0);
+    expect(classifiers[ModelVariant.w8a16]!.disposeCalls, 0);
     controller.dispose();
   });
 }

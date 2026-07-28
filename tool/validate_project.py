@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "assets/data/taxonomy_zh.json",
     "assets/images/app_icon.png",
     "assets/models/.gitkeep",
+    "calibration/calibration_manifest.json",
     "android/app/build.gradle.kts",
     "android/app/src/main/AndroidManifest.xml",
     "android/app/src/main/kotlin/top/myneri/insectidentifier/MainActivity.kt",
@@ -40,10 +41,12 @@ REQUIRED_FILES = [
     "test/app_controller_test.dart",
     "test/about_screen_test.dart",
     "test/classification_output_parser_test.dart",
+    "test/build_calibration_dataset_test.py",
     "test/developer_settings_test.dart",
     "test/history_repository_test.dart",
     "test/model_status_banner_test.dart",
     "tool/export_model.py",
+    "tool/build_calibration_dataset.py",
     "tool/generate_launcher_icons.py",
 ]
 DISALLOWED_PLATFORM_DIRECTORIES = ["ios", "linux", "macos", "web", "windows"]
@@ -133,6 +136,139 @@ def validate_taxonomy() -> int:
                 fail(f"Taxonomy class {entry['class_index']} has invalid {field!r}.")
 
     return len(classes)
+
+
+def validate_calibration_dataset() -> tuple[int, int, str]:
+    taxonomy_path = ROOT / "assets/data/taxonomy_zh.json"
+    taxonomy = json.loads(taxonomy_path.read_text(encoding="utf-8"))
+    labels = [entry["model_label"] for entry in taxonomy["classes"]]
+    calibration_root = (ROOT / "calibration").resolve()
+    manifest_path = calibration_root / "calibration_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    if manifest.get("taxonomy_sha256") != sha256(taxonomy_path):
+        fail("Calibration manifest was built from a different taxonomy.")
+    if manifest.get("class_count") != EXPECTED_CLASS_COUNT:
+        fail("Calibration manifest has an unexpected class count.")
+    requested_per_class = manifest.get("requested_val_images_per_class")
+    if not isinstance(requested_per_class, int) or requested_per_class <= 0:
+        fail("Calibration manifest has an invalid per-class image count.")
+
+    manifest_classes = manifest.get("classes")
+    if not isinstance(manifest_classes, list):
+        fail("Calibration manifest must contain a classes array.")
+    if len(manifest_classes) != EXPECTED_CLASS_COUNT:
+        fail("Calibration manifest does not contain every taxonomy class.")
+
+    for split in ("train", "val"):
+        split_root = calibration_root / split
+        if not split_root.is_dir():
+            fail(f"Calibration dataset is missing the {split!r} directory.")
+        directory_labels = sorted(
+            path.name for path in split_root.iterdir() if path.is_dir()
+        )
+        if directory_labels != sorted(labels):
+            fail(
+                f"Calibration {split} class directories differ from taxonomy labels."
+            )
+
+    expected_outputs: set[str] = set()
+    dataset_digest = hashlib.sha256()
+    train_count = 0
+    val_count = 0
+    for expected_index, item in enumerate(manifest_classes):
+        if not isinstance(item, dict):
+            fail("Every calibration manifest class must be an object.")
+        expected_label = labels[expected_index]
+        if (
+            item.get("class_index") != expected_index
+            or item.get("model_label") != expected_label
+        ):
+            fail(
+                f"Calibration class {expected_index} does not match taxonomy."
+            )
+
+        train_entries = item.get("train")
+        val_entries = item.get("val")
+        if not isinstance(train_entries, list) or len(train_entries) != 1:
+            fail(f"Calibration class {expected_label!r} needs 1 train image.")
+        if (
+            not isinstance(val_entries, list)
+            or len(val_entries) != requested_per_class
+        ):
+            fail(
+                f"Calibration class {expected_label!r} needs "
+                f"{requested_per_class} val images."
+            )
+
+        for split, entries in (("train", train_entries), ("val", val_entries)):
+            for entry in entries:
+                if not isinstance(entry, dict):
+                    fail("Every calibration image entry must be an object.")
+                relative_text = entry.get("output")
+                expected_hash = entry.get("sha256")
+                if not isinstance(relative_text, str) or not isinstance(
+                    expected_hash, str
+                ):
+                    fail("Calibration image entries require output and sha256.")
+                relative_path = Path(relative_text)
+                image_path = (calibration_root / relative_path).resolve()
+                if (
+                    not image_path.is_relative_to(calibration_root)
+                    or relative_path.parts[:2] != (split, expected_label)
+                ):
+                    fail(f"Invalid calibration image path: {relative_text}")
+                if relative_text in expected_outputs:
+                    fail(f"Duplicate calibration output path: {relative_text}")
+                if not image_path.is_file():
+                    fail(f"Missing calibration image: {relative_text}")
+                actual_hash = sha256(image_path)
+                if actual_hash != expected_hash:
+                    fail(f"Calibration image hash mismatch: {relative_text}")
+
+                expected_outputs.add(relative_path.as_posix())
+                dataset_digest.update(split.encode("utf-8"))
+                dataset_digest.update(b"\0")
+                dataset_digest.update(relative_path.as_posix().encode("utf-8"))
+                dataset_digest.update(b"\0")
+                dataset_digest.update(expected_hash.encode("ascii"))
+                dataset_digest.update(b"\n")
+                if split == "train":
+                    train_count += 1
+                else:
+                    val_count += 1
+
+    image_suffixes = {
+        ".bmp",
+        ".jpeg",
+        ".jpg",
+        ".png",
+        ".tif",
+        ".tiff",
+        ".webp",
+    }
+    actual_outputs = {
+        path.relative_to(calibration_root).as_posix()
+        for split in ("train", "val")
+        for path in (calibration_root / split).rglob("*")
+        if path.is_file() and path.suffix.lower() in image_suffixes
+    }
+    if actual_outputs != expected_outputs:
+        missing = sorted(expected_outputs - actual_outputs)
+        unexpected = sorted(actual_outputs - expected_outputs)
+        fail(
+            "Calibration images differ from the manifest: "
+            f"missing={missing[:5]}, unexpected={unexpected[:5]}"
+        )
+
+    digest = dataset_digest.hexdigest()
+    if manifest.get("dataset_sha256") != digest:
+        fail(f"Unexpected calibration dataset SHA-256: {digest}")
+    if manifest.get("train_image_count") != train_count:
+        fail("Calibration manifest has an incorrect train image count.")
+    if manifest.get("val_image_count") != val_count:
+        fail("Calibration manifest has an incorrect val image count.")
+    return train_count, val_count, digest
 
 
 def validate_model() -> str:
@@ -288,7 +424,7 @@ def validate_build_configuration() -> None:
         if f"{package}:" not in pubspec:
             fail(f"pubspec.yaml is missing dependency {package!r}.")
     if "ai-edge-quantizer==0.8.0" not in export_requirements:
-        fail("requirements-export.txt must pin the W8A32 quantizer.")
+        fail("requirements-export.txt must pin the W8A16 quantizer.")
 
     pubspec_version = re.search(
         r"^version:\s*(?P<version>\d+\.\d+\.\d+)\+(?P<build>\d+)\s*$",
@@ -313,11 +449,14 @@ def validate_build_configuration() -> None:
 
     workflow_requirements = [
         "python tool/validate_project.py",
+        "python -m unittest test/build_calibration_dataset_test.py",
         "python tool/export_model.py",
         "--quantize fp32",
-        "--quantize w8a32",
+        "--quantize w8a16",
+        "--data calibration",
+        "hashFiles('models/best.pt', 'assets/data/taxonomy_zh.json', 'calibration/**/*'",
         "assets/models/insect_classifier_fp32.tflite",
-        "assets/models/insect_classifier_w8a32.tflite",
+        "assets/models/insect_classifier_w8a16.tflite",
         "flutter analyze",
         "flutter test",
         "flutter build apk --release --split-per-abi",
@@ -342,6 +481,9 @@ def validate_build_configuration() -> None:
 def main() -> int:
     validate_required_files()
     class_count = validate_taxonomy()
+    calibration_train_count, calibration_val_count, calibration_digest = (
+        validate_calibration_dataset()
+    )
     digest = validate_model()
     dart_count = validate_dart_sources()
     xml_count = validate_android_xml()
@@ -353,6 +495,11 @@ def main() -> int:
         f"{class_count} taxonomy classes, {dart_count} Dart files, "
         f"{xml_count} Android XML files, and {icon_count} launcher icons."
     )
+    print(
+        "Calibration images: "
+        f"{calibration_train_count} train, {calibration_val_count} val"
+    )
+    print(f"Calibration SHA-256: {calibration_digest}")
     print(f"Checkpoint SHA-256: {digest}")
     return 0
 

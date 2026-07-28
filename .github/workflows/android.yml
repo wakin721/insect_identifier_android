@@ -42,14 +42,17 @@ jobs:
       - name: Validate repository inputs
         run: python tool/validate_project.py
 
+      - name: Test calibration dataset builder
+        run: python -m unittest test/build_calibration_dataset_test.py
+
       - name: Restore exported LiteRT model
         id: model-cache
         uses: actions/cache@v5
         with:
           path: |
             assets/models/insect_classifier_fp32.tflite
-            assets/models/insect_classifier_w8a32.tflite
-          key: litert-dual-v1-${{ runner.os }}-${{ hashFiles('models/best.pt', 'assets/data/taxonomy_zh.json', 'tool/export_model.py', 'requirements-export.txt') }}
+            assets/models/insect_classifier_w8a16.tflite
+          key: litert-dual-v3-calibration-${{ runner.os }}-${{ hashFiles('models/best.pt', 'assets/data/taxonomy_zh.json', 'calibration/**/*', 'tool/export_model.py', 'requirements-export.txt') }}
 
       - name: Install model export dependencies
         if: steps.model-cache.outputs.cache-hit != 'true'
@@ -68,14 +71,15 @@ jobs:
             --imgsz 416
           python tool/export_model.py \
             --input models/best.pt \
-            --output assets/models/insect_classifier_w8a32.tflite \
-            --quantize w8a32 \
+            --output assets/models/insect_classifier_w8a16.tflite \
+            --quantize w8a16 \
+            --data calibration \
             --imgsz 416
 
       - name: Verify exported models exist
         run: |
           test -s assets/models/insect_classifier_fp32.tflite
-          test -s assets/models/insect_classifier_w8a32.tflite
+          test -s assets/models/insect_classifier_w8a16.tflite
 
       - name: Set up Java 17
         uses: actions/setup-java@v5
@@ -125,4 +129,4 @@ jobs:
             build/app/outputs/flutter-apk/*-release.apk
             build/app/outputs/bundle/release/app-release.aab
             assets/models/insect_classifier_fp32.tflite
-            assets/models/insect_classifier_w8a32.tflite
+            assets/models/insect_classifier_w8a16.tflite

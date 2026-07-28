@@ -23,6 +23,7 @@ class DeveloperOptionsScreen extends StatefulWidget {
 
 class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
   bool _switchingModel = false;
+  bool _closingDeveloperMode = false;
 
   Future<void> _selectModel(ModelVariant variant) async {
     if (_switchingModel ||
@@ -69,6 +70,35 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
     }
   }
 
+  Future<void> _disableDeveloperMode() async {
+    if (_switchingModel ||
+        _closingDeveloperMode ||
+        widget.appController.recognizing) {
+      return;
+    }
+
+    setState(() => _closingDeveloperMode = true);
+    try {
+      await widget.developerSettingsController.disableDeveloperMode();
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text('关闭开发者选项失败：$error')),
+        );
+    } finally {
+      if (mounted) {
+        setState(() => _closingDeveloperMode = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +128,7 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                             variant: variant,
                             selected: selected == variant,
                             enabled: !_switchingModel &&
+                                !_closingDeveloperMode &&
                                 !widget.appController.recognizing,
                             onTap: () => _selectModel(variant),
                           ),
@@ -124,7 +155,8 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
-                              'W8A32 可减小模型体积，但速度与精度会因设备而异。'
+                              'W8A16 使用校准后的 INT16 激活，可减小模型体积，'
+                              '但速度与精度会因校准数据和设备而异。'
                               '更改选项不会删除识别历史。',
                               style: Theme.of(context)
                                   .textTheme
@@ -138,6 +170,31 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    '开发者模式',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 10),
+                  Card(
+                    child: SwitchListTile(
+                      secondary: const Icon(Icons.developer_mode_outlined),
+                      title: const Text('启用开发者选项'),
+                      subtitle: const Text(
+                        '关闭后保留当前推理模型；再次连续点击版本号 7 次可重新启用。',
+                      ),
+                      value: true,
+                      onChanged: !_switchingModel &&
+                              !_closingDeveloperMode &&
+                              !widget.appController.recognizing
+                          ? (enabled) {
+                              if (!enabled) {
+                                unawaited(_disableDeveloperMode());
+                              }
+                            }
+                          : null,
                     ),
                   ),
                   if (_switchingModel) ...<Widget>[
@@ -181,7 +238,6 @@ class _ModelVariantTile extends StatelessWidget {
       ),
       title: Text(variant.displayName),
       subtitle: Text(variant.description),
-      trailing: selected ? const Text('当前') : null,
       onTap: enabled ? onTap : null,
     );
   }

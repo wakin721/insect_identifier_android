@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Export an Ultralytics classification checkpoint to an FP32 or "
-            "W8A32 LiteRT model consumed by the Android Flutter app."
+            "W8A16 LiteRT model consumed by the Android Flutter app."
         )
     )
     parser.add_argument(
@@ -38,9 +38,17 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--quantize",
-        choices=("fp32", "w8a32"),
+        choices=("fp32", "w8a16"),
         default="fp32",
         help="LiteRT model precision. FP32 is the application default.",
+    )
+    parser.add_argument(
+        "--data",
+        default="imagenet10",
+        help=(
+            "Classification dataset used to calibrate W8A16 activations. "
+            "Use representative insect images for release validation."
+        ),
     )
     parser.add_argument(
         "--taxonomy",
@@ -153,6 +161,8 @@ def main() -> int:
 
     if args.imgsz <= 0:
         raise ValueError("--imgsz must be a positive integer.")
+    if args.quantize == "w8a16" and not args.data.strip():
+        raise ValueError("--data must identify a calibration dataset for W8A16.")
     if not input_path.is_file():
         raise FileNotFoundError(f"Checkpoint not found: {input_path}")
     if not taxonomy_path.is_file():
@@ -182,6 +192,8 @@ def main() -> int:
     print(f"SHA-256:     {actual_hash}")
     print(f"Image size:  {args.imgsz} x {args.imgsz}")
     print(f"Precision:   {args.quantize.upper()}")
+    if args.quantize == "w8a16":
+        print(f"Calibration: {args.data}")
 
     model = YOLO(str(input_path))
     if model.task != "classify":
@@ -199,8 +211,9 @@ def main() -> int:
         "device": "cpu",
         "batch": 1,
     }
-    if args.quantize == "w8a32":
-        export_options["quantize"] = "w8a32"
+    if args.quantize == "w8a16":
+        export_options["quantize"] = "w8a16"
+        export_options["data"] = args.data
     exported = model.export(**export_options)
     exported_path = Path(str(exported)).resolve()
     if not exported_path.is_file():

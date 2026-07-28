@@ -1,0 +1,3235 @@
+{
+  "schema_version": 1,
+  "seed": 20260728,
+  "requested_val_images_per_class": 20,
+  "source_splits": [
+    "train"
+  ],
+  "taxonomy_sha256": "936078111984656b950ccbdee6c6f50aa896e1dbfc23e963f3764fd305298567",
+  "dataset_sha256": "c69a37e24d91efab388d72736b5d5a8ae44de8033d60c7d0e74b567d19ce5278",
+  "class_count": 28,
+  "train_image_count": 28,
+  "val_image_count": 560,
+  "classes": [
+    {
+      "class_index": 0,
+      "model_label": "Acrida cinerea",
+      "common_name": "中华剑角蝗",
+      "available_unique_images": 788,
+      "train": [
+        {
+          "output": "train/Acrida cinerea/0001_a48d2bdb1a3f4271.jpg",
+          "source": "train/Acrida cinerea/DSC03657.jpg",
+          "sha256": "a48d2bdb1a3f4271b9f8e85ff5fd640be4cc8072898e43bd70c0f7acf7c7227b"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Acrida cinerea/0001_044c2dccc11134d5.jpg",
+          "source": "train/Acrida cinerea/DSC03471.jpg",
+          "sha256": "044c2dccc11134d5846e4a315fd33c872594b8f3fc4d63c7f8771edc95715ad6"
+        },
+        {
+          "output": "val/Acrida cinerea/0002_0b6ec39c0d81ce90.jpg",
+          "source": "train/Acrida cinerea/DSC03951.jpg",
+          "sha256": "0b6ec39c0d81ce90e000d656fb3fab2520129e11bea886602dd9ed90645c629f"
+        },
+        {
+          "output": "val/Acrida cinerea/0003_aedaecf932b531db.jpg",
+          "source": "train/Acrida cinerea/DSC03602.jpg",
+          "sha256": "aedaecf932b531db71ca039f441009808b3ab1722fc5e4fb7cf6a4ca90db4599"
+        },
+        {
+          "output": "val/Acrida cinerea/0004_50485e4ca27943d1.jpg",
+          "source": "train/Acrida cinerea/DSC04019.jpg",
+          "sha256": "50485e4ca27943d1aba95e984959fecff1a4e1fd206e635bc0bc03032122a5f6"
+        },
+        {
+          "output": "val/Acrida cinerea/0005_2726770b0aaa342b.jpg",
+          "source": "train/Acrida cinerea/DSC04165.jpg",
+          "sha256": "2726770b0aaa342b6eb1c79f5611a3be56083fb58aaa729f2c3189e3e2d72237"
+        },
+        {
+          "output": "val/Acrida cinerea/0006_b6adced9dd2ad1a0.jpg",
+          "source": "train/Acrida cinerea/DSC03821.jpg",
+          "sha256": "b6adced9dd2ad1a00354ef8780b3316f592b023bab3cd23391f2f0213b9c953a"
+        },
+        {
+          "output": "val/Acrida cinerea/0007_c620d7e3b25859fd.jpg",
+          "source": "train/Acrida cinerea/DSC03985.jpg",
+          "sha256": "c620d7e3b25859fd7633e94dbd5735733a1d58da1d9415bf42d0cadb5ea8e585"
+        },
+        {
+          "output": "val/Acrida cinerea/0008_9ab1e453f4972fde.jpg",
+          "source": "train/Acrida cinerea/DSC03468.jpg",
+          "sha256": "9ab1e453f4972fdefb7995976e344e1d07308b271c6c8b80f1b579efd5683f90"
+        },
+        {
+          "output": "val/Acrida cinerea/0009_3248b8170ab6c6e4.jpg",
+          "source": "train/Acrida cinerea/DSC03566.jpg",
+          "sha256": "3248b8170ab6c6e4cbfd158fc5343e2cefed20ece8e921376a51b84f8f91d52c"
+        },
+        {
+          "output": "val/Acrida cinerea/0010_25d45adba33afc86.jpg",
+          "source": "train/Acrida cinerea/DSC03829.jpg",
+          "sha256": "25d45adba33afc86728cb02ed3ba5a843e1acbf2607ef1777e41fb2b3185521f"
+        },
+        {
+          "output": "val/Acrida cinerea/0011_e673f5c67843fd47.jpg",
+          "source": "train/Acrida cinerea/DSC03807.jpg",
+          "sha256": "e673f5c67843fd47598f96e9526788e9736a7acaacd2797e69bd07aec49e04a2"
+        },
+        {
+          "output": "val/Acrida cinerea/0012_9c4b7b665c77d0b5.jpg",
+          "source": "train/Acrida cinerea/DSC03843.jpg",
+          "sha256": "9c4b7b665c77d0b55edb47da52740b796fe2e6e95a3ab5c5ce5a69329acb2854"
+        },
+        {
+          "output": "val/Acrida cinerea/0013_22911e96e59a0056.jpg",
+          "source": "train/Acrida cinerea/DSC04004.jpg",
+          "sha256": "22911e96e59a0056e2fe63abf615f9e93a9158b3e6002f2021443fda61d9a8da"
+        },
+        {
+          "output": "val/Acrida cinerea/0014_ec732dc0a84d366b.jpg",
+          "source": "train/Acrida cinerea/DSC03982.jpg",
+          "sha256": "ec732dc0a84d366b4bd64c2fe6c042711660dd3d3424281e7f061d3e2678fb18"
+        },
+        {
+          "output": "val/Acrida cinerea/0015_374eedd94fb36d3f.jpg",
+          "source": "train/Acrida cinerea/DSC03601.jpg",
+          "sha256": "374eedd94fb36d3f51508ffeb2b7da4b82190aeede2cb8a4acb0cd7efe8ac1aa"
+        },
+        {
+          "output": "val/Acrida cinerea/0016_0f1b73255aebcb82.jpg",
+          "source": "train/Acrida cinerea/DSC03753.jpg",
+          "sha256": "0f1b73255aebcb82bcba6e3cda5e7494ba5089c35d805aa4fd74a1e18a123825"
+        },
+        {
+          "output": "val/Acrida cinerea/0017_094f78d906f163a2.jpg",
+          "source": "train/Acrida cinerea/DSC03547.jpg",
+          "sha256": "094f78d906f163a2f279d0b43d03e2eaa6299d1ef6d33184c52850b0c00bc603"
+        },
+        {
+          "output": "val/Acrida cinerea/0018_da9bf208ce7e22c1.jpg",
+          "source": "train/Acrida cinerea/DSC04006.jpg",
+          "sha256": "da9bf208ce7e22c1e6e6e14b7ad7160a8067d2df7a7e2948682c6193801cb33d"
+        },
+        {
+          "output": "val/Acrida cinerea/0019_b8d00997dc5ec231.jpg",
+          "source": "train/Acrida cinerea/DSC03866.jpg",
+          "sha256": "b8d00997dc5ec231d6cfb2cd4665325d5e24260c3fd049924dd6bf7716239b75"
+        },
+        {
+          "output": "val/Acrida cinerea/0020_1b26151722c469eb.jpg",
+          "source": "train/Acrida cinerea/DSC04173.jpg",
+          "sha256": "1b26151722c469ebc45b4d073e9e0cbf7e3015bb4bf788f2cdfb6db9874ed871"
+        }
+      ]
+    },
+    {
+      "class_index": 1,
+      "model_label": "Acrididae",
+      "common_name": "蝗科",
+      "available_unique_images": 2245,
+      "train": [
+        {
+          "output": "train/Acrididae/0001_eafc3a25e03de849.jpg",
+          "source": "train/Acrididae/DSC00158 (2).jpg",
+          "sha256": "eafc3a25e03de8491c517aff9ee8af8cd90d3f3acafeb27ec50f0cb7f0b14600"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Acrididae/0001_d40956ffd3a619fc.jpg",
+          "source": "train/Acrididae/DSC00469 (2).jpg",
+          "sha256": "d40956ffd3a619fce48314d07d3d149a584544a346bc7bac4ecf5005bd9fa945"
+        },
+        {
+          "output": "val/Acrididae/0002_20f901602ae26df8.jpg",
+          "source": "train/Acrididae/DSC00221 (2).jpg",
+          "sha256": "20f901602ae26df8f12b56dd84055e7be9e0977c94b682249608d3ea10b5241e"
+        },
+        {
+          "output": "val/Acrididae/0003_0db63286854d2974.jpg",
+          "source": "train/Acrididae/DSC00667 (2).jpg",
+          "sha256": "0db63286854d29742e67109a093bc03de76222e219adf45b4f91f8d4fa86ab09"
+        },
+        {
+          "output": "val/Acrididae/0004_46a6108526c0e366.jpg",
+          "source": "train/Acrididae/DSC00999 (2).jpg",
+          "sha256": "46a6108526c0e3666af6ba09c68f5ebbe2a17453abb585ed067f79eae766dac0"
+        },
+        {
+          "output": "val/Acrididae/0005_26f460124ba070da.jpg",
+          "source": "train/Acrididae/DSC01114 (2).jpg",
+          "sha256": "26f460124ba070da8f74c9d0bdd610bf02fde4225341d16de713ddfaa2733f72"
+        },
+        {
+          "output": "val/Acrididae/0006_aa6d9be3d9bbd65c.jpg",
+          "source": "train/Acrididae/DSC04604.jpg",
+          "sha256": "aa6d9be3d9bbd65cc1278734836be645c0799d079610e32b7f6e7b2686e9cd11"
+        },
+        {
+          "output": "val/Acrididae/0007_8a1da251a2e1fd74.jpg",
+          "source": "train/Acrididae/DSC00389 (2).jpg",
+          "sha256": "8a1da251a2e1fd746eb6555f477b6ab21648bacb19a856ce6a15a210cf03f633"
+        },
+        {
+          "output": "val/Acrididae/0008_ccb63532cf3c7841.jpg",
+          "source": "train/Acrididae/DSC00487 (2).jpg",
+          "sha256": "ccb63532cf3c7841a9417851bd32bae7e2bebd8c14501cb64079750505b9c11d"
+        },
+        {
+          "output": "val/Acrididae/0009_dfda250f7b21317f.jpg",
+          "source": "train/Acrididae/DSC01907 (2).jpg",
+          "sha256": "dfda250f7b21317f459467322c6ed55cc6b1724d672481d4c24e55e2b1812925"
+        },
+        {
+          "output": "val/Acrididae/0010_d4ef3d8a77605373.jpg",
+          "source": "train/Acrididae/DSC04766.jpg",
+          "sha256": "d4ef3d8a776053737fa714121be0aa4057f3676df45dbb364466d6ae7a6a8f60"
+        },
+        {
+          "output": "val/Acrididae/0011_9c4500a8871dc2fb.jpg",
+          "source": "train/Acrididae/DSC00140 (2).jpg",
+          "sha256": "9c4500a8871dc2fb35ca14ec5f6656fa7d17cf5a5c72be73d8a847312139f468"
+        },
+        {
+          "output": "val/Acrididae/0012_937c73a1aeb25a5a.jpg",
+          "source": "train/Acrididae/DSC04850.jpg",
+          "sha256": "937c73a1aeb25a5a8aac9a6e7e73e9d147e4e315942dd17eb7dfe0e7d187bbdd"
+        },
+        {
+          "output": "val/Acrididae/0013_21cd03281975bb9f.jpg",
+          "source": "train/Acrididae/DSC00455 (2).jpg",
+          "sha256": "21cd03281975bb9fc087a2edadc240080cd69382558303225aced249dd7893a7"
+        },
+        {
+          "output": "val/Acrididae/0014_d4f35620cd988f4e.jpg",
+          "source": "train/Acrididae/DSC00422 (2).jpg",
+          "sha256": "d4f35620cd988f4e468ed1c6f687983dfedebd1b9d7f1ae6c75e10ba4e4e6412"
+        },
+        {
+          "output": "val/Acrididae/0015_463659a416210628.jpg",
+          "source": "train/Acrididae/DSC00515 (2).jpg",
+          "sha256": "463659a4162106280e6ccefcaae943c26c93aeb7c38a1a83c5c05fd7a0fc3d41"
+        },
+        {
+          "output": "val/Acrididae/0016_f27b66fa5adf509b.jpg",
+          "source": "train/Acrididae/DSC05165.jpg",
+          "sha256": "f27b66fa5adf509b9e6b77d1d974a3286815ffbd933d7d75b19eda924d5d10bf"
+        },
+        {
+          "output": "val/Acrididae/0017_990da7b616efd8d3.jpg",
+          "source": "train/Acrididae/DSC00879 (2).jpg",
+          "sha256": "990da7b616efd8d3bd94d293633bbb8266dae0c9affda29d10879cd94de313f4"
+        },
+        {
+          "output": "val/Acrididae/0018_6984261a5495489d.jpg",
+          "source": "train/Acrididae/DSC04716.jpg",
+          "sha256": "6984261a5495489d0e789def0a6255ad8cfe2942fc6d469b7cf5746ed91e5361"
+        },
+        {
+          "output": "val/Acrididae/0019_d9c8ede448ce3261.jpg",
+          "source": "train/Acrididae/DSC00733 (2).jpg",
+          "sha256": "d9c8ede448ce3261f852a833da2fd6f8e4e28673ce51e6e83fa53081319bab93"
+        },
+        {
+          "output": "val/Acrididae/0020_fe503ed0b47aa803.jpg",
+          "source": "train/Acrididae/DSC04802.jpg",
+          "sha256": "fe503ed0b47aa80385acf30fb812f3848ac3c56ba783f05b22cee54145c8e334"
+        }
+      ]
+    },
+    {
+      "class_index": 2,
+      "model_label": "Apidae",
+      "common_name": "蜜蜂科",
+      "available_unique_images": 3381,
+      "train": [
+        {
+          "output": "train/Apidae/0001_01ac8e02dc67c2a3.jpg",
+          "source": "train/Apidae/DSC01332.jpg",
+          "sha256": "01ac8e02dc67c2a30b17687a1069c7b20724716f13d2413a4c22868d1e8b2a9c"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Apidae/0001_d193ee5ae9bdf4b3.jpg",
+          "source": "train/Apidae/DSC07129.jpg",
+          "sha256": "d193ee5ae9bdf4b3d439312116073bdfedf7b4668183e31257cbd8111c4c02af"
+        },
+        {
+          "output": "val/Apidae/0002_0f42906d8e70610a.jpg",
+          "source": "train/Apidae/DSC06712.jpg",
+          "sha256": "0f42906d8e70610acef3bb83a28f09dbe38c423ef854902507b2ce7f9254e746"
+        },
+        {
+          "output": "val/Apidae/0003_391189c385f65afc.jpg",
+          "source": "train/Apidae/DSC07198.jpg",
+          "sha256": "391189c385f65afc89ddf78b9f635a6e12b3748ca43ee24050e7e5d67483334f"
+        },
+        {
+          "output": "val/Apidae/0004_012a0cd70e4c6770.jpg",
+          "source": "train/Apidae/DSC01267.jpg",
+          "sha256": "012a0cd70e4c67705c189266dc657e46efb9f9c75626536f929ea97f365073b2"
+        },
+        {
+          "output": "val/Apidae/0005_f36dcfe52b8a8a2b.jpg",
+          "source": "train/Apidae/DSC01723.jpg",
+          "sha256": "f36dcfe52b8a8a2bc3bbaba48e7b4042c271c74f1bcbf54b8da72a1aecc60fc8"
+        },
+        {
+          "output": "val/Apidae/0006_624bf6d2f6da5cad.jpg",
+          "source": "train/Apidae/DSC01496.jpg",
+          "sha256": "624bf6d2f6da5cada2aa00f386fc4f0bf2192eaf905b05acff9a6e30f46e864f"
+        },
+        {
+          "output": "val/Apidae/0007_209477825fc5bb79.jpg",
+          "source": "train/Apidae/DSC05459.jpg",
+          "sha256": "209477825fc5bb798287ddba4ad04cef645bea75bf23a5f52e19d3f84afc9556"
+        },
+        {
+          "output": "val/Apidae/0008_9cd954e03647f9ca.jpg",
+          "source": "train/Apidae/DSC07249.jpg",
+          "sha256": "9cd954e03647f9cabe833a45a5850b7644b6ffe154ad9b0a56e49551c4b30a01"
+        },
+        {
+          "output": "val/Apidae/0009_aa9af3fc9fd74e38.jpg",
+          "source": "train/Apidae/DSC07184.jpg",
+          "sha256": "aa9af3fc9fd74e38e8b412064c50d0bb0718c9e0537d8a52990de84e3b8e3f7d"
+        },
+        {
+          "output": "val/Apidae/0010_0a925f10650e51e1.jpg",
+          "source": "train/Apidae/DSC01655.jpg",
+          "sha256": "0a925f10650e51e1a6593959f92fe510e4119285bdab966b24089834ca473697"
+        },
+        {
+          "output": "val/Apidae/0011_a9f7f689085129d2.jpg",
+          "source": "train/Apidae/DSC07590.jpg",
+          "sha256": "a9f7f689085129d223fa25f5761f15697433754cfb20e9640e17621b5f6fa417"
+        },
+        {
+          "output": "val/Apidae/0012_fd6dfdec7af18449.jpg",
+          "source": "train/Apidae/DSC07387.jpg",
+          "sha256": "fd6dfdec7af18449f2964ecd4313b977e021ea3766b8a3b15ef2df5e5bfd7caa"
+        },
+        {
+          "output": "val/Apidae/0013_388c0f7a334f34d6.jpg",
+          "source": "train/Apidae/DSC01446.jpg",
+          "sha256": "388c0f7a334f34d6ec9326114cfe1bd3ab6b8a74e90429fe9d08c5e8273d0b61"
+        },
+        {
+          "output": "val/Apidae/0014_a63a7956e9e12f4a.jpg",
+          "source": "train/Apidae/DSC05412.jpg",
+          "sha256": "a63a7956e9e12f4a1d44af40b358b00941572891c512b85b00a34337be96e76f"
+        },
+        {
+          "output": "val/Apidae/0015_c1108a05e1351895.jpg",
+          "source": "train/Apidae/DSC07226 (2).jpg",
+          "sha256": "c1108a05e13518955f956f0cade3deec5b5f936ee8d7bc6b80ab8931c061f4fd"
+        },
+        {
+          "output": "val/Apidae/0016_3cc66cf5286471ca.jpg",
+          "source": "train/Apidae/DSC01788.jpg",
+          "sha256": "3cc66cf5286471caa693e0439588c4eff240f17218a882b8e0406f39c7f212f9"
+        },
+        {
+          "output": "val/Apidae/0017_ea65de818783c602.jpg",
+          "source": "train/Apidae/DSC01458.jpg",
+          "sha256": "ea65de818783c602dbd4a01893388f98448d5d759e627a5460cdbb9eba8007d7"
+        },
+        {
+          "output": "val/Apidae/0018_431fa2a1633f8218.jpg",
+          "source": "train/Apidae/DSC08151.jpg",
+          "sha256": "431fa2a1633f821829e049f4308a386b6279421f945f05cac611e0e1da1030a1"
+        },
+        {
+          "output": "val/Apidae/0019_dc1b15f7cc9db39e.jpg",
+          "source": "train/Apidae/DSC06441.jpg",
+          "sha256": "dc1b15f7cc9db39e149299f4b938f52e6202e71eac8562c20d2ab0858b14f65e"
+        },
+        {
+          "output": "val/Apidae/0020_9423b7df0aee4bae.jpg",
+          "source": "train/Apidae/DSC01807.jpg",
+          "sha256": "9423b7df0aee4bae2a49e29aa014232eedeac30f178d3e0bab09cf426b2911e8"
+        }
+      ]
+    },
+    {
+      "class_index": 3,
+      "model_label": "Asilidae",
+      "common_name": "盗虻科",
+      "available_unique_images": 695,
+      "train": [
+        {
+          "output": "train/Asilidae/0001_9c2efe85276812c8.jpg",
+          "source": "train/Asilidae/DSC06788.jpg",
+          "sha256": "9c2efe85276812c89fccab7ac257d3db3d01813572c4aa82cc3d14a4908fb441"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Asilidae/0001_dcb04d59040cbd8e.jpg",
+          "source": "train/Asilidae/DSC06447.jpg",
+          "sha256": "dcb04d59040cbd8e91eaa7db2cf6e530e298b99c21ee37794150e680ce1ab968"
+        },
+        {
+          "output": "val/Asilidae/0002_b183cb47ca4399b0.jpg",
+          "source": "train/Asilidae/DSC06218.jpg",
+          "sha256": "b183cb47ca4399b0e625d9e42eb096e5c511902b6b66769f9f3508b716366dd6"
+        },
+        {
+          "output": "val/Asilidae/0003_1c792f34cbe01888.jpg",
+          "source": "train/Asilidae/DSC06895.jpg",
+          "sha256": "1c792f34cbe018882def4f2a182861a877fd37ea8083ce06ce042e013d44ece9"
+        },
+        {
+          "output": "val/Asilidae/0004_cc3d300674521f40.jpg",
+          "source": "train/Asilidae/DSC06235.jpg",
+          "sha256": "cc3d300674521f40f8876b16b6f24166a7bb83ee58885c32425b26ab74ffd07d"
+        },
+        {
+          "output": "val/Asilidae/0005_21cca29b66d0094d.jpg",
+          "source": "train/Asilidae/DSC06404.jpg",
+          "sha256": "21cca29b66d0094da1b9e8e03180c42747204314123948b0e3e30b5b3a658012"
+        },
+        {
+          "output": "val/Asilidae/0006_79014cacb703c87b.jpg",
+          "source": "train/Asilidae/DSC06592.jpg",
+          "sha256": "79014cacb703c87bebe024ca9e13c32d517f204f828ebe1f0a27ebb0e9bea1cc"
+        },
+        {
+          "output": "val/Asilidae/0007_b6553b1c5949f692.jpg",
+          "source": "train/Asilidae/DSC06747.jpg",
+          "sha256": "b6553b1c5949f692b153946b91c07dcc91ab3db81fe340ec2ffb7395f7fe0bdb"
+        },
+        {
+          "output": "val/Asilidae/0008_94c4fb18e5bceab1.jpg",
+          "source": "train/Asilidae/DSC06222.jpg",
+          "sha256": "94c4fb18e5bceab13183ff881893b90c3b98bbc20b67cd91fe872aa5677a9762"
+        },
+        {
+          "output": "val/Asilidae/0009_04919e67a8062653.jpg",
+          "source": "train/Asilidae/DSC06688.jpg",
+          "sha256": "04919e67a806265323a9b3a698f1f53b2f4d4b26ff3de1c6a5195b638f64110c"
+        },
+        {
+          "output": "val/Asilidae/0010_b4163735f58d9e32.jpg",
+          "source": "train/Asilidae/DSC06425.jpg",
+          "sha256": "b4163735f58d9e322327a833253e60360fdbfc26001260ad10422da4bd5cccb3"
+        },
+        {
+          "output": "val/Asilidae/0011_70f7693ca1cd717a.jpg",
+          "source": "train/Asilidae/DSC06470.jpg",
+          "sha256": "70f7693ca1cd717abb7155b429602bee6056dcb1087f7eefc3a072c9e1bf3c6a"
+        },
+        {
+          "output": "val/Asilidae/0012_69762a94c73014bb.jpg",
+          "source": "train/Asilidae/DSC06469.jpg",
+          "sha256": "69762a94c73014bbd4525dfd6d5c5a8d77bfdf2e57bea5c015b82f47ba50646b"
+        },
+        {
+          "output": "val/Asilidae/0013_e7b7d503995d1b71.jpg",
+          "source": "train/Asilidae/DSC06479.jpg",
+          "sha256": "e7b7d503995d1b71ded084cd26f9a73cabdee250611ab783ed66baaac8f73775"
+        },
+        {
+          "output": "val/Asilidae/0014_b32e92604de262e1.jpg",
+          "source": "train/Asilidae/DSC06554.jpg",
+          "sha256": "b32e92604de262e1989d9fac01931984f0483bbe922b8605713ff2ac93c4f518"
+        },
+        {
+          "output": "val/Asilidae/0015_694de3d874742551.jpg",
+          "source": "train/Asilidae/DSC06602.jpg",
+          "sha256": "694de3d874742551e57ce2d279af0150b1ab0b33971006555e21116f42d69456"
+        },
+        {
+          "output": "val/Asilidae/0016_c6b8b6124d62cfc6.jpg",
+          "source": "train/Asilidae/DSC06462.jpg",
+          "sha256": "c6b8b6124d62cfc6d7cd7a6a09bb2d6faf745319a195ffe8621cf9d50aef0bab"
+        },
+        {
+          "output": "val/Asilidae/0017_b3ec097d8d13b4c4.jpg",
+          "source": "train/Asilidae/DSC06267.jpg",
+          "sha256": "b3ec097d8d13b4c4c77747a9e262d2bacf2eb40b67eb82cdb0ff5bd540fb745c"
+        },
+        {
+          "output": "val/Asilidae/0018_47b59e9f3918376d.jpg",
+          "source": "train/Asilidae/DSC06729.jpg",
+          "sha256": "47b59e9f3918376dfdb12d015f0a505dd6d760ca43775e9ed83eafe37f0585a2"
+        },
+        {
+          "output": "val/Asilidae/0019_3b6225ba6d9c39a2.jpg",
+          "source": "train/Asilidae/DSC06280.jpg",
+          "sha256": "3b6225ba6d9c39a2295da1aa83c222f3236869fee36cefa5a629a905a3057631"
+        },
+        {
+          "output": "val/Asilidae/0020_67352bd36fec4609.jpg",
+          "source": "train/Asilidae/DSC06373.jpg",
+          "sha256": "67352bd36fec46092e0ac2a366c8d3a4a1ece3b54e8d54a7c9a9faadcbd5dcfd"
+        }
+      ]
+    },
+    {
+      "class_index": 4,
+      "model_label": "Carabidae",
+      "common_name": "步甲科",
+      "available_unique_images": 815,
+      "train": [
+        {
+          "output": "train/Carabidae/0001_8f12a17aa098c143.jpg",
+          "source": "train/Carabidae/DSC04056.jpg",
+          "sha256": "8f12a17aa098c1435fa9adfebf564df23fbc7f9273d4bf1d6ce27d7bcd824c36"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Carabidae/0001_4871f48a50eaa733.jpg",
+          "source": "train/Carabidae/DSC04032.jpg",
+          "sha256": "4871f48a50eaa733519ebb49f26a7305ad6419f8661c99474b3a5fcccaf44302"
+        },
+        {
+          "output": "val/Carabidae/0002_17688b83e5ee77cf.jpg",
+          "source": "train/Carabidae/DSC04162.jpg",
+          "sha256": "17688b83e5ee77cf59aa4275d6fe0ad7c012d8defb37fab7941f0216e77c6379"
+        },
+        {
+          "output": "val/Carabidae/0003_81ef57941e8e7984.jpg",
+          "source": "train/Carabidae/DSC03907.jpg",
+          "sha256": "81ef57941e8e7984d6bfacc27fa1f8306140a2146db7721eaa3096e8a06641ed"
+        },
+        {
+          "output": "val/Carabidae/0004_de03c559dba7df67.jpg",
+          "source": "train/Carabidae/DSC04076.jpg",
+          "sha256": "de03c559dba7df676bafee3453b57a86cec4cceed5c912f3f0f1b38ed7ed9669"
+        },
+        {
+          "output": "val/Carabidae/0005_ba1b288c5a74fe6b.jpg",
+          "source": "train/Carabidae/DSC04253.jpg",
+          "sha256": "ba1b288c5a74fe6ba210bd7387876a643145ccb1ccd43060c01d2df451431f24"
+        },
+        {
+          "output": "val/Carabidae/0006_a2202776d6c84ed2.jpg",
+          "source": "train/Carabidae/DSC04540.jpg",
+          "sha256": "a2202776d6c84ed25f67a6b503047f60fed268f1eae21608b3c928eaa05f1100"
+        },
+        {
+          "output": "val/Carabidae/0007_4b89e57e0dc2ea7d.jpg",
+          "source": "train/Carabidae/DSC03972.jpg",
+          "sha256": "4b89e57e0dc2ea7de5e029b5f93ab96c757c1e8eaccc687d36a68de5af15db8d"
+        },
+        {
+          "output": "val/Carabidae/0008_409c4ec9424741c9.jpg",
+          "source": "train/Carabidae/DSC04652.jpg",
+          "sha256": "409c4ec9424741c9c0dc962f6d2350413a7be3552bdc28174a6a01b52dbbe3ef"
+        },
+        {
+          "output": "val/Carabidae/0009_744cb1402faa868a.jpg",
+          "source": "train/Carabidae/DSC04602.jpg",
+          "sha256": "744cb1402faa868a6a1839a9c564d0d1b9ea09ca7dce7075580f1517c813e3e3"
+        },
+        {
+          "output": "val/Carabidae/0010_4617891c8292ca45.jpg",
+          "source": "train/Carabidae/DSC04559.jpg",
+          "sha256": "4617891c8292ca45807d117b5b96a88da5a04e81fc8cdfc9f24b10e931f737f4"
+        },
+        {
+          "output": "val/Carabidae/0011_6db976b090667182.jpg",
+          "source": "train/Carabidae/DSC04198.jpg",
+          "sha256": "6db976b0906671828c843148633608114aa3ba1d7740462b3ac9a462602214af"
+        },
+        {
+          "output": "val/Carabidae/0012_136c64884249bcca.jpg",
+          "source": "train/Carabidae/DSC04485.jpg",
+          "sha256": "136c64884249bcca41f15f6039fbdbe903b83af688d0fc1b4ea9123cb7c6f03b"
+        },
+        {
+          "output": "val/Carabidae/0013_e76a06a4b5909a99.jpg",
+          "source": "train/Carabidae/DSC04617.jpg",
+          "sha256": "e76a06a4b5909a9931e0f2e1d42a08055ba3de15157f32b61d9bacae114b3803"
+        },
+        {
+          "output": "val/Carabidae/0014_d6673f5eb52c1a1c.jpg",
+          "source": "train/Carabidae/DSC04025.jpg",
+          "sha256": "d6673f5eb52c1a1c8206a2f2c5ab70e0ec3a3d195d39a719930f849f0dcf27c5"
+        },
+        {
+          "output": "val/Carabidae/0015_582c5d900d1f2866.jpg",
+          "source": "train/Carabidae/DSC04157.jpg",
+          "sha256": "582c5d900d1f2866f22b211fa2ccc330faea360b6a4491ed2cfe2ebb582d56f0"
+        },
+        {
+          "output": "val/Carabidae/0016_2245d6727a41faf6.jpg",
+          "source": "train/Carabidae/DSC04103.jpg",
+          "sha256": "2245d6727a41faf65e7062312c20e4be6a4d875cae65051228569ae115c2565d"
+        },
+        {
+          "output": "val/Carabidae/0017_d40c3efdadf82849.jpg",
+          "source": "train/Carabidae/DSC04483.jpg",
+          "sha256": "d40c3efdadf82849aca6f6d13a95827f02df298ca687a92f696ab66e06e43b17"
+        },
+        {
+          "output": "val/Carabidae/0018_e43844810d2edbf5.jpg",
+          "source": "train/Carabidae/DSC04519.jpg",
+          "sha256": "e43844810d2edbf5331ab1c333f68d72726571c2ad884ea4cda1d39bed75076f"
+        },
+        {
+          "output": "val/Carabidae/0019_ca1aa8babbb55063.jpg",
+          "source": "train/Carabidae/DSC03952.jpg",
+          "sha256": "ca1aa8babbb55063c87d742762d3367cfb0ddd8a446d8b786ea1813e7fd80075"
+        },
+        {
+          "output": "val/Carabidae/0020_82cb4b7c8e9ddcb8.jpg",
+          "source": "train/Carabidae/DSC04662.jpg",
+          "sha256": "82cb4b7c8e9ddcb80144ae4852813f730cc929b412a87654e3d3cdd9b3eee44c"
+        }
+      ]
+    },
+    {
+      "class_index": 5,
+      "model_label": "Coenagrionidae",
+      "common_name": "蟌科",
+      "available_unique_images": 925,
+      "train": [
+        {
+          "output": "train/Coenagrionidae/0001_03d6d0fade0001d6.jpg",
+          "source": "train/Coenagrionidae/DSC03027.jpg",
+          "sha256": "03d6d0fade0001d656fe895d2f6a5c13fa75c93cae572a1bd6192af850aad3e8"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Coenagrionidae/0001_ab3f9c965d56c370.jpg",
+          "source": "train/Coenagrionidae/DSC03076.jpg",
+          "sha256": "ab3f9c965d56c3700a16352dbc50c805ffa76ab3e2b408777b48f7d7ac25f4f2"
+        },
+        {
+          "output": "val/Coenagrionidae/0002_6b5442597c03f1c2.jpg",
+          "source": "train/Coenagrionidae/DSC03176.jpg",
+          "sha256": "6b5442597c03f1c2d44db19a7c65cf0bac6b882ad25936085ed8a4458e2cbfb0"
+        },
+        {
+          "output": "val/Coenagrionidae/0003_522ae6ab3c723ddf.jpg",
+          "source": "train/Coenagrionidae/DSC02948.jpg",
+          "sha256": "522ae6ab3c723ddf649871fabb9ff06d1324df45f4fbdda2e07723495fddba58"
+        },
+        {
+          "output": "val/Coenagrionidae/0004_3f028b3519d6e1b7.jpg",
+          "source": "train/Coenagrionidae/DSC03472.jpg",
+          "sha256": "3f028b3519d6e1b760ef7d2b33161805a8728214dced6635545945ccd56eb223"
+        },
+        {
+          "output": "val/Coenagrionidae/0005_26f52c75eaaae62b.jpg",
+          "source": "train/Coenagrionidae/DSC02953.jpg",
+          "sha256": "26f52c75eaaae62b02b55a4072bbcfe689cdc1ba3ee89314f17d01faa469bc36"
+        },
+        {
+          "output": "val/Coenagrionidae/0006_13ba43346c75b396.jpg",
+          "source": "train/Coenagrionidae/DSC03606.jpg",
+          "sha256": "13ba43346c75b39679ea2c0a18876025e59bc38661c52ac266607feac0742f2d"
+        },
+        {
+          "output": "val/Coenagrionidae/0007_5c52953b613f27e0.jpg",
+          "source": "train/Coenagrionidae/DSC03321.jpg",
+          "sha256": "5c52953b613f27e0ed3174f7ec3df915a80548dd1a8d4d451a5d558ac84427ff"
+        },
+        {
+          "output": "val/Coenagrionidae/0008_1d6c13bf68292306.jpg",
+          "source": "train/Coenagrionidae/DSC02848.jpg",
+          "sha256": "1d6c13bf68292306ace894f9300e812c15c5f5ed35b87237df346c16ff2666f8"
+        },
+        {
+          "output": "val/Coenagrionidae/0009_56d8ea365d733d68.jpg",
+          "source": "train/Coenagrionidae/DSC03264.jpg",
+          "sha256": "56d8ea365d733d680590f95a848c21a18f556010910865d6c0f58bf0a8d65f40"
+        },
+        {
+          "output": "val/Coenagrionidae/0010_7100b907c23a4095.jpg",
+          "source": "train/Coenagrionidae/DSC03028.jpg",
+          "sha256": "7100b907c23a4095f5a2e826e36932b6f56415c3c864b0969f3ed7266bb9c34b"
+        },
+        {
+          "output": "val/Coenagrionidae/0011_30bbfcb9dc84119e.jpg",
+          "source": "train/Coenagrionidae/DSC02772.jpg",
+          "sha256": "30bbfcb9dc84119e6754e39a07c3c5d3733578fd414c1feb843f7c0578295a5f"
+        },
+        {
+          "output": "val/Coenagrionidae/0012_eab663add96a1da3.jpg",
+          "source": "train/Coenagrionidae/DSC02949.jpg",
+          "sha256": "eab663add96a1da3a2c74fb8e24404eecbdc281f3abab5c6a6bb977febbf4f6c"
+        },
+        {
+          "output": "val/Coenagrionidae/0013_d11c7aaf32d5a3b6.jpg",
+          "source": "train/Coenagrionidae/DSC03358.jpg",
+          "sha256": "d11c7aaf32d5a3b637f0908b8efc67ec1e2481438f5f76d3efa1cdefd4e828ee"
+        },
+        {
+          "output": "val/Coenagrionidae/0014_8ed6813f049c91d0.jpg",
+          "source": "train/Coenagrionidae/DSC02786.jpg",
+          "sha256": "8ed6813f049c91d02eb0987147ebee119b0bbae2107a284cab1c34e7620ac4cf"
+        },
+        {
+          "output": "val/Coenagrionidae/0015_d83bce879c6ebc14.jpg",
+          "source": "train/Coenagrionidae/DSC03433.jpg",
+          "sha256": "d83bce879c6ebc140d42b63a5cd2e6c3690c4962a1c875d955ed0d50a4790908"
+        },
+        {
+          "output": "val/Coenagrionidae/0016_57dc0adf7af54c19.jpg",
+          "source": "train/Coenagrionidae/DSC03452.jpg",
+          "sha256": "57dc0adf7af54c19929d201f69aa8fb8f12d8a52001fcd7d9d6b3d4e541c5ed3"
+        },
+        {
+          "output": "val/Coenagrionidae/0017_d2ac0380b2fcb177.jpg",
+          "source": "train/Coenagrionidae/DSC02869.jpg",
+          "sha256": "d2ac0380b2fcb177cf5e013f071d1d4e337ee4688baaf7a64c380c86080d9c50"
+        },
+        {
+          "output": "val/Coenagrionidae/0018_7ddb91da788a0beb.jpg",
+          "source": "train/Coenagrionidae/DSC03502.jpg",
+          "sha256": "7ddb91da788a0beb53ecef3d2fc70d399a3e7f72f69abc4d817d90f3ec0ad307"
+        },
+        {
+          "output": "val/Coenagrionidae/0019_9308806e98cfdce8.jpg",
+          "source": "train/Coenagrionidae/DSC02840.jpg",
+          "sha256": "9308806e98cfdce81d6b12a0d95cf856859da1af876b33d52bc466b544a92a48"
+        },
+        {
+          "output": "val/Coenagrionidae/0020_0467fd4a6fa954cf.jpg",
+          "source": "train/Coenagrionidae/DSC03497.jpg",
+          "sha256": "0467fd4a6fa954cfc23cc0f58823db930bfc7563fd559a9754fc8a4842752459"
+        }
+      ]
+    },
+    {
+      "class_index": 6,
+      "model_label": "Colias erate",
+      "common_name": "斑缘豆粉蝶",
+      "available_unique_images": 4439,
+      "train": [
+        {
+          "output": "train/Colias erate/0001_36897006de56ed24.jpg",
+          "source": "train/Colias erate/DSC05512.jpg",
+          "sha256": "36897006de56ed241c3425aeb4da3a971500d686dec4dcf01e570f1b3964b839"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Colias erate/0001_96d444c3edc85064.jpg",
+          "source": "train/Colias erate/DSC03089.jpg",
+          "sha256": "96d444c3edc8506417a339cf14f639d58d63a01ec4eb097b7ef1c44737a2a1d7"
+        },
+        {
+          "output": "val/Colias erate/0002_fb26df54bb469aa3.jpg",
+          "source": "train/Colias erate/DSC05387.jpg",
+          "sha256": "fb26df54bb469aa350fc9864ba987374ee4b70b9d60f30308a081cb6bbda6618"
+        },
+        {
+          "output": "val/Colias erate/0003_497d57b612aab7ae.jpg",
+          "source": "train/Colias erate/DSC03774.jpg",
+          "sha256": "497d57b612aab7aeed8b5dcd1a2310c23d65812260520aca37c1165a66503f5c"
+        },
+        {
+          "output": "val/Colias erate/0004_3a1c50168755e55d.jpg",
+          "source": "train/Colias erate/DSC03988.jpg",
+          "sha256": "3a1c50168755e55daca804ff59e44ab90e1ea1a774db5f538647c2b8a82a82b0"
+        },
+        {
+          "output": "val/Colias erate/0005_89d5085c67eef5ae.jpg",
+          "source": "train/Colias erate/DSC03121.jpg",
+          "sha256": "89d5085c67eef5aec3b72bbcbe3dba5335a534aa27e27ec8db3559da56ca9137"
+        },
+        {
+          "output": "val/Colias erate/0006_8de8c4bc351d514a.jpg",
+          "source": "train/Colias erate/DSC03665.jpg",
+          "sha256": "8de8c4bc351d514afd7a8a91e8ce7b542498e369df09fdde974120dcd9991fe8"
+        },
+        {
+          "output": "val/Colias erate/0007_02aeec4220689e8e.jpg",
+          "source": "train/Colias erate/DSC03379.jpg",
+          "sha256": "02aeec4220689e8e89e9a9fa04763eef45670884039cd7dc7b0e80f4811b97fa"
+        },
+        {
+          "output": "val/Colias erate/0008_1575537868276dce.jpg",
+          "source": "train/Colias erate/DSC05316.jpg",
+          "sha256": "1575537868276dce311f2f6ae0883df77e7ca2979094c6c18788cf3ed2aebc05"
+        },
+        {
+          "output": "val/Colias erate/0009_700316ab6c574bca.jpg",
+          "source": "train/Colias erate/DSC03539.jpg",
+          "sha256": "700316ab6c574bca64760f89744ecfedf128c7df2ed7a9c92ca2379920f6f2d7"
+        },
+        {
+          "output": "val/Colias erate/0010_e7e905872bd881f9.jpg",
+          "source": "train/Colias erate/DSC03791.jpg",
+          "sha256": "e7e905872bd881f93a8b9923cd9b8eab1c44eba940e39a46887b07daa47e787a"
+        },
+        {
+          "output": "val/Colias erate/0011_eb40a29347ca4d64.jpg",
+          "source": "train/Colias erate/DSC04450.jpg",
+          "sha256": "eb40a29347ca4d64e3265761b4b6bb9300ab7393a24458b7827f17945f3d6850"
+        },
+        {
+          "output": "val/Colias erate/0012_a9981dadbb3fd7d9.jpg",
+          "source": "train/Colias erate/DSC02536.jpg",
+          "sha256": "a9981dadbb3fd7d9c4c58bbbd57ee9e1e22f8c0845e9d845d1a17e495e87209c"
+        },
+        {
+          "output": "val/Colias erate/0013_fa422d8ce99cc21d.jpg",
+          "source": "train/Colias erate/DSC03209.jpg",
+          "sha256": "fa422d8ce99cc21da035a9bbf584c9261da5c9ed4f853891e7e4ee3853e12bb6"
+        },
+        {
+          "output": "val/Colias erate/0014_f233f142b66407dd.jpg",
+          "source": "train/Colias erate/DSC02668.jpg",
+          "sha256": "f233f142b66407dd85da112eebfd78d9053bd9f603c3efd185b4cc96749cf752"
+        },
+        {
+          "output": "val/Colias erate/0015_4266dbe923c4d296.jpg",
+          "source": "train/Colias erate/DSC04547.jpg",
+          "sha256": "4266dbe923c4d296c92ab76eed823ffeb201dfa79949acf53341b48a069dbf7d"
+        },
+        {
+          "output": "val/Colias erate/0016_cdd688aef153b298.jpg",
+          "source": "train/Colias erate/DSC03068.jpg",
+          "sha256": "cdd688aef153b298751caea423b2f277df5da6ba982c5b5402eeb2e94bba9f1a"
+        },
+        {
+          "output": "val/Colias erate/0017_046c1c70bf9adbb5.jpg",
+          "source": "train/Colias erate/DSC09765.jpg",
+          "sha256": "046c1c70bf9adbb5c576527e2b53a47c490075692511f27aed4849e5ffca3a86"
+        },
+        {
+          "output": "val/Colias erate/0018_9e0640fd0f9311a7.jpg",
+          "source": "train/Colias erate/DSC03255.jpg",
+          "sha256": "9e0640fd0f9311a7b6fd5783b871bd546cb50d8b26d327aae9f58a288b7296a5"
+        },
+        {
+          "output": "val/Colias erate/0019_d6286dd1b9826bab.jpg",
+          "source": "train/Colias erate/DSC03339.jpg",
+          "sha256": "d6286dd1b9826bab599bea221fccd7d9282bdd2d3119d040e923bbc3851d3808"
+        },
+        {
+          "output": "val/Colias erate/0020_803c4dbe746e1d2c.jpg",
+          "source": "train/Colias erate/DSC04577.jpg",
+          "sha256": "803c4dbe746e1d2ce199e62dcf7a818c0a789a41736402484f186124b88208a9"
+        }
+      ]
+    },
+    {
+      "class_index": 7,
+      "model_label": "Colias heos",
+      "common_name": "黎明豆粉蝶",
+      "available_unique_images": 822,
+      "train": [
+        {
+          "output": "train/Colias heos/0001_65acca7ffdff316e.jpg",
+          "source": "train/Colias heos/DSC08805.jpg",
+          "sha256": "65acca7ffdff316ea6cf2f5fa4ecec341b54dbe501fe85840d058fdd7d6d1528"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Colias heos/0001_dbd72d458935ff48.jpg",
+          "source": "train/Colias heos/DSC09475.jpg",
+          "sha256": "dbd72d458935ff48a818b04bb329a816877c1188e412278710fb9c072d5c3c7d"
+        },
+        {
+          "output": "val/Colias heos/0002_8604e25d0b73296f.jpg",
+          "source": "train/Colias heos/DSC08685.jpg",
+          "sha256": "8604e25d0b73296f7f0491d1ea55b19b40ff15034472f035593655252b6c3ce7"
+        },
+        {
+          "output": "val/Colias heos/0003_a970dca9d7aadb8e.jpg",
+          "source": "train/Colias heos/DSC08677.jpg",
+          "sha256": "a970dca9d7aadb8eb9cf8577d2d0339818d02536fbb6662b1bf9c32fff9e4bb0"
+        },
+        {
+          "output": "val/Colias heos/0004_14808b72c60a8fea.jpg",
+          "source": "train/Colias heos/DSC08684.jpg",
+          "sha256": "14808b72c60a8fea57f5b401a12cc08a833f292846952f71a3a800f1c47b3909"
+        },
+        {
+          "output": "val/Colias heos/0005_bc5abc1b1a940a7b.jpg",
+          "source": "train/Colias heos/DSC09133.jpg",
+          "sha256": "bc5abc1b1a940a7b0676d2097437533aafb998c7efafdb09ea55ae5001a229e0"
+        },
+        {
+          "output": "val/Colias heos/0006_becd164398c09c34.jpg",
+          "source": "train/Colias heos/DSC09358.jpg",
+          "sha256": "becd164398c09c3449bcf71cb8c5c6aa634df03cdedd0a52a1f06a7b20c3e0c2"
+        },
+        {
+          "output": "val/Colias heos/0007_8d32e6a9989ddcf5.jpg",
+          "source": "train/Colias heos/DSC09161.jpg",
+          "sha256": "8d32e6a9989ddcf5dafb0a0768c8f39238f82dbdb209887f504de208c11d8320"
+        },
+        {
+          "output": "val/Colias heos/0008_57f8e8910dc9ea24.jpg",
+          "source": "train/Colias heos/DSC09101.jpg",
+          "sha256": "57f8e8910dc9ea24096adac21f0b1e71b30d328352540a5e5bd99d2e8db7903a"
+        },
+        {
+          "output": "val/Colias heos/0009_4a644778aac005ed.jpg",
+          "source": "train/Colias heos/DSC08787.jpg",
+          "sha256": "4a644778aac005ed7c4763ca75f1c39f1d05506b198af8a295162882bac7c60c"
+        },
+        {
+          "output": "val/Colias heos/0010_621b904c7d29c747.jpg",
+          "source": "train/Colias heos/DSC09271.jpg",
+          "sha256": "621b904c7d29c7472f5dcd51833d33a30aad38aafe4554ae9d04878bc6409f6f"
+        },
+        {
+          "output": "val/Colias heos/0011_a1661c4fab0f35f1.jpg",
+          "source": "train/Colias heos/DSC08688.jpg",
+          "sha256": "a1661c4fab0f35f18d3726ba0864566ba7cd1249d8a8d3de008acf0daf005786"
+        },
+        {
+          "output": "val/Colias heos/0012_e1624f804699fc4f.jpg",
+          "source": "train/Colias heos/DSC09057.jpg",
+          "sha256": "e1624f804699fc4fb41a655fcfe5c02a301052327fae7061228773ca8f33d03e"
+        },
+        {
+          "output": "val/Colias heos/0013_4d527cc3bcec38a7.jpg",
+          "source": "train/Colias heos/DSC09306.jpg",
+          "sha256": "4d527cc3bcec38a71ef64ac535d5c2348afcb90efc2a0862f28993e185a08fd9"
+        },
+        {
+          "output": "val/Colias heos/0014_e440b218b8a34396.jpg",
+          "source": "train/Colias heos/DSC09329.jpg",
+          "sha256": "e440b218b8a3439613f44fbcc10ebbbdb3658fca92646bdd4dd307264b2d3cf9"
+        },
+        {
+          "output": "val/Colias heos/0015_933e3e38cb79c5de.jpg",
+          "source": "train/Colias heos/DSC08871.jpg",
+          "sha256": "933e3e38cb79c5ded16311770d7f159772689c95f48321ee27cb7dff923f217a"
+        },
+        {
+          "output": "val/Colias heos/0016_90467fbdea48dd1b.jpg",
+          "source": "train/Colias heos/DSC08770.jpg",
+          "sha256": "90467fbdea48dd1bdb8e90557f44c58cf0bb8ddc15f52068b8e940d0e45e1ab1"
+        },
+        {
+          "output": "val/Colias heos/0017_dfca6545e1279951.jpg",
+          "source": "train/Colias heos/DSC08900.jpg",
+          "sha256": "dfca6545e12799518effaca2e30c13fd3fe17053751557ebb42157e2e333d725"
+        },
+        {
+          "output": "val/Colias heos/0018_f7aaf290333b0722.jpg",
+          "source": "train/Colias heos/DSC09248.jpg",
+          "sha256": "f7aaf290333b0722d95fcafe55f8953ff2d7ac06d9b47c90aad43ada8c06b0a4"
+        },
+        {
+          "output": "val/Colias heos/0019_f2d9d3eaaccb3e31.jpg",
+          "source": "train/Colias heos/DSC09322.jpg",
+          "sha256": "f2d9d3eaaccb3e3157befaabe829dd625e3b6f2f4a1dce999ffff2153efe8123"
+        },
+        {
+          "output": "val/Colias heos/0020_e8ecc8a49b3f4fda.jpg",
+          "source": "train/Colias heos/DSC09046.jpg",
+          "sha256": "e8ecc8a49b3f4fda0787b3ca7654bc14a26f46d06166c021bd059a70c0d7c6d5"
+        }
+      ]
+    },
+    {
+      "class_index": 8,
+      "model_label": "Colias poliographus",
+      "common_name": "东亚豆粉蝶",
+      "available_unique_images": 868,
+      "train": [
+        {
+          "output": "train/Colias poliographus/0001_d7a858f50af0f71c.jpg",
+          "source": "train/Colias poliographus/DSC06934.jpg",
+          "sha256": "d7a858f50af0f71cdf6ef7bb1999aec939ae90b574784a033a5cf0af02c51be3"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Colias poliographus/0001_2b4032ac2206456d.jpg",
+          "source": "train/Colias poliographus/DSC07086.jpg",
+          "sha256": "2b4032ac2206456d7668d9cc1fb29420305dbcd93306545db85942089eae0d6e"
+        },
+        {
+          "output": "val/Colias poliographus/0002_b7e11bbb5debb9ec.jpg",
+          "source": "train/Colias poliographus/DSC06915.jpg",
+          "sha256": "b7e11bbb5debb9eceabf93e7d6e7a84364cb7b105511e2d9133c47b91ec4cd4e"
+        },
+        {
+          "output": "val/Colias poliographus/0003_89c85f5fdf1cfbac.jpg",
+          "source": "train/Colias poliographus/DSC06715.jpg",
+          "sha256": "89c85f5fdf1cfbacf63fd6cfaa58b995cfeda370cd2528a719b51aebdf71656a"
+        },
+        {
+          "output": "val/Colias poliographus/0004_a3a30dd850eb7ad0.jpg",
+          "source": "train/Colias poliographus/DSC07126.jpg",
+          "sha256": "a3a30dd850eb7ad07f3ae290ecf6cd75a973d778beaa372b035c2768796bc4e4"
+        },
+        {
+          "output": "val/Colias poliographus/0005_9266392a11209edb.jpg",
+          "source": "train/Colias poliographus/DSC07302.jpg",
+          "sha256": "9266392a11209edb12ac7680e0ab3419fd0418c003d3249c79e70b52c3b787e9"
+        },
+        {
+          "output": "val/Colias poliographus/0006_9254fb6ec52b6ac6.jpg",
+          "source": "train/Colias poliographus/DSC07178.jpg",
+          "sha256": "9254fb6ec52b6ac69e346d5f0c8bb491c219e74c34de5d6b92cb8edf6f6e570e"
+        },
+        {
+          "output": "val/Colias poliographus/0007_6f4cdf106f9d9b9d.jpg",
+          "source": "train/Colias poliographus/DSC07135.jpg",
+          "sha256": "6f4cdf106f9d9b9d7fffa601f66f349864e3ce05ba9e8b52861c5179a8a88681"
+        },
+        {
+          "output": "val/Colias poliographus/0008_e1bac953ba8717b6.jpg",
+          "source": "train/Colias poliographus/DSC06581.jpg",
+          "sha256": "e1bac953ba8717b6d99e63b23a8ef69c18961cd07acf6684dc5b273197bc899c"
+        },
+        {
+          "output": "val/Colias poliographus/0009_94e32eef5b424150.jpg",
+          "source": "train/Colias poliographus/DSC07278.jpg",
+          "sha256": "94e32eef5b424150be3addf7db435e8b868dc8210f1d7fd63fc110aa3d985929"
+        },
+        {
+          "output": "val/Colias poliographus/0010_930b8875a54d03ed.jpg",
+          "source": "train/Colias poliographus/DSC07241.jpg",
+          "sha256": "930b8875a54d03edea3c53794db9bd803f565ec10e4bca1e41cbb8a007be54fc"
+        },
+        {
+          "output": "val/Colias poliographus/0011_09a7d9aa0c6df826.jpg",
+          "source": "train/Colias poliographus/DSC07268.jpg",
+          "sha256": "09a7d9aa0c6df8266314ca19e117143f475b76dbc3d8faa53daad5deef76c164"
+        },
+        {
+          "output": "val/Colias poliographus/0012_527d764287655ecc.jpg",
+          "source": "train/Colias poliographus/DSC07225.jpg",
+          "sha256": "527d764287655ecc25983bc32e48547f7e473a5248250119104e221004cec00a"
+        },
+        {
+          "output": "val/Colias poliographus/0013_24a7f224e6420f5e.jpg",
+          "source": "train/Colias poliographus/DSC07212.jpg",
+          "sha256": "24a7f224e6420f5e229a83fa42e1ac0c8db304402b2b55879b715036e3220b2c"
+        },
+        {
+          "output": "val/Colias poliographus/0014_fac282ee619ca4d6.jpg",
+          "source": "train/Colias poliographus/DSC07337.jpg",
+          "sha256": "fac282ee619ca4d678487330102c0933a3152d6b8954fcbe1c2ad1dd2a9680ab"
+        },
+        {
+          "output": "val/Colias poliographus/0015_395ce722bc336e56.jpg",
+          "source": "train/Colias poliographus/DSC07080.jpg",
+          "sha256": "395ce722bc336e56d8b1f57b34c53b4b02697d71f16233f97e757f499ab10710"
+        },
+        {
+          "output": "val/Colias poliographus/0016_9e34f65dffdfeab2.jpg",
+          "source": "train/Colias poliographus/DSC07025.jpg",
+          "sha256": "9e34f65dffdfeab2f7a96d13e6ab6d8c4acd2479ecffff779436d2bb2bc337ee"
+        },
+        {
+          "output": "val/Colias poliographus/0017_2e34f1d8dacb9bac.jpg",
+          "source": "train/Colias poliographus/DSC07171.jpg",
+          "sha256": "2e34f1d8dacb9bac63317ede859a6f36b5425d7778b17d9ca8c6d3f9eee0c252"
+        },
+        {
+          "output": "val/Colias poliographus/0018_413bdf3c7083b08c.jpg",
+          "source": "train/Colias poliographus/DSC06843.jpg",
+          "sha256": "413bdf3c7083b08c725e9e63ff1daa3989487c26b45f50a695913444ce85604f"
+        },
+        {
+          "output": "val/Colias poliographus/0019_c25aad0c807c822a.jpg",
+          "source": "train/Colias poliographus/DSC07027.jpg",
+          "sha256": "c25aad0c807c822abc3f5bf1fac3ac995568d552e40ac87f80af456b95f3a297"
+        },
+        {
+          "output": "val/Colias poliographus/0020_7d1591400187f9bd.jpg",
+          "source": "train/Colias poliographus/DSC07159.jpg",
+          "sha256": "7d1591400187f9bd2cee187a6d2ba06f2386cc0c9f2403f7f98c7274be258365"
+        }
+      ]
+    },
+    {
+      "class_index": 9,
+      "model_label": "Curculionidae",
+      "common_name": "象甲科",
+      "available_unique_images": 3621,
+      "train": [
+        {
+          "output": "train/Curculionidae/0001_814f99e2cb0c0300.jpg",
+          "source": "train/Curculionidae/DSC02175.jpg",
+          "sha256": "814f99e2cb0c0300bfbd56873aebc18bae7084173fbedf350b74ec90c9ef1b56"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Curculionidae/0001_73531cd5930cafe2.jpg",
+          "source": "train/Curculionidae/DSC01492.jpg",
+          "sha256": "73531cd5930cafe2d422e7223ff33eb65ab7ce856689bc3e9d9bce174a3a73a7"
+        },
+        {
+          "output": "val/Curculionidae/0002_1cffe91540265ad8.jpg",
+          "source": "train/Curculionidae/DSC06318.jpg",
+          "sha256": "1cffe91540265ad8b5d238ba916ac3fc029cefa890b9e18a17357d655f05dee2"
+        },
+        {
+          "output": "val/Curculionidae/0003_1e78002ad0b09b33.jpg",
+          "source": "train/Curculionidae/DSC01420.jpg",
+          "sha256": "1e78002ad0b09b33ec0f6004f7607b0c7d72c666a4db4667084e9646dac591da"
+        },
+        {
+          "output": "val/Curculionidae/0004_2aaede01ed28c1fa.jpg",
+          "source": "train/Curculionidae/DSC01338.jpg",
+          "sha256": "2aaede01ed28c1fa926d2d18ea90da59a39100c2fbf647ed0e06d346f2b11e09"
+        },
+        {
+          "output": "val/Curculionidae/0005_0d3c4bbb442452f9.jpg",
+          "source": "train/Curculionidae/DSC06437.jpg",
+          "sha256": "0d3c4bbb442452f967d5583bf600963aa29ff39f066cfaa71a0e3f9b2a650d11"
+        },
+        {
+          "output": "val/Curculionidae/0006_a1f684b3ce9b59f0.jpg",
+          "source": "train/Curculionidae/DSC05192.jpg",
+          "sha256": "a1f684b3ce9b59f08099779ff81110a4e21884a525b980b2d94b3d93eeff7c6a"
+        },
+        {
+          "output": "val/Curculionidae/0007_b05d7a75ef8e41e7.jpg",
+          "source": "train/Curculionidae/DSC02650.jpg",
+          "sha256": "b05d7a75ef8e41e728bfb5c3d9954343e19f01aa3ffd9f0e8d4ca3e4ed5c1b9e"
+        },
+        {
+          "output": "val/Curculionidae/0008_2370f961b023f845.jpg",
+          "source": "train/Curculionidae/DSC05163.jpg",
+          "sha256": "2370f961b023f845585bc201f345f7d10ba4e76e888056bf7235c7424c1f5a03"
+        },
+        {
+          "output": "val/Curculionidae/0009_2974828035aa6c9a.jpg",
+          "source": "train/Curculionidae/DSC06392.jpg",
+          "sha256": "2974828035aa6c9ae22e5464d9815f0565b3b8251ba1a441b2a6357463a2eeeb"
+        },
+        {
+          "output": "val/Curculionidae/0010_50939c9b2b2eeebc.jpg",
+          "source": "train/Curculionidae/DSC04761.jpg",
+          "sha256": "50939c9b2b2eeebc6eb200a90d651366d42c3133782e4caf35534bb2095798ad"
+        },
+        {
+          "output": "val/Curculionidae/0011_ce1bc3e6b48e07fb.jpg",
+          "source": "train/Curculionidae/DSC01375.jpg",
+          "sha256": "ce1bc3e6b48e07fb6a5877b06c3e753ad94b1d46115b806f9f46ffe503abb2d9"
+        },
+        {
+          "output": "val/Curculionidae/0012_50843d8da94ab8ff.jpg",
+          "source": "train/Curculionidae/DSC06298.jpg",
+          "sha256": "50843d8da94ab8ff9b9b6f1ba27770576ddbf1e30f4294a07c35475bc76c0ba9"
+        },
+        {
+          "output": "val/Curculionidae/0013_de1dd47f35bf4d26.jpg",
+          "source": "train/Curculionidae/DSC01784.jpg",
+          "sha256": "de1dd47f35bf4d262b79092577cd22f3bc0ad3a26500d29d4c31dfa29d55eb8a"
+        },
+        {
+          "output": "val/Curculionidae/0014_9e44a66701f879b9.jpg",
+          "source": "train/Curculionidae/DSC06329.jpg",
+          "sha256": "9e44a66701f879b94f0bca929c375dc999af604955397f959969089fd34a8ee7"
+        },
+        {
+          "output": "val/Curculionidae/0015_83e3cfb66e9ae6fb.jpg",
+          "source": "train/Curculionidae/DSC06117.jpg",
+          "sha256": "83e3cfb66e9ae6fb64267bcc2023791bd8a00d7ceeb6a55fe426685ba29b9b15"
+        },
+        {
+          "output": "val/Curculionidae/0016_eac8796a714bd20e.jpg",
+          "source": "train/Curculionidae/DSC06224.jpg",
+          "sha256": "eac8796a714bd20e12651a8b25bf15040daff53c71ddad4d78792a9c30d21ad4"
+        },
+        {
+          "output": "val/Curculionidae/0017_e56d2d890ea0f7e4.jpg",
+          "source": "train/Curculionidae/DSC05186.jpg",
+          "sha256": "e56d2d890ea0f7e4beb86a4b1f16b4f468303b31081afdf3b66723a16b1d11cd"
+        },
+        {
+          "output": "val/Curculionidae/0018_d03917c83ef50009.jpg",
+          "source": "train/Curculionidae/DSC05158.jpg",
+          "sha256": "d03917c83ef50009f311df3ca33a22aad3f264b7ac32a0956b80eb565c601cf8"
+        },
+        {
+          "output": "val/Curculionidae/0019_5fbc01d710d4ac74.jpg",
+          "source": "train/Curculionidae/DSC06006.jpg",
+          "sha256": "5fbc01d710d4ac74556c9addfa5208ad29c1356408dcc0e7876024cad5567f77"
+        },
+        {
+          "output": "val/Curculionidae/0020_4ba84a1b66cf3f38.jpg",
+          "source": "train/Curculionidae/DSC02892.jpg",
+          "sha256": "4ba84a1b66cf3f382d19cbb029a092fe714140f5302e6565d699f397677d3b2c"
+        }
+      ]
+    },
+    {
+      "class_index": 10,
+      "model_label": "Elateridae",
+      "common_name": "叩甲科",
+      "available_unique_images": 134,
+      "train": [
+        {
+          "output": "train/Elateridae/0001_b1cf2cd5a46529a7.jpg",
+          "source": "train/Elateridae/DSC00257.jpg",
+          "sha256": "b1cf2cd5a46529a7988d1e1a0bff0857a9417531e5feeeb76dc4da2e19fe5cdc"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Elateridae/0001_7ebc78ac70bf6e9d.jpg",
+          "source": "train/Elateridae/DSC00359.jpg",
+          "sha256": "7ebc78ac70bf6e9d7ed002303ab4a0c75544b1def15458c984db14d2f93f9a5e"
+        },
+        {
+          "output": "val/Elateridae/0002_397eb9f25a30ee87.jpg",
+          "source": "train/Elateridae/DSC00246.jpg",
+          "sha256": "397eb9f25a30ee87fd5e481a8973ddefe9a05d88f49114dfe03b4b16de46205c"
+        },
+        {
+          "output": "val/Elateridae/0003_0773c153119fb23a.jpg",
+          "source": "train/Elateridae/DSC00272.jpg",
+          "sha256": "0773c153119fb23a207f8e79c3e0d71ece709dc97684dd6d9fafeb5b4c5d259a"
+        },
+        {
+          "output": "val/Elateridae/0004_e61ec6e3db82daae.jpg",
+          "source": "train/Elateridae/DSC00294.jpg",
+          "sha256": "e61ec6e3db82daaef60f3480a152e10440cac08ed8b9e002fb0940771c516c29"
+        },
+        {
+          "output": "val/Elateridae/0005_af71480be483648d.jpg",
+          "source": "train/Elateridae/DSC00291.jpg",
+          "sha256": "af71480be483648d4ffe6cdbe3458b8ab8b625dd50f59fe9e01bb4024299866a"
+        },
+        {
+          "output": "val/Elateridae/0006_e799b587baf36c65.jpg",
+          "source": "train/Elateridae/DSC00280.jpg",
+          "sha256": "e799b587baf36c65806dd8ebccea0979485530679eef7a8b42fcb1959868f245"
+        },
+        {
+          "output": "val/Elateridae/0007_2323d598882ef25d.jpg",
+          "source": "train/Elateridae/DSC00262.jpg",
+          "sha256": "2323d598882ef25db2e707b3be132012b2a9628e643d6974143c373b480c565a"
+        },
+        {
+          "output": "val/Elateridae/0008_64cb908963a8afde.jpg",
+          "source": "train/Elateridae/DSC00302.jpg",
+          "sha256": "64cb908963a8afdeeff67985e481f8acfbc1fea37876da987424bbe3e28263f3"
+        },
+        {
+          "output": "val/Elateridae/0009_2b726fed071e124f.jpg",
+          "source": "train/Elateridae/DSC00300.jpg",
+          "sha256": "2b726fed071e124f8f5e5b26d33811be832cbf36586c1543b1e669a861de27a5"
+        },
+        {
+          "output": "val/Elateridae/0010_3df39a1ec0ca7815.jpg",
+          "source": "train/Elateridae/DSC00362.jpg",
+          "sha256": "3df39a1ec0ca781593a449caeb85616859181133e05d028d7c040a241b9b4980"
+        },
+        {
+          "output": "val/Elateridae/0011_485bc1b4965eb4a8.jpg",
+          "source": "train/Elateridae/DSC00364.jpg",
+          "sha256": "485bc1b4965eb4a8b0845778294972041eb9f242d79404006cab6635653a3e03"
+        },
+        {
+          "output": "val/Elateridae/0012_a4b4fbfaed3f9311.jpg",
+          "source": "train/Elateridae/DSC00263.jpg",
+          "sha256": "a4b4fbfaed3f9311f47374243957b3c292b431f2de8e50d137868670ac5a55c8"
+        },
+        {
+          "output": "val/Elateridae/0013_0509316eae3e767a.jpg",
+          "source": "train/Elateridae/DSC00243.jpg",
+          "sha256": "0509316eae3e767a945420e1ab48110d655a367ebae74008ab86e39ea247f795"
+        },
+        {
+          "output": "val/Elateridae/0014_d14a26577eb5d90c.jpg",
+          "source": "train/Elateridae/DSC00313.jpg",
+          "sha256": "d14a26577eb5d90c46d220988ed19d75d8f5bb7e806dbb2e5ee6889439f23ec1"
+        },
+        {
+          "output": "val/Elateridae/0015_3c588e6e0f7a328d.jpg",
+          "source": "train/Elateridae/DSC00269.jpg",
+          "sha256": "3c588e6e0f7a328dccb3608354d9abf97f2331f808dd9ab624e53191bf9701bb"
+        },
+        {
+          "output": "val/Elateridae/0016_98d62e9fa9c5e54b.jpg",
+          "source": "train/Elateridae/DSC00287.jpg",
+          "sha256": "98d62e9fa9c5e54bdcfc4aeb53a9142ad2c55c3a5bb77aba81ca408b0ab3cbc1"
+        },
+        {
+          "output": "val/Elateridae/0017_dd69cfae2a205adc.jpg",
+          "source": "train/Elateridae/DSC00297.jpg",
+          "sha256": "dd69cfae2a205adc6d8aed0f4b943d3807755d124b8d3151bfa777d510563348"
+        },
+        {
+          "output": "val/Elateridae/0018_42c0fd7d455b792a.jpg",
+          "source": "train/Elateridae/DSC00312.jpg",
+          "sha256": "42c0fd7d455b792aa5a097ecf1665095ba8771da93a508d2b7a9c5fa9058604d"
+        },
+        {
+          "output": "val/Elateridae/0019_16790c91494b219f.jpg",
+          "source": "train/Elateridae/DSC00358.jpg",
+          "sha256": "16790c91494b219fd428933adcff22b7bc483567d4360a98783de2009475b5ec"
+        },
+        {
+          "output": "val/Elateridae/0020_32685ce4295dfd78.jpg",
+          "source": "train/Elateridae/DSC00355.jpg",
+          "sha256": "32685ce4295dfd78541e9a6b9b3031f7ce6191e22e059d1e40241791214c6358"
+        }
+      ]
+    },
+    {
+      "class_index": 11,
+      "model_label": "Eumolpidae",
+      "common_name": "肖叶甲科",
+      "available_unique_images": 963,
+      "train": [
+        {
+          "output": "train/Eumolpidae/0001_75ec9f99ab17e13a.jpg",
+          "source": "train/Eumolpidae/DSC04137.jpg",
+          "sha256": "75ec9f99ab17e13a614bf2b7e183e8de024040f83de6f4f1e52edb9a7ac66b3c"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Eumolpidae/0001_17106041735195f4.jpg",
+          "source": "train/Eumolpidae/DSC03809.jpg",
+          "sha256": "17106041735195f4e07f12ff945722e98e0c46c96819b823349f6e858d3699bb"
+        },
+        {
+          "output": "val/Eumolpidae/0002_309b766ba472ac9d.jpg",
+          "source": "train/Eumolpidae/DSC04054.jpg",
+          "sha256": "309b766ba472ac9de61839658ab604ce11d270f5a1f2b3fcfb13ff91b8e009f3"
+        },
+        {
+          "output": "val/Eumolpidae/0003_8045a898ab1723f1.jpg",
+          "source": "train/Eumolpidae/DSC03388.jpg",
+          "sha256": "8045a898ab1723f1105614894a47b547a95005c0f8228e3846c5407ff43490b1"
+        },
+        {
+          "output": "val/Eumolpidae/0004_2a52710e03f3121b.jpg",
+          "source": "train/Eumolpidae/DSC04178.jpg",
+          "sha256": "2a52710e03f3121bc3a40165a1079263447cfcc65c8c39f5de4ba4a4e5b631b2"
+        },
+        {
+          "output": "val/Eumolpidae/0005_fd520ff40904a13c.jpg",
+          "source": "train/Eumolpidae/DSC04110.jpg",
+          "sha256": "fd520ff40904a13c4a4c3da2c37e75a355ad46c974b97f23b9f0f727ed3db2d9"
+        },
+        {
+          "output": "val/Eumolpidae/0006_82ece25e80daefc0.jpg",
+          "source": "train/Eumolpidae/DSC03934.jpg",
+          "sha256": "82ece25e80daefc00c88164fea77f579e92cb50d0b5e1b44a935d2d056862f74"
+        },
+        {
+          "output": "val/Eumolpidae/0007_86787e54b3af9e7a.jpg",
+          "source": "train/Eumolpidae/DSC03512.jpg",
+          "sha256": "86787e54b3af9e7a064e9c1670b5204acf879ef5867e1d45e3ef2e3332cb3a91"
+        },
+        {
+          "output": "val/Eumolpidae/0008_aca45c6694260e7a.jpg",
+          "source": "train/Eumolpidae/DSC04224.jpg",
+          "sha256": "aca45c6694260e7aa5a46558ceee7c02941529ab1b8e946e9b2c8559ff4b92d7"
+        },
+        {
+          "output": "val/Eumolpidae/0009_882ae26894056c8b.jpg",
+          "source": "train/Eumolpidae/DSC04256.jpg",
+          "sha256": "882ae26894056c8b66de24d511acdf2c9c876438e0ef304bd104d54b6bd7a614"
+        },
+        {
+          "output": "val/Eumolpidae/0010_b1faddba7614cab5.jpg",
+          "source": "train/Eumolpidae/DSC04104.jpg",
+          "sha256": "b1faddba7614cab5efd6e24803575292ed46f6e57a859c927ff39f6f75fefcc1"
+        },
+        {
+          "output": "val/Eumolpidae/0011_8b56095216fe70e6.jpg",
+          "source": "train/Eumolpidae/DSC03534.jpg",
+          "sha256": "8b56095216fe70e6a006a6b2d6b95fcf99161e335f5e61d45d4e1503e5b9ff0b"
+        },
+        {
+          "output": "val/Eumolpidae/0012_a92e2fb96daba386.jpg",
+          "source": "train/Eumolpidae/DSC03922.jpg",
+          "sha256": "a92e2fb96daba38677215e7c3dfc5157201f57633047827990088e5c2a43d02b"
+        },
+        {
+          "output": "val/Eumolpidae/0013_7d8bb34481fb11ee.jpg",
+          "source": "train/Eumolpidae/DSC03975.jpg",
+          "sha256": "7d8bb34481fb11ee8fd4103ddc8305196d63c986e0379917135730c9e6409258"
+        },
+        {
+          "output": "val/Eumolpidae/0014_524a96345f49965c.jpg",
+          "source": "train/Eumolpidae/DSC03298.jpg",
+          "sha256": "524a96345f49965cc61e6e88825a43ef15a70eda935518be7d244ad8e1f99608"
+        },
+        {
+          "output": "val/Eumolpidae/0015_0e096d77a51c5b28.jpg",
+          "source": "train/Eumolpidae/DSC03382.jpg",
+          "sha256": "0e096d77a51c5b28a44393cfa7c390edd87479ac5c806db5a46c2c47df5621e9"
+        },
+        {
+          "output": "val/Eumolpidae/0016_70ddf39fa5b2f21f.jpg",
+          "source": "train/Eumolpidae/DSC04244.jpg",
+          "sha256": "70ddf39fa5b2f21f9c52ab8113c993a1b2f5f6a867001d0367f6c317ed60f555"
+        },
+        {
+          "output": "val/Eumolpidae/0017_80f63f0c13c34306.jpg",
+          "source": "train/Eumolpidae/DSC04148.jpg",
+          "sha256": "80f63f0c13c34306a1632bba18738df583e12a04a441790da688ad426d5d775f"
+        },
+        {
+          "output": "val/Eumolpidae/0018_7a7be010cf03305f.jpg",
+          "source": "train/Eumolpidae/DSC04153.jpg",
+          "sha256": "7a7be010cf03305fab5708d529e457f0b0d82e6793efc8856342d5ab023d7124"
+        },
+        {
+          "output": "val/Eumolpidae/0019_8e706c303873c6d7.jpg",
+          "source": "train/Eumolpidae/DSC03980.jpg",
+          "sha256": "8e706c303873c6d79fd9d2c6d0b7c89626540649cfa172edf4bebb56fe9d7670"
+        },
+        {
+          "output": "val/Eumolpidae/0020_29c6c3d3f7d8fbd7.jpg",
+          "source": "train/Eumolpidae/DSC03834.jpg",
+          "sha256": "29c6c3d3f7d8fbd76fccc17452591884058fd14fe7d5027d4e8005bf2acc143b"
+        }
+      ]
+    },
+    {
+      "class_index": 12,
+      "model_label": "Libellulidae",
+      "common_name": "蜻科",
+      "available_unique_images": 938,
+      "train": [
+        {
+          "output": "train/Libellulidae/0001_d616665c07e94a37.jpg",
+          "source": "train/Libellulidae/IMG20260723192732_BURST008.jpg",
+          "sha256": "d616665c07e94a370d07d58a3fbd491ec5b32154e6f9c7321d012c3a6cf3e4ea"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Libellulidae/0001_b723b61a6620ba94.jpg",
+          "source": "train/Libellulidae/IMG20260723194824_BURST003.jpg",
+          "sha256": "b723b61a6620ba9463a8abc272020853886707c1d9b56d132573dec1647a52c6"
+        },
+        {
+          "output": "val/Libellulidae/0002_cf9d927b41aee0ad.jpg",
+          "source": "train/Libellulidae/IMG20260723194743_BURST012.jpg",
+          "sha256": "cf9d927b41aee0ade2b5e83b2fe91ec7d87c7b1a54b0460235497eac06c25bc0"
+        },
+        {
+          "output": "val/Libellulidae/0003_294cf19f7bb85fe9.jpg",
+          "source": "train/Libellulidae/IMG20260723193551_BURST018.jpg",
+          "sha256": "294cf19f7bb85fe927bede353205e06973d8b4dacfcfc753eb6c38e31d027e3c"
+        },
+        {
+          "output": "val/Libellulidae/0004_0600c6363ef2c75a.jpg",
+          "source": "train/Libellulidae/IMG20260723193106_BURST001.jpg",
+          "sha256": "0600c6363ef2c75a01e41d3832c36194e699f3cfe354274c684d2ede5ba3f539"
+        },
+        {
+          "output": "val/Libellulidae/0005_67583410ea3fe6db.jpg",
+          "source": "train/Libellulidae/IMG20260723194759_BURST002.jpg",
+          "sha256": "67583410ea3fe6db25a8a973e44a146e4614ac6ec05c60263c23c2b113b7615d"
+        },
+        {
+          "output": "val/Libellulidae/0006_e171fea166d80efc.jpg",
+          "source": "train/Libellulidae/IMG20260723193535_BURST017.jpg",
+          "sha256": "e171fea166d80efced060e579ece509c61658f99057b013932e3db3a9610a059"
+        },
+        {
+          "output": "val/Libellulidae/0007_1bdb88c75f1a3ec8.jpg",
+          "source": "train/Libellulidae/IMG20260723192751_BURST010.jpg",
+          "sha256": "1bdb88c75f1a3ec8ed3be9406061b91469bb7360c5c0f61211e220d99d0118d2"
+        },
+        {
+          "output": "val/Libellulidae/0008_0280d912290b5002.jpg",
+          "source": "train/Libellulidae/IMG20260723194648_BURST018.jpg",
+          "sha256": "0280d912290b5002e776ec0ff428ea9d6cbeb025de489291a6a4cf5dd2f826da"
+        },
+        {
+          "output": "val/Libellulidae/0009_6145e503aa12fa6d.jpg",
+          "source": "train/Libellulidae/IMG20260723194710_BURST007.jpg",
+          "sha256": "6145e503aa12fa6d8bb2afeddd5bd85cd5b86a0280d795ceb69f5167d85c8b2a"
+        },
+        {
+          "output": "val/Libellulidae/0010_6de0ab3cc069b148.jpg",
+          "source": "train/Libellulidae/IMG20260723194655_BURST018.jpg",
+          "sha256": "6de0ab3cc069b148ac4f9848696248cc04bfedc402050ea894b99d46d3d79ff3"
+        },
+        {
+          "output": "val/Libellulidae/0011_150b73b34a61e34b.jpg",
+          "source": "train/Libellulidae/IMG20260723192852_BURST018.jpg",
+          "sha256": "150b73b34a61e34b8c5ebaee0bbe830a8494f412402c61ccc434f961dbe8b760"
+        },
+        {
+          "output": "val/Libellulidae/0012_e2a6eb4985f5705d.jpg",
+          "source": "train/Libellulidae/IMG20260723193230_BURST013.jpg",
+          "sha256": "e2a6eb4985f5705d5777969c3467a7e24b78b7c0334a22433360d6637f2b6c30"
+        },
+        {
+          "output": "val/Libellulidae/0013_b2e42503937b1ae8.jpg",
+          "source": "train/Libellulidae/IMG20260723193230_BURST014.jpg",
+          "sha256": "b2e42503937b1ae86224fb148a4c58c6497765a0920443943ebac5fac23bfb29"
+        },
+        {
+          "output": "val/Libellulidae/0014_80eba080af24a783.jpg",
+          "source": "train/Libellulidae/IMG20260723194743_BURST018.jpg",
+          "sha256": "80eba080af24a78303ce5d0c7b7aab5edf508fb20772446816571eaf18c9089a"
+        },
+        {
+          "output": "val/Libellulidae/0015_2b910d261207a910.jpg",
+          "source": "train/Libellulidae/IMG20260723194824_BURST001.jpg",
+          "sha256": "2b910d261207a9109de35368e3dc2415d1ba4e7245a5397559570a95a7e44382"
+        },
+        {
+          "output": "val/Libellulidae/0016_9c822f195b95a5c9.jpg",
+          "source": "train/Libellulidae/IMG20260723194552_BURST010.jpg",
+          "sha256": "9c822f195b95a5c95eeb2d4971f613e8218562ee1e3288e5d715d5966a91d726"
+        },
+        {
+          "output": "val/Libellulidae/0017_37b698212fe3c583.jpg",
+          "source": "train/Libellulidae/IMG20260723192859_BURST019.jpg",
+          "sha256": "37b698212fe3c5830b8ad7337028ae544f321e1cf98028acf024dd54e3761e5b"
+        },
+        {
+          "output": "val/Libellulidae/0018_494237b778f963cc.jpg",
+          "source": "train/Libellulidae/IMG20260723193240_BURST013.jpg",
+          "sha256": "494237b778f963ccd65da8bfe15295c9e0f7af029e85d2b5865193e810cd7d28"
+        },
+        {
+          "output": "val/Libellulidae/0019_0dd6cb274d905390.jpg",
+          "source": "train/Libellulidae/IMG20260723193118_BURST006.jpg",
+          "sha256": "0dd6cb274d9053903506368eacd2851e19bda9c24829d2c2582edcb8dff1ae5a"
+        },
+        {
+          "output": "val/Libellulidae/0020_9b1bbecb61890716.jpg",
+          "source": "train/Libellulidae/IMG20260723193025_BURST008.jpg",
+          "sha256": "9b1bbecb61890716ea7b4f97dcf1ba9efb1599461cb433a92f7d24d8d8645b27"
+        }
+      ]
+    },
+    {
+      "class_index": 13,
+      "model_label": "Lycaenidae",
+      "common_name": "灰蝶科",
+      "available_unique_images": 1279,
+      "train": [
+        {
+          "output": "train/Lycaenidae/0001_fdbeb48e00b37612.jpg",
+          "source": "train/Lycaenidae/DSC05335.jpg",
+          "sha256": "fdbeb48e00b37612c22081758e81e9ed11dacbf7295af20e680ba78f138b5f4f"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Lycaenidae/0001_cc928e9ccdd55bc5.jpg",
+          "source": "train/Lycaenidae/DSC09684.jpg",
+          "sha256": "cc928e9ccdd55bc528522df3ab0a2be5709c8ba04703852f3a056259b34a1f0e"
+        },
+        {
+          "output": "val/Lycaenidae/0002_de6e3f5917b211b6.jpg",
+          "source": "train/Lycaenidae/DSC00184.jpg",
+          "sha256": "de6e3f5917b211b66d471d22d69183ea2d60df7acb25da5f289acc4baeae4b09"
+        },
+        {
+          "output": "val/Lycaenidae/0003_c09f035abd8d5f53.jpg",
+          "source": "train/Lycaenidae/DSC00048.jpg",
+          "sha256": "c09f035abd8d5f53c4fc2f913123fec2a40fc726fe181cb80e00ff1bbae00098"
+        },
+        {
+          "output": "val/Lycaenidae/0004_212db9859ae729b1.jpg",
+          "source": "train/Lycaenidae/DSC00260.jpg",
+          "sha256": "212db9859ae729b17e36e562b13ee1899e9a91c20ec51412279856a1f7040690"
+        },
+        {
+          "output": "val/Lycaenidae/0005_a0a820f436e1e223.jpg",
+          "source": "train/Lycaenidae/DSC05251.jpg",
+          "sha256": "a0a820f436e1e223ede2ee65252269600386a6cdb567a83fbe86d11aba1040e4"
+        },
+        {
+          "output": "val/Lycaenidae/0006_c85a2ad3e3f865f4.jpg",
+          "source": "train/Lycaenidae/DSC05519.jpg",
+          "sha256": "c85a2ad3e3f865f4f607c111e429826e73a8c14fe8c15cce0582f41a64c51ad7"
+        },
+        {
+          "output": "val/Lycaenidae/0007_6477585de76d03f8.jpg",
+          "source": "train/Lycaenidae/DSC05381.jpg",
+          "sha256": "6477585de76d03f82aba92af99a8b9f02b3885ce80fac96c54e6697702510b08"
+        },
+        {
+          "output": "val/Lycaenidae/0008_bfaa5fbff5ffdc3a.jpg",
+          "source": "train/Lycaenidae/DSC05187.jpg",
+          "sha256": "bfaa5fbff5ffdc3a355e21dd0d619e57b19a006756eeaca55e2ed0efa9c75fe8"
+        },
+        {
+          "output": "val/Lycaenidae/0009_d67701f61a833259.jpg",
+          "source": "train/Lycaenidae/DSC00190.jpg",
+          "sha256": "d67701f61a83325909d9b540ed20d5710aa4ecb6c5f788d7d2043f10876efbbd"
+        },
+        {
+          "output": "val/Lycaenidae/0010_0a1c7104514391cf.jpg",
+          "source": "train/Lycaenidae/DSC00050.jpg",
+          "sha256": "0a1c7104514391cf40e7c99f841a8c8d4e5fcf835d038153e0bffe6ceb18ac1b"
+        },
+        {
+          "output": "val/Lycaenidae/0011_a4b17cf8c5184e52.jpg",
+          "source": "train/Lycaenidae/DSC05294.jpg",
+          "sha256": "a4b17cf8c5184e52174460001e55c781f587549772293a3aea601411ee12cb3d"
+        },
+        {
+          "output": "val/Lycaenidae/0012_d69ce86d1542bc71.jpg",
+          "source": "train/Lycaenidae/DSC00727.jpg",
+          "sha256": "d69ce86d1542bc713bf4fb4a8d05204ba46e1086eef9f04bf6256397d03acc6d"
+        },
+        {
+          "output": "val/Lycaenidae/0013_5566f1ae06fcd5c6.jpg",
+          "source": "train/Lycaenidae/DSC05223.jpg",
+          "sha256": "5566f1ae06fcd5c6d294c999fc9db40ff3955f5943d0cb049dfb1cd3772a7a43"
+        },
+        {
+          "output": "val/Lycaenidae/0014_005bbaa16eaf572d.jpg",
+          "source": "train/Lycaenidae/DSC05244.jpg",
+          "sha256": "005bbaa16eaf572d5d2069ed970bea16b18234554a8bbfea95a85dc144159eab"
+        },
+        {
+          "output": "val/Lycaenidae/0015_6b5638e89edd119f.jpg",
+          "source": "train/Lycaenidae/DSC04983.jpg",
+          "sha256": "6b5638e89edd119f62aa62ca6c5290242066971cb71ed2088768a60463c73b7e"
+        },
+        {
+          "output": "val/Lycaenidae/0016_f53dfe9729e001cd.jpg",
+          "source": "train/Lycaenidae/DSC05374.jpg",
+          "sha256": "f53dfe9729e001cd03642e7fc1355a285fdda64d81616b5cd117f1f901436cc5"
+        },
+        {
+          "output": "val/Lycaenidae/0017_c16d5a0d948f7181.jpg",
+          "source": "train/Lycaenidae/DSC00113.jpg",
+          "sha256": "c16d5a0d948f718111270fd8f40cae96f913122a1375f8a1cfd05e644f9869fd"
+        },
+        {
+          "output": "val/Lycaenidae/0018_7b4118f70e655f2e.jpg",
+          "source": "train/Lycaenidae/DSC00721.jpg",
+          "sha256": "7b4118f70e655f2e45bc43dda4b2d900ed863719ade9b99a4dfcc2c208e0df84"
+        },
+        {
+          "output": "val/Lycaenidae/0019_353485036a9d46ce.jpg",
+          "source": "train/Lycaenidae/DSC00116.jpg",
+          "sha256": "353485036a9d46ce6975ad936d3ec9b720b5292d324adb572e305eb9504a538b"
+        },
+        {
+          "output": "val/Lycaenidae/0020_c3e90c2f2e85f503.jpg",
+          "source": "train/Lycaenidae/DSC05451.jpg",
+          "sha256": "c3e90c2f2e85f503283b2c347fc3b1fda768ed399c9324254d8f3c0b051f781d"
+        }
+      ]
+    },
+    {
+      "class_index": 14,
+      "model_label": "Megachile",
+      "common_name": "切叶蜂属",
+      "available_unique_images": 241,
+      "train": [
+        {
+          "output": "train/Megachile/0001_40a61e32f28ce295.jpg",
+          "source": "train/Megachile/DSC06257.jpg",
+          "sha256": "40a61e32f28ce295af5915fb71e93747f5dcff85bc6dc1186569d7520f405b40"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Megachile/0001_0912fadc5335568b.jpg",
+          "source": "train/Megachile/DSC06427.jpg",
+          "sha256": "0912fadc5335568b7de0fe98f4e108320402b196d0cf5ec136d4aee6e8a439e3"
+        },
+        {
+          "output": "val/Megachile/0002_2e0daec25f2b35c1.jpg",
+          "source": "train/Megachile/DSC06362.jpg",
+          "sha256": "2e0daec25f2b35c11ff104c611fb483d254a3392b184e8c936517b252265a97f"
+        },
+        {
+          "output": "val/Megachile/0003_5093cf461b4eb434.jpg",
+          "source": "train/Megachile/DSC06308.jpg",
+          "sha256": "5093cf461b4eb434e11f42f73cefd8d591d9b78e2d1bb0e9e7f7e62c886d5cc1"
+        },
+        {
+          "output": "val/Megachile/0004_0374c54ec1ff4796.jpg",
+          "source": "train/Megachile/DSC06310.jpg",
+          "sha256": "0374c54ec1ff47969ef7af9a90bb9e2a5d66552ccee4489e54afdbd53f97e26f"
+        },
+        {
+          "output": "val/Megachile/0005_1bb65449ed7dd3f0.jpg",
+          "source": "train/Megachile/DSC06390.jpg",
+          "sha256": "1bb65449ed7dd3f073e965fb02a74f909145ecf268385736a0e6f76d2c11b3bc"
+        },
+        {
+          "output": "val/Megachile/0006_8313a26b5dbae661.jpg",
+          "source": "train/Megachile/DSC06243.jpg",
+          "sha256": "8313a26b5dbae661d78aabb25a1eefeea7d5d752087e81b6280855ab793f72a6"
+        },
+        {
+          "output": "val/Megachile/0007_5f5c982abfd4af3c.jpg",
+          "source": "train/Megachile/DSC06381.jpg",
+          "sha256": "5f5c982abfd4af3c72818b064bffb5dbb4eb43d9335fae69e2500cea34837f1c"
+        },
+        {
+          "output": "val/Megachile/0008_3223cd1b7f00303f.jpg",
+          "source": "train/Megachile/DSC06237.jpg",
+          "sha256": "3223cd1b7f00303f55eb194384fd796f5a24c38c418fdab682e5f9918d48c76b"
+        },
+        {
+          "output": "val/Megachile/0009_94eff53a006869c8.jpg",
+          "source": "train/Megachile/DSC06344.jpg",
+          "sha256": "94eff53a006869c8f4857f69451e10a7a93e3f9c284db0c0c47f67c738e962d1"
+        },
+        {
+          "output": "val/Megachile/0010_00dabfe9aaafa089.jpg",
+          "source": "train/Megachile/DSC06213.jpg",
+          "sha256": "00dabfe9aaafa0894839abd7dfafae6df5090d769bc58e884b5cb4977e052752"
+        },
+        {
+          "output": "val/Megachile/0011_c51acc459eb4209d.jpg",
+          "source": "train/Megachile/DSC06300.jpg",
+          "sha256": "c51acc459eb4209d8a0e12addce975780b3914dbd076459b5d51ab3712ba996c"
+        },
+        {
+          "output": "val/Megachile/0012_8bf7a9f2ce2117ed.jpg",
+          "source": "train/Megachile/DSC06303.jpg",
+          "sha256": "8bf7a9f2ce2117ed4d4133015c9959de9062b1f7efcaf5431de1c80f57898dd0"
+        },
+        {
+          "output": "val/Megachile/0013_55d5d7e0207b137e.jpg",
+          "source": "train/Megachile/DSC06349.jpg",
+          "sha256": "55d5d7e0207b137e94ff3bffae9e978f30102c70c4a5ede2c97e6987ef251bb8"
+        },
+        {
+          "output": "val/Megachile/0014_4c787cdd8a57fcd1.jpg",
+          "source": "train/Megachile/DSC06318.jpg",
+          "sha256": "4c787cdd8a57fcd1737963b8d036da9011eb8495be1335d7a5331ea8206f7ef6"
+        },
+        {
+          "output": "val/Megachile/0015_22bce3b05062deb9.jpg",
+          "source": "train/Megachile/DSC06201.jpg",
+          "sha256": "22bce3b05062deb9c9810c4578cb800f1513f19084ba789b2f79fa74b60cad52"
+        },
+        {
+          "output": "val/Megachile/0016_122e552f777971b4.jpg",
+          "source": "train/Megachile/DSC06204.jpg",
+          "sha256": "122e552f777971b4a0cbdc26626dec9b28c251fc7916562fa30f629acf93abe9"
+        },
+        {
+          "output": "val/Megachile/0017_baf09e90e7359cdc.jpg",
+          "source": "train/Megachile/DSC06256.jpg",
+          "sha256": "baf09e90e7359cdc570f6d317a65319a327dae06b33478f032d0a93900e837f9"
+        },
+        {
+          "output": "val/Megachile/0018_71a3ba3ac33b2ef7.jpg",
+          "source": "train/Megachile/DSC06276.jpg",
+          "sha256": "71a3ba3ac33b2ef787b3be432763804d5e3010808d15228682baf40331384b1c"
+        },
+        {
+          "output": "val/Megachile/0019_ef61c2c2cf7da5b4.jpg",
+          "source": "train/Megachile/DSC06296.jpg",
+          "sha256": "ef61c2c2cf7da5b4bb35e005bfd362648cd2fd72ef20463427b16a8d7050699a"
+        },
+        {
+          "output": "val/Megachile/0020_c5b54e5114b59b90.jpg",
+          "source": "train/Megachile/DSC06387.jpg",
+          "sha256": "c5b54e5114b59b90441c8a8267f45bff17a887161966ce1dfd76d351b796203a"
+        }
+      ]
+    },
+    {
+      "class_index": 15,
+      "model_label": "Myrmeleontidae",
+      "common_name": "蚁蛉科",
+      "available_unique_images": 1703,
+      "train": [
+        {
+          "output": "train/Myrmeleontidae/0001_672dc00ad8dcfcef.jpg",
+          "source": "train/Myrmeleontidae/DSC06331.jpg",
+          "sha256": "672dc00ad8dcfcef79952cc8863c8baad5c38eda0c37ad1cbe3d0c4b76ec1d43"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Myrmeleontidae/0001_feb8b0fa341feab1.jpg",
+          "source": "train/Myrmeleontidae/DSC06810.jpg",
+          "sha256": "feb8b0fa341feab18b7a2d0e4701e61f3e0efefafdef8f0048ae1f49c07c6eb1"
+        },
+        {
+          "output": "val/Myrmeleontidae/0002_7529fb98c300db43.jpg",
+          "source": "train/Myrmeleontidae/DSC05480.jpg",
+          "sha256": "7529fb98c300db43b3a5d14f9c255c1b2966af91799ce7ab9f8b9a90b8420ffa"
+        },
+        {
+          "output": "val/Myrmeleontidae/0003_cc0851d63f61232e.jpg",
+          "source": "train/Myrmeleontidae/DSC07065.jpg",
+          "sha256": "cc0851d63f61232e7ca998610b16c1819dc6bec2819545d32a543c293bec8bef"
+        },
+        {
+          "output": "val/Myrmeleontidae/0004_253845b8d8d90679.jpg",
+          "source": "train/Myrmeleontidae/DSC06434.jpg",
+          "sha256": "253845b8d8d9067971b186d630d43f6d19d906fb75a0d8e11721acbbaa2de74b"
+        },
+        {
+          "output": "val/Myrmeleontidae/0005_227b06044e7fbe7c.jpg",
+          "source": "train/Myrmeleontidae/DSC06685.jpg",
+          "sha256": "227b06044e7fbe7c16927223a51409e994343dfd1a50dfef555530504d42f1d9"
+        },
+        {
+          "output": "val/Myrmeleontidae/0006_df6e8e945be516b5.jpg",
+          "source": "train/Myrmeleontidae/DSC06433.jpg",
+          "sha256": "df6e8e945be516b593119c764d16b4a64d49356611b4350b6a6ecf1d21f59472"
+        },
+        {
+          "output": "val/Myrmeleontidae/0007_b8be22fd9a1c50a6.jpg",
+          "source": "train/Myrmeleontidae/DSC06941.jpg",
+          "sha256": "b8be22fd9a1c50a64d899cd5b29b2481ec9827717b6a074578ee295b8c871d2d"
+        },
+        {
+          "output": "val/Myrmeleontidae/0008_a5428699ea33861e.jpg",
+          "source": "train/Myrmeleontidae/DSC05715.jpg",
+          "sha256": "a5428699ea33861ed3b0f8903de972f05f1195258d9bdac31f9780a599836dc9"
+        },
+        {
+          "output": "val/Myrmeleontidae/0009_c33da530c422eccc.jpg",
+          "source": "train/Myrmeleontidae/DSC05472.jpg",
+          "sha256": "c33da530c422eccc5a3cc8c49d69c0aa28ce7319626b73857dba392b3a874ab4"
+        },
+        {
+          "output": "val/Myrmeleontidae/0010_3f5ba954798471d7.jpg",
+          "source": "train/Myrmeleontidae/DSC06989.jpg",
+          "sha256": "3f5ba954798471d75ed2c254d212fb0915e3f639956d2b32de4653cdb90c12af"
+        },
+        {
+          "output": "val/Myrmeleontidae/0011_db67f9bf912f125f.jpg",
+          "source": "train/Myrmeleontidae/DSC06332.jpg",
+          "sha256": "db67f9bf912f125f9501d889e7d397c7b5a64419ba0346ce04bcf71ee0198431"
+        },
+        {
+          "output": "val/Myrmeleontidae/0012_f314ecdc361fa213.jpg",
+          "source": "train/Myrmeleontidae/DSC06371.jpg",
+          "sha256": "f314ecdc361fa2134cec7331f3ca3bddc1aeedcfb1aa32c9e225fe28c958c208"
+        },
+        {
+          "output": "val/Myrmeleontidae/0013_d570e62b902e6671.jpg",
+          "source": "train/Myrmeleontidae/DSC06377.jpg",
+          "sha256": "d570e62b902e667132d049002be5a38c28208b3ab4f4fe597924a9ae47df66e1"
+        },
+        {
+          "output": "val/Myrmeleontidae/0014_72274114c52dd83c.jpg",
+          "source": "train/Myrmeleontidae/DSC05620.jpg",
+          "sha256": "72274114c52dd83c2ec5e095a11a6bded038039f6781e7c3a2a3d12c7671dd87"
+        },
+        {
+          "output": "val/Myrmeleontidae/0015_d79da02a443e0b4c.jpg",
+          "source": "train/Myrmeleontidae/DSC05424.jpg",
+          "sha256": "d79da02a443e0b4c2392d7298b18b408b2be617cb4ebe3fb2a132817dd318880"
+        },
+        {
+          "output": "val/Myrmeleontidae/0016_1a0a00bd8251a392.jpg",
+          "source": "train/Myrmeleontidae/DSC06701.jpg",
+          "sha256": "1a0a00bd8251a392e15610dee12079c9b442b8b67bec0d82d6470e516782e6e4"
+        },
+        {
+          "output": "val/Myrmeleontidae/0017_b0cd60d97ca521e6.jpg",
+          "source": "train/Myrmeleontidae/DSC06771.jpg",
+          "sha256": "b0cd60d97ca521e68ec230fc8e30440936df32feb36fcef27a04b82f05153316"
+        },
+        {
+          "output": "val/Myrmeleontidae/0018_b2214497d0176cbf.jpg",
+          "source": "train/Myrmeleontidae/DSC05440.jpg",
+          "sha256": "b2214497d0176cbf69b32d9893d62c64de46fea1674ff169d0ecc5e79662c96e"
+        },
+        {
+          "output": "val/Myrmeleontidae/0019_d454e531ee8d1543.jpg",
+          "source": "train/Myrmeleontidae/DSC06340.jpg",
+          "sha256": "d454e531ee8d1543247077c5698b3e7ee2cc63214594ed2159b10f338e787759"
+        },
+        {
+          "output": "val/Myrmeleontidae/0020_e1bca232f0185795.jpg",
+          "source": "train/Myrmeleontidae/DSC06647.jpg",
+          "sha256": "e1bca232f01857959c7c83519aa80a58e50f0d79ee6594c4ab0fafc65d8388b7"
+        }
+      ]
+    },
+    {
+      "class_index": 16,
+      "model_label": "Noctuidae",
+      "common_name": "夜蛾科",
+      "available_unique_images": 1308,
+      "train": [
+        {
+          "output": "train/Noctuidae/0001_f38f22fcacb2d76c.jpg",
+          "source": "train/Noctuidae/DSC08182.jpg",
+          "sha256": "f38f22fcacb2d76c30feae9fae3a3f1fa409e08318765ce9a626edad40e77f88"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Noctuidae/0001_037439e746710ebe.jpg",
+          "source": "train/Noctuidae/DSC08319.jpg",
+          "sha256": "037439e746710ebe7171c2e1aeb1cfd18487a0cb751bf38569725af2f830b1c3"
+        },
+        {
+          "output": "val/Noctuidae/0002_9c1906ee067ba67d.jpg",
+          "source": "train/Noctuidae/DSC08040 (2).jpg",
+          "sha256": "9c1906ee067ba67d9663442d421a048e0d9c7358634eeb48fc52afd67f07ad68"
+        },
+        {
+          "output": "val/Noctuidae/0003_8c2718d5eefa2f60.jpg",
+          "source": "train/Noctuidae/DSC07897 (2).jpg",
+          "sha256": "8c2718d5eefa2f60f81fbae448c3ce901d373c873cf178426e66cbf79f77d4ef"
+        },
+        {
+          "output": "val/Noctuidae/0004_f9a4bb111255e622.jpg",
+          "source": "train/Noctuidae/DSC07643.jpg",
+          "sha256": "f9a4bb111255e6223f8829439bd2788ccb1a28156efd29a45fa0d1de534b1852"
+        },
+        {
+          "output": "val/Noctuidae/0005_d0fea4465b0cdac1.jpg",
+          "source": "train/Noctuidae/DSC08009 (2).jpg",
+          "sha256": "d0fea4465b0cdac1b88bf327d42102451965cebc513a316dfaf103aa250d463b"
+        },
+        {
+          "output": "val/Noctuidae/0006_a4fd5fb9e5b6c677.jpg",
+          "source": "train/Noctuidae/DSC08148.jpg",
+          "sha256": "a4fd5fb9e5b6c677133d7a291246b5f46358d1ee662dde8dffc65ea8a12c0823"
+        },
+        {
+          "output": "val/Noctuidae/0007_f470f00958e0f6d5.jpg",
+          "source": "train/Noctuidae/DSC07699.jpg",
+          "sha256": "f470f00958e0f6d518d7cbdc8bc47b8eb8699ad18104195e97031556b265b678"
+        },
+        {
+          "output": "val/Noctuidae/0008_b652a771f6b17221.jpg",
+          "source": "train/Noctuidae/DSC07735.jpg",
+          "sha256": "b652a771f6b172216199ff3370fc323c375b52e08c2b0d8f6e1612e52cade9dd"
+        },
+        {
+          "output": "val/Noctuidae/0009_2e44fe029030d7b7.jpg",
+          "source": "train/Noctuidae/DSC07768.jpg",
+          "sha256": "2e44fe029030d7b7191a4f93effeefb1d0dba842877c6044087a39485fe36275"
+        },
+        {
+          "output": "val/Noctuidae/0010_e74de1f4f89f69f6.jpg",
+          "source": "train/Noctuidae/DSC07248.jpg",
+          "sha256": "e74de1f4f89f69f646757f0cd55d8758a18c48645be36f70759554cc9a2e245d"
+        },
+        {
+          "output": "val/Noctuidae/0011_d8e123f9a73e5c0f.jpg",
+          "source": "train/Noctuidae/DSC07754.jpg",
+          "sha256": "d8e123f9a73e5c0f73b5263f50474666828ae89b8d15a2709c10b158cde9591c"
+        },
+        {
+          "output": "val/Noctuidae/0012_7140f582cc694b34.jpg",
+          "source": "train/Noctuidae/DSC08385 (2).jpg",
+          "sha256": "7140f582cc694b3424b2585c3f0caf7874b5e5aa62095ed069f45f02b17bd4fc"
+        },
+        {
+          "output": "val/Noctuidae/0013_e863c9a8e496816b.jpg",
+          "source": "train/Noctuidae/DSC07764.jpg",
+          "sha256": "e863c9a8e496816be14fae8ce41a23f614d7dd9617ccd4267a8093ff71dbb6ec"
+        },
+        {
+          "output": "val/Noctuidae/0014_09123fb799157be6.jpg",
+          "source": "train/Noctuidae/DSC08302.jpg",
+          "sha256": "09123fb799157be6569264d67c9142d733f79a407f51e9be3660c13da90a9523"
+        },
+        {
+          "output": "val/Noctuidae/0015_c8ca89295ffbfc96.jpg",
+          "source": "train/Noctuidae/DSC07807.jpg",
+          "sha256": "c8ca89295ffbfc961c30cbe1e9e4e757ae986b591bb1765438fe9cc29b2908e5"
+        },
+        {
+          "output": "val/Noctuidae/0016_f26926eb4e23ce6c.jpg",
+          "source": "train/Noctuidae/DSC07710.jpg",
+          "sha256": "f26926eb4e23ce6cd9c3b61c73120c242d1b8ce44d0ed8a19160188d00c36a41"
+        },
+        {
+          "output": "val/Noctuidae/0017_3e527530b4b7a0d4.jpg",
+          "source": "train/Noctuidae/DSC08320.jpg",
+          "sha256": "3e527530b4b7a0d4352b7555bf144c3c3cc894cd4ca9cd87c4c7ac6e6a81b823"
+        },
+        {
+          "output": "val/Noctuidae/0018_b399392adf70752e.jpg",
+          "source": "train/Noctuidae/DSC08135 (2).jpg",
+          "sha256": "b399392adf70752e031e5010d81e3a0725fa975a4d8aa12752375d4b6124bacf"
+        },
+        {
+          "output": "val/Noctuidae/0019_09613f4724582931.jpg",
+          "source": "train/Noctuidae/DSC07402.jpg",
+          "sha256": "09613f472458293196b0c07cd0998bec9d680679a50864f4303eb46bfc3b33f2"
+        },
+        {
+          "output": "val/Noctuidae/0020_25332caaac67f10e.jpg",
+          "source": "train/Noctuidae/DSC07351.jpg",
+          "sha256": "25332caaac67f10e7c5b15641531af79e32e69bdd302fdbf5c570bd7b910c6aa"
+        }
+      ]
+    },
+    {
+      "class_index": 17,
+      "model_label": "Pentatomidae",
+      "common_name": "蝽科",
+      "available_unique_images": 1855,
+      "train": [
+        {
+          "output": "train/Pentatomidae/0001_e403136da212825f.jpg",
+          "source": "train/Pentatomidae/DSC09755.jpg",
+          "sha256": "e403136da212825fb7d5a74a6e164be56f9fe6ed18d5010f543f1106e7185e7d"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Pentatomidae/0001_52b8c40a7b1c879e.jpg",
+          "source": "train/Pentatomidae/DSC03754 (2).jpg",
+          "sha256": "52b8c40a7b1c879e19d73695850c55174f2c2dcf3980dc0d1daa77d1007c39fd"
+        },
+        {
+          "output": "val/Pentatomidae/0002_a392ded358fbbf79.jpg",
+          "source": "train/Pentatomidae/DSC09594.jpg",
+          "sha256": "a392ded358fbbf798f191e3f7b8b9f3bef62db2009a1a27beac95890476ecb1d"
+        },
+        {
+          "output": "val/Pentatomidae/0003_1b32c41c20bd6755.jpg",
+          "source": "train/Pentatomidae/DSC09758.jpg",
+          "sha256": "1b32c41c20bd67558a86f54bb01b5e09c56e49596aff5603662e3e711c101649"
+        },
+        {
+          "output": "val/Pentatomidae/0004_81a3aa0c660b80c5.jpg",
+          "source": "train/Pentatomidae/DSC08565 (2).jpg",
+          "sha256": "81a3aa0c660b80c5947b56f8b6e9cf879b99a6470732c7a02d73b798376debcc"
+        },
+        {
+          "output": "val/Pentatomidae/0005_c1eee806ae8b0e92.jpg",
+          "source": "train/Pentatomidae/DSC03727 (2).jpg",
+          "sha256": "c1eee806ae8b0e921a27ac2761a00a4319f6d4c0383e8ee9cbee9ddac7084fa8"
+        },
+        {
+          "output": "val/Pentatomidae/0006_ea8b5fc8e6cf6ca2.jpg",
+          "source": "train/Pentatomidae/DSC08715 (2).jpg",
+          "sha256": "ea8b5fc8e6cf6ca2c390def6a864ea003f0986059f6a502393dedaa32cf96f56"
+        },
+        {
+          "output": "val/Pentatomidae/0007_0fd6dcca5f2125b4.jpg",
+          "source": "train/Pentatomidae/DSC03753 (2).jpg",
+          "sha256": "0fd6dcca5f2125b4bab8afa6dff161c14983d4e17b523af9786da61af72aef61"
+        },
+        {
+          "output": "val/Pentatomidae/0008_8cfa5c13d4000a33.jpg",
+          "source": "train/Pentatomidae/DSC09393 (2).jpg",
+          "sha256": "8cfa5c13d4000a33c053d843e440546af6ab763f6767dac347f43ff6a3d0db04"
+        },
+        {
+          "output": "val/Pentatomidae/0009_54e80b3a80754903.jpg",
+          "source": "train/Pentatomidae/DSC09552.jpg",
+          "sha256": "54e80b3a80754903d2b3c8f3da43584d46d023f397a0233c4cfeee4d19fb70d9"
+        },
+        {
+          "output": "val/Pentatomidae/0010_610ff89e865220e9.jpg",
+          "source": "train/Pentatomidae/DSC09000 (2).jpg",
+          "sha256": "610ff89e865220e95d23fa8a9c711b8eeb5718df2dbdd85eb9500ef9dcd1dafe"
+        },
+        {
+          "output": "val/Pentatomidae/0011_abed86196e176547.jpg",
+          "source": "train/Pentatomidae/DSC03549 (2).jpg",
+          "sha256": "abed86196e1765478da6553f70b1352c821c14c41799bf2107875ad4732dd3ef"
+        },
+        {
+          "output": "val/Pentatomidae/0012_e674b1f0ee92c697.jpg",
+          "source": "train/Pentatomidae/DSC03565 (2).jpg",
+          "sha256": "e674b1f0ee92c6979dd06ed8ec5314a09ff2357f167af641ff727d2d0f60b198"
+        },
+        {
+          "output": "val/Pentatomidae/0013_c674bc48293fd1d0.jpg",
+          "source": "train/Pentatomidae/DSC08808 (2).jpg",
+          "sha256": "c674bc48293fd1d0dedd9b35421abdb67f6fdfdf985f4255d83fadaf22d0c047"
+        },
+        {
+          "output": "val/Pentatomidae/0014_d23979790e1b98cc.jpg",
+          "source": "train/Pentatomidae/DSC03583 (2).jpg",
+          "sha256": "d23979790e1b98cc93166be5e924fb6180fb3ef0450549e8b1ada6f1fac9188d"
+        },
+        {
+          "output": "val/Pentatomidae/0015_d039ef7d713c9690.jpg",
+          "source": "train/Pentatomidae/DSC09898.jpg",
+          "sha256": "d039ef7d713c9690abff24c77b0a5526ef907b920559a262552c755915059850"
+        },
+        {
+          "output": "val/Pentatomidae/0016_bf2fc9f775a4b46b.jpg",
+          "source": "train/Pentatomidae/DSC08795 (2).jpg",
+          "sha256": "bf2fc9f775a4b46b192bb3c70a146f73523bd260f1622c3dfddb3d2010af417b"
+        },
+        {
+          "output": "val/Pentatomidae/0017_3e9521aa8bd4c7e4.jpg",
+          "source": "train/Pentatomidae/DSC03380 (2).jpg",
+          "sha256": "3e9521aa8bd4c7e464e26378489cc2fd17bbc4dc865c37a0e558bc9aec3c859e"
+        },
+        {
+          "output": "val/Pentatomidae/0018_be0edf33872a5020.jpg",
+          "source": "train/Pentatomidae/DSC08942 (2).jpg",
+          "sha256": "be0edf33872a5020f986662af9c7542fa7d9e2bab27f09eb9040f25356056c2b"
+        },
+        {
+          "output": "val/Pentatomidae/0019_d0786ee8940ec9b3.jpg",
+          "source": "train/Pentatomidae/DSC09274 (2).jpg",
+          "sha256": "d0786ee8940ec9b3e19e078d9e53e171ba1146e11f119fe3b90bb811258c085d"
+        },
+        {
+          "output": "val/Pentatomidae/0020_ec87b465b23a60e2.jpg",
+          "source": "train/Pentatomidae/DSC08806 (2).jpg",
+          "sha256": "ec87b465b23a60e265d000f2060ad04d474f748b8d8cad8e8a41c4f6a19b8347"
+        }
+      ]
+    },
+    {
+      "class_index": 18,
+      "model_label": "Phragmatobia",
+      "common_name": "Phragmatobia属",
+      "available_unique_images": 794,
+      "train": [
+        {
+          "output": "train/Phragmatobia/0001_a4e586dab6fb4c32.jpg",
+          "source": "train/Phragmatobia/DSC01109.jpg",
+          "sha256": "a4e586dab6fb4c32595a3a1206e462312b0874fd368d2ef8570c89d61bce0650"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Phragmatobia/0001_aa46dbf04a4398e2.jpg",
+          "source": "train/Phragmatobia/DSC01255.jpg",
+          "sha256": "aa46dbf04a4398e237ac9a1a853e3b94ec05f1b8469ddc85d87858205b53510b"
+        },
+        {
+          "output": "val/Phragmatobia/0002_f7442545eda30462.jpg",
+          "source": "train/Phragmatobia/DSC01440.jpg",
+          "sha256": "f7442545eda30462a6121a0c7e15c8916b596afa60c97ac93b4d2cab53c46d6c"
+        },
+        {
+          "output": "val/Phragmatobia/0003_091c937aa2634aac.jpg",
+          "source": "train/Phragmatobia/DSC01113.jpg",
+          "sha256": "091c937aa2634aac5b95340b810a4126495dfd8217439d4adea6aea3392480bf"
+        },
+        {
+          "output": "val/Phragmatobia/0004_3cd5e7d5f58d64a1.jpg",
+          "source": "train/Phragmatobia/DSC01142.jpg",
+          "sha256": "3cd5e7d5f58d64a14db98b158ec1850ea3f558304bcff7c7f1aed29f3d75ca28"
+        },
+        {
+          "output": "val/Phragmatobia/0005_b1e3117de49b132a.jpg",
+          "source": "train/Phragmatobia/DSC01149.jpg",
+          "sha256": "b1e3117de49b132a6e612a41d3e6c7cf2781ea90105a4f64c011b4871954b0c2"
+        },
+        {
+          "output": "val/Phragmatobia/0006_b772d2aa25fa8feb.jpg",
+          "source": "train/Phragmatobia/DSC01523.jpg",
+          "sha256": "b772d2aa25fa8febbb77458a37b657053a6e343abbeeb1faebd130591b25bfb7"
+        },
+        {
+          "output": "val/Phragmatobia/0007_0e8fe5ff2ca385fe.jpg",
+          "source": "train/Phragmatobia/DSC01362.jpg",
+          "sha256": "0e8fe5ff2ca385fe1fd4825e78a5330507dbbc00989335a5318ec1f0b1855e24"
+        },
+        {
+          "output": "val/Phragmatobia/0008_6628389665088d28.jpg",
+          "source": "train/Phragmatobia/DSC01083.jpg",
+          "sha256": "6628389665088d2894a9c6aabc09bc8fbfa9fb94e0d9d5544f91d0cc3011559b"
+        },
+        {
+          "output": "val/Phragmatobia/0009_1bde3a355de73250.jpg",
+          "source": "train/Phragmatobia/DSC01211.jpg",
+          "sha256": "1bde3a355de7325005ab5981f7e08ba9bb00385b3d9f006725c504baed00543b"
+        },
+        {
+          "output": "val/Phragmatobia/0010_b1fbe3817fae6f28.jpg",
+          "source": "train/Phragmatobia/DSC01425.jpg",
+          "sha256": "b1fbe3817fae6f28982e08c8ddcc94ae2815080a65d04d9f78c1fd84855ddfda"
+        },
+        {
+          "output": "val/Phragmatobia/0011_be8aece2c3441263.jpg",
+          "source": "train/Phragmatobia/DSC01216.jpg",
+          "sha256": "be8aece2c3441263d6431594794124c48d828848119d567df3efc0be91f1e2e9"
+        },
+        {
+          "output": "val/Phragmatobia/0012_b74c15cc036dec36.jpg",
+          "source": "train/Phragmatobia/DSC01205.jpg",
+          "sha256": "b74c15cc036dec368ce1f332071fd52de73da72b186730cc258b49f1f7314216"
+        },
+        {
+          "output": "val/Phragmatobia/0013_b0e3b313e70e5ff2.jpg",
+          "source": "train/Phragmatobia/DSC01184.jpg",
+          "sha256": "b0e3b313e70e5ff2b643197acc94e00af5eb8416130e00cdd617a97d9ad5f2f8"
+        },
+        {
+          "output": "val/Phragmatobia/0014_0811c108b984b16f.jpg",
+          "source": "train/Phragmatobia/DSC00804.jpg",
+          "sha256": "0811c108b984b16f40b34a3f70c6ad59030503f5b35b99e3a8dc1a5f96299e32"
+        },
+        {
+          "output": "val/Phragmatobia/0015_485ebab8c76702ad.jpg",
+          "source": "train/Phragmatobia/DSC01445.jpg",
+          "sha256": "485ebab8c76702ad877b360d05ae7d0b5d7796935c8aba5d92849d30bfc56b59"
+        },
+        {
+          "output": "val/Phragmatobia/0016_8a3087752a2e0738.jpg",
+          "source": "train/Phragmatobia/DSC01448.jpg",
+          "sha256": "8a3087752a2e07388adc2585c6919973ea326b7690e411c9fc12bfb0e774a393"
+        },
+        {
+          "output": "val/Phragmatobia/0017_2b284a48b56860a4.jpg",
+          "source": "train/Phragmatobia/DSC00825.jpg",
+          "sha256": "2b284a48b56860a4054e4ddc60216a669d0b6b17a5207fcacfe825fe3aa13bae"
+        },
+        {
+          "output": "val/Phragmatobia/0018_e340d75d08e6301c.jpg",
+          "source": "train/Phragmatobia/DSC01308.jpg",
+          "sha256": "e340d75d08e6301c52aea6084fbeb01e00780f98d9e81595fcee19c182408355"
+        },
+        {
+          "output": "val/Phragmatobia/0019_f59def38e88e8d1a.jpg",
+          "source": "train/Phragmatobia/DSC01295.jpg",
+          "sha256": "f59def38e88e8d1a4eda29b0e3e1c6edb3efbdf3e84eeb430de1942a2d0ee855"
+        },
+        {
+          "output": "val/Phragmatobia/0020_f100906618a6e7b4.jpg",
+          "source": "train/Phragmatobia/DSC01333.jpg",
+          "sha256": "f100906618a6e7b4f2257294a0f3a34b9b3ce59e4611eff897991b503537b0b9"
+        }
+      ]
+    },
+    {
+      "class_index": 19,
+      "model_label": "Pieris rapae",
+      "common_name": "菜粉蝶",
+      "available_unique_images": 874,
+      "train": [
+        {
+          "output": "train/Pieris rapae/0001_bd65ed3e090ecf2c.jpg",
+          "source": "train/Pieris rapae/DSC08041.jpg",
+          "sha256": "bd65ed3e090ecf2c5cabcd4c3766b89ba3c28b03c3b0421ff2be4e5361c11f04"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Pieris rapae/0001_eb1ea2327d5e1d4a.jpg",
+          "source": "train/Pieris rapae/DSC08248.jpg",
+          "sha256": "eb1ea2327d5e1d4aba54071a0f0ea45d56d8fc289ce99e09f754ccd91e4adc22"
+        },
+        {
+          "output": "val/Pieris rapae/0002_10606e64e7d77f57.jpg",
+          "source": "train/Pieris rapae/DSC08002.jpg",
+          "sha256": "10606e64e7d77f57ffc29c8ea9b8fbe1450a86abc75af30c95c0ba3ce2850c65"
+        },
+        {
+          "output": "val/Pieris rapae/0003_cf373b81b06718db.jpg",
+          "source": "train/Pieris rapae/DSC07486.jpg",
+          "sha256": "cf373b81b06718db87331aa9d9a83db1e29962c217747009ccf12a7db17da51a"
+        },
+        {
+          "output": "val/Pieris rapae/0004_66cac3d180a6bb02.jpg",
+          "source": "train/Pieris rapae/DSC08118.jpg",
+          "sha256": "66cac3d180a6bb02e2bb1b5eab580b6076f9f3edd27036afd0daaf06709c3780"
+        },
+        {
+          "output": "val/Pieris rapae/0005_85f70416b3916f4b.jpg",
+          "source": "train/Pieris rapae/DSC07591.jpg",
+          "sha256": "85f70416b3916f4b3fbe1aa2df5026a29e1dc8e50041f1b334c707db5f51f23e"
+        },
+        {
+          "output": "val/Pieris rapae/0006_2f11053cd13f38cc.jpg",
+          "source": "train/Pieris rapae/DSC08284.jpg",
+          "sha256": "2f11053cd13f38cc98208da38e1950d3f6d2068fb08bd8e99507a0c03724d2ab"
+        },
+        {
+          "output": "val/Pieris rapae/0007_55b30ea8281e959c.jpg",
+          "source": "train/Pieris rapae/DSC07618.jpg",
+          "sha256": "55b30ea8281e959ce86b53132940daa82dadabf2c6f974666395d2f25c14684a"
+        },
+        {
+          "output": "val/Pieris rapae/0008_d3200202d98d2ead.jpg",
+          "source": "train/Pieris rapae/DSC08005.jpg",
+          "sha256": "d3200202d98d2ead6a4463d81804b8a08974c7f1e337c5d2014cc3c8c1844883"
+        },
+        {
+          "output": "val/Pieris rapae/0009_b3e6fd1aedb2b350.jpg",
+          "source": "train/Pieris rapae/DSC08104.jpg",
+          "sha256": "b3e6fd1aedb2b350fe13c0bf753ade404ab442c8b905a56bef796fc2cf10e803"
+        },
+        {
+          "output": "val/Pieris rapae/0010_0b1516c32103ed61.jpg",
+          "source": "train/Pieris rapae/DSC07913.jpg",
+          "sha256": "0b1516c32103ed6194e6df723dfb492fc5d3fae393709a28293099290d6a6849"
+        },
+        {
+          "output": "val/Pieris rapae/0011_0c474898328d0c26.jpg",
+          "source": "train/Pieris rapae/DSC07421.jpg",
+          "sha256": "0c474898328d0c2679eb0c50fa88e3b30ddc6460b1497496dbdb8f5d7f74b2f3"
+        },
+        {
+          "output": "val/Pieris rapae/0012_c70978ef60a9d490.jpg",
+          "source": "train/Pieris rapae/DSC07942.jpg",
+          "sha256": "c70978ef60a9d490d2168f729b5f007fde040f284a4f19f278f77cd304b09539"
+        },
+        {
+          "output": "val/Pieris rapae/0013_0fbaabe8dc1ac45a.jpg",
+          "source": "train/Pieris rapae/DSC07863.jpg",
+          "sha256": "0fbaabe8dc1ac45aeb34ba749b10628017ac344b81160803211692558335e45b"
+        },
+        {
+          "output": "val/Pieris rapae/0014_9e9323b55603f8fc.jpg",
+          "source": "train/Pieris rapae/DSC07712.jpg",
+          "sha256": "9e9323b55603f8fccc69b3529daefdd04c4cec4524001e813c7404c68125a397"
+        },
+        {
+          "output": "val/Pieris rapae/0015_cc6c0062d06d2731.jpg",
+          "source": "train/Pieris rapae/DSC07518.jpg",
+          "sha256": "cc6c0062d06d2731133aee8beb78459aeb8e136abf06d4b2338d0a22afb7e76c"
+        },
+        {
+          "output": "val/Pieris rapae/0016_01526f7e5c464ebd.jpg",
+          "source": "train/Pieris rapae/DSC08277.jpg",
+          "sha256": "01526f7e5c464ebd10eca129c15f9d5075c769d06df3227c9ace21721bd2d2bb"
+        },
+        {
+          "output": "val/Pieris rapae/0017_44d675a178deb3c9.jpg",
+          "source": "train/Pieris rapae/DSC07914.jpg",
+          "sha256": "44d675a178deb3c959cac03e088976d0ffde764218998e3031459b2c873ff4d9"
+        },
+        {
+          "output": "val/Pieris rapae/0018_db4366a3d32f6d8b.jpg",
+          "source": "train/Pieris rapae/DSC08019.jpg",
+          "sha256": "db4366a3d32f6d8bbc1457b951f3ee6366f57a49f6ca4c98e19972f3586e4e9d"
+        },
+        {
+          "output": "val/Pieris rapae/0019_52840c93b5bad2d6.jpg",
+          "source": "train/Pieris rapae/DSC07532.jpg",
+          "sha256": "52840c93b5bad2d6bc79440a9297795f6a86485f27367595976531ea546d08af"
+        },
+        {
+          "output": "val/Pieris rapae/0020_24c690f1d69cbd58.jpg",
+          "source": "train/Pieris rapae/DSC07904.jpg",
+          "sha256": "24c690f1d69cbd583f976c2beef36da7aeb7c7c75b5546b5a20f1d524e711f8c"
+        }
+      ]
+    },
+    {
+      "class_index": 20,
+      "model_label": "Polygonia c-album",
+      "common_name": "白钩蛱蝶",
+      "available_unique_images": 721,
+      "train": [
+        {
+          "output": "train/Polygonia c-album/0001_96be3484a8b4eab2.jpg",
+          "source": "train/Polygonia c-album/DSC04238.jpg",
+          "sha256": "96be3484a8b4eab2b431fc1f4e1100ad635ef2f6c95ed2a68c0f8a741e9f061a"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Polygonia c-album/0001_dfb4726d11e56f7b.jpg",
+          "source": "train/Polygonia c-album/DSC04387 (2).jpg",
+          "sha256": "dfb4726d11e56f7b2af1aa75d288524c80da982de275e544ceb39e0c3b195e72"
+        },
+        {
+          "output": "val/Polygonia c-album/0002_c4b969e1a520d755.jpg",
+          "source": "train/Polygonia c-album/DSC04188 (2).jpg",
+          "sha256": "c4b969e1a520d755f794f3937b9d17069901d2a1188cadf81af803475773fbdb"
+        },
+        {
+          "output": "val/Polygonia c-album/0003_e24ac9ae99c157ab.jpg",
+          "source": "train/Polygonia c-album/DSC04178 (2).jpg",
+          "sha256": "e24ac9ae99c157ab4236aa3c9c724480f718cda0686e0606258c51e0fb2b1003"
+        },
+        {
+          "output": "val/Polygonia c-album/0004_09981832fc554165.jpg",
+          "source": "train/Polygonia c-album/DSC04649 (2).jpg",
+          "sha256": "09981832fc5541659920dc2191794c9b64182f4e1fa9b69bc838a635ed0d2190"
+        },
+        {
+          "output": "val/Polygonia c-album/0005_7973b976b3690f98.jpg",
+          "source": "train/Polygonia c-album/DSC04794.jpg",
+          "sha256": "7973b976b3690f98e74e4d26abdc6e005150f14762d51169018effa81c895b51"
+        },
+        {
+          "output": "val/Polygonia c-album/0006_6e6f811f06db31a4.jpg",
+          "source": "train/Polygonia c-album/DSC04771.jpg",
+          "sha256": "6e6f811f06db31a49ef2082b2f4e8c89597f8eebe7c365c0421190312c8dd997"
+        },
+        {
+          "output": "val/Polygonia c-album/0007_f11ae60ffcf5eb8f.jpg",
+          "source": "train/Polygonia c-album/DSC04437 (2).jpg",
+          "sha256": "f11ae60ffcf5eb8f449f50878d568a2d52476eb28fb7f37193727c8930dbfee9"
+        },
+        {
+          "output": "val/Polygonia c-album/0008_7c7ddd8355b21d00.jpg",
+          "source": "train/Polygonia c-album/DSC04510 (2).jpg",
+          "sha256": "7c7ddd8355b21d0070a1015f891843d466c83317d16b110d43c3d2e1401936d1"
+        },
+        {
+          "output": "val/Polygonia c-album/0009_6e6d0602d564350a.jpg",
+          "source": "train/Polygonia c-album/DSC04567.jpg",
+          "sha256": "6e6d0602d564350a8b90d691ef22a95a26d0c402e3de74e07c7b1a5f2793c59d"
+        },
+        {
+          "output": "val/Polygonia c-album/0010_feaec7794adb788f.jpg",
+          "source": "train/Polygonia c-album/DSC04841.jpg",
+          "sha256": "feaec7794adb788ff6374e7ac2b1eaedbbbc496fff6443b8c383253349da9c40"
+        },
+        {
+          "output": "val/Polygonia c-album/0011_9164b09a24512a10.jpg",
+          "source": "train/Polygonia c-album/DSC04714 (2).jpg",
+          "sha256": "9164b09a24512a10a0298ad29f935d7632d4822e4e7bf69de0947e7b5d580662"
+        },
+        {
+          "output": "val/Polygonia c-album/0012_d4b72f5f4ba4122c.jpg",
+          "source": "train/Polygonia c-album/DSC04484 (2).jpg",
+          "sha256": "d4b72f5f4ba4122c51a959a7322865609a627651064b865dd4d065a6e50c65a5"
+        },
+        {
+          "output": "val/Polygonia c-album/0013_ac648c298bf409bb.jpg",
+          "source": "train/Polygonia c-album/DSC04577.jpg",
+          "sha256": "ac648c298bf409bbdd18a0f2c3c45fba432aa753399f23edce85e620e06b17a9"
+        },
+        {
+          "output": "val/Polygonia c-album/0014_663b2edfbbfdd6da.jpg",
+          "source": "train/Polygonia c-album/DSC04647 (2).jpg",
+          "sha256": "663b2edfbbfdd6daf98bf3a6e7bc7c8fd47f517561b984133137eb43253c288c"
+        },
+        {
+          "output": "val/Polygonia c-album/0015_24aed651c10595c7.jpg",
+          "source": "train/Polygonia c-album/DSC04282 (2).jpg",
+          "sha256": "24aed651c10595c7fe8e5e1f7359de4eb80f368dba1dc1400b608b919a89fcb8"
+        },
+        {
+          "output": "val/Polygonia c-album/0016_998ed76cf295b7cf.jpg",
+          "source": "train/Polygonia c-album/DSC04814.jpg",
+          "sha256": "998ed76cf295b7cf935bb988bf77bfdb8d916d02db7283cc23bd7221456f3d13"
+        },
+        {
+          "output": "val/Polygonia c-album/0017_be498e927df66314.jpg",
+          "source": "train/Polygonia c-album/DSC04329 (2).jpg",
+          "sha256": "be498e927df663145ff84f82e7f1acdef46770a091d08b8c328a02f643fd8e76"
+        },
+        {
+          "output": "val/Polygonia c-album/0018_d3f8277827bf4f64.jpg",
+          "source": "train/Polygonia c-album/DSC04221.jpg",
+          "sha256": "d3f8277827bf4f64e438b7bb5beb270c93708862563dfebddfcf01685f194187"
+        },
+        {
+          "output": "val/Polygonia c-album/0019_fdd9113e14f9dcd9.jpg",
+          "source": "train/Polygonia c-album/DSC04382 (2).jpg",
+          "sha256": "fdd9113e14f9dcd9aa4e93453ab00f829c296f94f099de0f1fd685052fc6ce8d"
+        },
+        {
+          "output": "val/Polygonia c-album/0020_67dacfa7ee0f4dea.jpg",
+          "source": "train/Polygonia c-album/DSC04432 (2).jpg",
+          "sha256": "67dacfa7ee0f4deab97cbbfe6a68acdc6eb55f7202f08a224c5466e30677ff8e"
+        }
+      ]
+    },
+    {
+      "class_index": 21,
+      "model_label": "Pontia daplidice",
+      "common_name": "云粉蝶",
+      "available_unique_images": 794,
+      "train": [
+        {
+          "output": "train/Pontia daplidice/0001_b7ea063c00f63a2d.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191552_BURST009.jpg",
+          "sha256": "b7ea063c00f63a2d7ae5b43c34381185e42a59ca61e46e9d1c51f8abff24dc71"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Pontia daplidice/0001_5f90b7ac1097122f.jpg",
+          "source": "train/Pontia daplidice/.trashed-1787310560-IMG20260722190913_BURST009.jpg",
+          "sha256": "5f90b7ac1097122fce3103750be749522e7f8d6ed3c9d4cb78a091374dc77bd5"
+        },
+        {
+          "output": "val/Pontia daplidice/0002_a08699dc741c50b4.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191609_BURST018.jpg",
+          "sha256": "a08699dc741c50b420857ba88d3408a0bd9ba5093dafa24ce61de5feea10de56"
+        },
+        {
+          "output": "val/Pontia daplidice/0003_121ab5c5756a1300.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191605_BURST016.jpg",
+          "sha256": "121ab5c5756a13001eff445c8c9bc7da5e7dfa7e9155ac1adae84b6b8f0a60fd"
+        },
+        {
+          "output": "val/Pontia daplidice/0004_13dd07e677de130d.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191029_BURST016.jpg",
+          "sha256": "13dd07e677de130defea53b98457be5bb8e3204b393179fe21a6abac4f44b4b8"
+        },
+        {
+          "output": "val/Pontia daplidice/0005_a015b82087d84bcf.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191543_BURST008.jpg",
+          "sha256": "a015b82087d84bcf2e677483d52de587169a537f81f70463ce869fe0bcc30b24"
+        },
+        {
+          "output": "val/Pontia daplidice/0006_76f76a7ce398270f.jpg",
+          "source": "train/Pontia daplidice/IMG20260722192713_BURST001.jpg",
+          "sha256": "76f76a7ce398270fb3b2141433afa9e1fff08757a990cd57657460e9ede1e803"
+        },
+        {
+          "output": "val/Pontia daplidice/0007_12da779fcc96d69e.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191521_BURST018.jpg",
+          "sha256": "12da779fcc96d69e72b41f7e41baa030cab93f4fd9ad0ff35bff9938163ae247"
+        },
+        {
+          "output": "val/Pontia daplidice/0008_0f075d4351132032.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191609_BURST010.jpg",
+          "sha256": "0f075d43511320326d5dd77639fb36137ef71150f2f514ea847051b1dd8e2ac9"
+        },
+        {
+          "output": "val/Pontia daplidice/0009_fb34fb1c529096ae.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191600_BURST011.jpg",
+          "sha256": "fb34fb1c529096ae4c9f6d206d68318eb1afd608d009459c02a80db3e10991d6"
+        },
+        {
+          "output": "val/Pontia daplidice/0010_85447e4279a85faf.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191557_BURST006.jpg",
+          "sha256": "85447e4279a85faf8cd7f30e694b48911205fd22a38ea1ff0e4019c5e307d2df"
+        },
+        {
+          "output": "val/Pontia daplidice/0011_ff6074727903a615.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191048_BURST006.jpg",
+          "sha256": "ff6074727903a615df7f1ede89a860b63cea2b5ca52c07d2f550d77368fbb9ac"
+        },
+        {
+          "output": "val/Pontia daplidice/0012_bf898df482844b45.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191035_BURST006.jpg",
+          "sha256": "bf898df482844b45f131ff0ebbdb8ad595843bcf5465ae1e2d1c1b598199746c"
+        },
+        {
+          "output": "val/Pontia daplidice/0013_f60622d158c032cf.jpg",
+          "source": "train/Pontia daplidice/IMG20260722192012_BURST014.jpg",
+          "sha256": "f60622d158c032cfd5b9d9761ff58f2f11e1b87d8a78c0ce129a37bc36d4f1ee"
+        },
+        {
+          "output": "val/Pontia daplidice/0014_0c651d4e8e30936c.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191536_BURST002.jpg",
+          "sha256": "0c651d4e8e30936c665f85562eee6fea4b78b9f47be1a356ebb17a2f24b1e702"
+        },
+        {
+          "output": "val/Pontia daplidice/0015_06d8c592aa6aa879.jpg",
+          "source": "train/Pontia daplidice/IMG20260722192916_BURST002.jpg",
+          "sha256": "06d8c592aa6aa879d912f174a0ba7e1c0d63c41e298901183c73e8ec62e542a6"
+        },
+        {
+          "output": "val/Pontia daplidice/0016_8724579b9412dd4a.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191042_BURST006.jpg",
+          "sha256": "8724579b9412dd4ac9ad7888d9a2ceca6a67e9fc25e0a01df54f880497898c92"
+        },
+        {
+          "output": "val/Pontia daplidice/0017_645c3f6293977848.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191849_BURST014.jpg",
+          "sha256": "645c3f6293977848baae5c174943eff9ee667719eb9ee57ff05e1684389bcb45"
+        },
+        {
+          "output": "val/Pontia daplidice/0018_08679bb714d920f9.jpg",
+          "source": "train/Pontia daplidice/IMG20260722192713_BURST002.jpg",
+          "sha256": "08679bb714d920f9ee6484f6dd100eb7bd894c53c5b2f1627117cde2932a11bc"
+        },
+        {
+          "output": "val/Pontia daplidice/0019_0f35709046a4b55e.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191336_BURST008.jpg",
+          "sha256": "0f35709046a4b55ec3fc523c1848ef0767b5ad7605c44a504ad1424d1e535086"
+        },
+        {
+          "output": "val/Pontia daplidice/0020_449e80c1bb304bff.jpg",
+          "source": "train/Pontia daplidice/IMG20260722191849_BURST000_COVER.jpg",
+          "sha256": "449e80c1bb304bff02c280380c6af26c8232316b0c3ee046cb0bbdf8dac43734"
+        }
+      ]
+    },
+    {
+      "class_index": 22,
+      "model_label": "Sarcophagidae",
+      "common_name": "麻蝇科",
+      "available_unique_images": 347,
+      "train": [
+        {
+          "output": "train/Sarcophagidae/0001_6d49fe0d75efe59b.jpg",
+          "source": "train/Sarcophagidae/DSC07827.jpg",
+          "sha256": "6d49fe0d75efe59bba70a5d4af1add36c4c596e13e16290a475a4e85826d981c"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Sarcophagidae/0001_cbe068f1effe4edd.jpg",
+          "source": "train/Sarcophagidae/DSC07890.jpg",
+          "sha256": "cbe068f1effe4edd9d5e75f3e63632e5c7316f159829814b793de5563baf66f3"
+        },
+        {
+          "output": "val/Sarcophagidae/0002_0e7fcc491e4e967d.jpg",
+          "source": "train/Sarcophagidae/DSC07876.jpg",
+          "sha256": "0e7fcc491e4e967d6ccaca029efffc81da674f512fd1c110073b17f06efb77db"
+        },
+        {
+          "output": "val/Sarcophagidae/0003_0de475118aee4c6f.jpg",
+          "source": "train/Sarcophagidae/DSC07759.jpg",
+          "sha256": "0de475118aee4c6fe62cd3cddfe60f9c06ea29966dc033d1d3eddda32d9ab49c"
+        },
+        {
+          "output": "val/Sarcophagidae/0004_7a0241257131d031.jpg",
+          "source": "train/Sarcophagidae/DSC07689.jpg",
+          "sha256": "7a0241257131d031021846f5ce90ef2adcc258853c78073455dc6de1cbdecf30"
+        },
+        {
+          "output": "val/Sarcophagidae/0005_372022128b261634.jpg",
+          "source": "train/Sarcophagidae/DSC07804.jpg",
+          "sha256": "372022128b2616344d7d65bded8222eeef2e43eecc22377f3bf00dc297fb68ae"
+        },
+        {
+          "output": "val/Sarcophagidae/0006_bf44f6df0108189b.jpg",
+          "source": "train/Sarcophagidae/DSC07871.jpg",
+          "sha256": "bf44f6df0108189b765cfc8ffe30a76412db1346ad3f08b19b18ea0c9172e929"
+        },
+        {
+          "output": "val/Sarcophagidae/0007_a4db90a9dc9836a8.jpg",
+          "source": "train/Sarcophagidae/DSC07780.jpg",
+          "sha256": "a4db90a9dc9836a804573b28435ec489fb217ddb060e43541823c4a04370435f"
+        },
+        {
+          "output": "val/Sarcophagidae/0008_defc28de078eaa8f.jpg",
+          "source": "train/Sarcophagidae/DSC07732.jpg",
+          "sha256": "defc28de078eaa8fd044398bedf975d0b6a8a533c74990a8d07aea9cbccb1793"
+        },
+        {
+          "output": "val/Sarcophagidae/0009_5d183bbf17ee01d6.jpg",
+          "source": "train/Sarcophagidae/DSC07688.jpg",
+          "sha256": "5d183bbf17ee01d63ce986f2e7a8734b7c9de672d74c379697be1fc21dbad448"
+        },
+        {
+          "output": "val/Sarcophagidae/0010_d559e161dccb6c50.jpg",
+          "source": "train/Sarcophagidae/DSC07711.jpg",
+          "sha256": "d559e161dccb6c50100630ec686e1e7d5ec1b2c91406da459192b87f81b94c1d"
+        },
+        {
+          "output": "val/Sarcophagidae/0011_a54866c54c95d800.jpg",
+          "source": "train/Sarcophagidae/DSC07648.jpg",
+          "sha256": "a54866c54c95d800d96ecd54102e3f92bf3c7854f83588d718c89a3ac21bf0e1"
+        },
+        {
+          "output": "val/Sarcophagidae/0012_d0e2eef356ae6b91.jpg",
+          "source": "train/Sarcophagidae/DSC07793.jpg",
+          "sha256": "d0e2eef356ae6b91cfc7ad635fca200962e8d835cab1c4b7667b758e0b4139dd"
+        },
+        {
+          "output": "val/Sarcophagidae/0013_b3de666c46d45116.jpg",
+          "source": "train/Sarcophagidae/DSC07722.jpg",
+          "sha256": "b3de666c46d4511642ba7a289b7f04a432994c06f99cde925c9ee46ee7dc284c"
+        },
+        {
+          "output": "val/Sarcophagidae/0014_6e3b5487613bb9d5.jpg",
+          "source": "train/Sarcophagidae/DSC07682.jpg",
+          "sha256": "6e3b5487613bb9d5369b94162a91ea458ea69ce263900965a192185e6badf00a"
+        },
+        {
+          "output": "val/Sarcophagidae/0015_5d5b73cbcf607ec9.jpg",
+          "source": "train/Sarcophagidae/DSC07599.jpg",
+          "sha256": "5d5b73cbcf607ec99bf2a6bc79dfeb2362f9fb19a3168c699da2277265811b6a"
+        },
+        {
+          "output": "val/Sarcophagidae/0016_3a4f0ffec854701a.jpg",
+          "source": "train/Sarcophagidae/DSC07690.jpg",
+          "sha256": "3a4f0ffec854701ac2a01e61f85517a281fa04cffbe8587dfe4722fd5de0e557"
+        },
+        {
+          "output": "val/Sarcophagidae/0017_05058b9f77c14b97.jpg",
+          "source": "train/Sarcophagidae/DSC07846.jpg",
+          "sha256": "05058b9f77c14b978b223e3c7ef46af73afebb186a29c9b32f5f31d584e941dc"
+        },
+        {
+          "output": "val/Sarcophagidae/0018_f171575f87594002.jpg",
+          "source": "train/Sarcophagidae/DSC07705.jpg",
+          "sha256": "f171575f875940025f942b3ce2a98cf1ac3e715bbde8285afc9a503319d5814c"
+        },
+        {
+          "output": "val/Sarcophagidae/0019_bf77e0fa99e72894.jpg",
+          "source": "train/Sarcophagidae/DSC07771.jpg",
+          "sha256": "bf77e0fa99e728944348c45b4ace9d9b8b99738ae2c61f3881ea5b27dbd4b82b"
+        },
+        {
+          "output": "val/Sarcophagidae/0020_88f90de98c6ca857.jpg",
+          "source": "train/Sarcophagidae/DSC07605.jpg",
+          "sha256": "88f90de98c6ca8578b7755c17ad3fb6008fd15049d1c645ec96463543ae3a436"
+        }
+      ]
+    },
+    {
+      "class_index": 23,
+      "model_label": "Scarabaeoidea",
+      "common_name": "金龟总科",
+      "available_unique_images": 1781,
+      "train": [
+        {
+          "output": "train/Scarabaeoidea/0001_d0dd0b2ee461f94b.jpg",
+          "source": "train/Scarabaeoidea/DSC07408.jpg",
+          "sha256": "d0dd0b2ee461f94b879ab61b66a2087d668c5751c982affe69751a9716dc1f49"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Scarabaeoidea/0001_e883a7c9765e8692.jpg",
+          "source": "train/Scarabaeoidea/DSC08763.jpg",
+          "sha256": "e883a7c9765e86922f7a90a067d7c53b7207901fdc586a76e949bc97da51dfbb"
+        },
+        {
+          "output": "val/Scarabaeoidea/0002_8c929306c0359909.jpg",
+          "source": "train/Scarabaeoidea/DSC07684.jpg",
+          "sha256": "8c929306c0359909c5472a0a766fd21d658f4300210621617bfafbeb61350807"
+        },
+        {
+          "output": "val/Scarabaeoidea/0003_d90ce530265db261.jpg",
+          "source": "train/Scarabaeoidea/DSC07977.jpg",
+          "sha256": "d90ce530265db261203a8998da23ca0e28fb746067d4242692bbfd43069763e1"
+        },
+        {
+          "output": "val/Scarabaeoidea/0004_18b04a96667fed2c.jpg",
+          "source": "train/Scarabaeoidea/DSC08304.jpg",
+          "sha256": "18b04a96667fed2c699c700664c6c20c45ab2112ec96b44be5ae70baf4d444f1"
+        },
+        {
+          "output": "val/Scarabaeoidea/0005_329ad0f1283ffdba.jpg",
+          "source": "train/Scarabaeoidea/DSC08183.jpg",
+          "sha256": "329ad0f1283ffdba8371cd317a884af3a57f4681f467b7abb4e9594181bebe0c"
+        },
+        {
+          "output": "val/Scarabaeoidea/0006_264d506210def1e2.jpg",
+          "source": "train/Scarabaeoidea/DSC07882.jpg",
+          "sha256": "264d506210def1e2457962b47699eeed3a75bbebc94160e7ce9223cb6f68e915"
+        },
+        {
+          "output": "val/Scarabaeoidea/0007_2c5d30cb7f405086.jpg",
+          "source": "train/Scarabaeoidea/DSC07947.jpg",
+          "sha256": "2c5d30cb7f405086a89de043e931c6ec48b6aacbf48fd38cdb3196105d2b0396"
+        },
+        {
+          "output": "val/Scarabaeoidea/0008_4d24554f3587758d.jpg",
+          "source": "train/Scarabaeoidea/DSC08464.jpg",
+          "sha256": "4d24554f3587758d544d8ab4d3ece176d6c217eed6fc4fa22a8a724ffb33f501"
+        },
+        {
+          "output": "val/Scarabaeoidea/0009_651f5cd48eb6c1a3.jpg",
+          "source": "train/Scarabaeoidea/DSC07685.jpg",
+          "sha256": "651f5cd48eb6c1a35e502c76fc4662d1037fd03c29d6d522c54ec8a000a83694"
+        },
+        {
+          "output": "val/Scarabaeoidea/0010_5cf3f8262ef8ec5b.jpg",
+          "source": "train/Scarabaeoidea/DSC08411.jpg",
+          "sha256": "5cf3f8262ef8ec5bed15975ffea0991719a699cef2036c94f2aef832e1947502"
+        },
+        {
+          "output": "val/Scarabaeoidea/0011_b85c3c79f9a3772c.jpg",
+          "source": "train/Scarabaeoidea/DSC08041.jpg",
+          "sha256": "b85c3c79f9a3772c4acaddd417beb7512d53727462f42176ea13efdbfccb40d5"
+        },
+        {
+          "output": "val/Scarabaeoidea/0012_a317517b2bbf090e.jpg",
+          "source": "train/Scarabaeoidea/DSC08791.jpg",
+          "sha256": "a317517b2bbf090ee6cbe7c0c7b5f158f8dc8b66aeb57d62a7954076ac11b0b1"
+        },
+        {
+          "output": "val/Scarabaeoidea/0013_d9619299fbf6cc79.jpg",
+          "source": "train/Scarabaeoidea/DSC08466.jpg",
+          "sha256": "d9619299fbf6cc798289b5b130d14d4e3cbbd6e3fa254fffcbfad8d9726daeb1"
+        },
+        {
+          "output": "val/Scarabaeoidea/0014_deaa6ab126acdcc1.jpg",
+          "source": "train/Scarabaeoidea/DSC07580.jpg",
+          "sha256": "deaa6ab126acdcc115616e85f93bb912bc7df39330e3146360a3b881ee898b58"
+        },
+        {
+          "output": "val/Scarabaeoidea/0015_d5d0698997363ad0.jpg",
+          "source": "train/Scarabaeoidea/DSC08691.jpg",
+          "sha256": "d5d0698997363ad0e5dfdd1713d18bfaaae6be93671aefe013dda2327f16033d"
+        },
+        {
+          "output": "val/Scarabaeoidea/0016_ae2e9c36ed1eb810.jpg",
+          "source": "train/Scarabaeoidea/DSC08770.jpg",
+          "sha256": "ae2e9c36ed1eb810c0bd926a96d3aebed926b5b791325250b6621e9ecd99b2cf"
+        },
+        {
+          "output": "val/Scarabaeoidea/0017_e160556e74e7aca2.jpg",
+          "source": "train/Scarabaeoidea/DSC07869.jpg",
+          "sha256": "e160556e74e7aca2eccd4c20c7300cf3dbd4e67a703616449206246d68fbac2d"
+        },
+        {
+          "output": "val/Scarabaeoidea/0018_2a132401c7e6a932.jpg",
+          "source": "train/Scarabaeoidea/DSC08177.jpg",
+          "sha256": "2a132401c7e6a932f7b78e63ae143cd268050b1d2d54de1f7731bc7d6c841511"
+        },
+        {
+          "output": "val/Scarabaeoidea/0019_7d4131d7293d81f8.jpg",
+          "source": "train/Scarabaeoidea/DSC07259.jpg",
+          "sha256": "7d4131d7293d81f86eecd74bbf8127fd3c9f33efc38733252969c6e95ab6452c"
+        },
+        {
+          "output": "val/Scarabaeoidea/0020_4cd00ea9a5f33301.jpg",
+          "source": "train/Scarabaeoidea/DSC07788.jpg",
+          "sha256": "4cd00ea9a5f33301033e6a4d4b36b9012f35981321545adcf914855cc79d6e59"
+        }
+      ]
+    },
+    {
+      "class_index": 24,
+      "model_label": "Syrphidae",
+      "common_name": "食蚜蝇科",
+      "available_unique_images": 849,
+      "train": [
+        {
+          "output": "train/Syrphidae/0001_10588e6b24ad4d34.jpg",
+          "source": "train/Syrphidae/DSC03795.jpg",
+          "sha256": "10588e6b24ad4d34ba2adde5f973d8beaff848504f250879262479d479634fe3"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Syrphidae/0001_d72d6457f8d50bee.jpg",
+          "source": "train/Syrphidae/DSC02071 (2).jpg",
+          "sha256": "d72d6457f8d50bee076a1a338c3f05964ad95aefa422e65bca8078e50cd15c2c"
+        },
+        {
+          "output": "val/Syrphidae/0002_b0a3c5cf8d302ce7.jpg",
+          "source": "train/Syrphidae/DSC02240.jpg",
+          "sha256": "b0a3c5cf8d302ce7840f45768cce9b081e17647ba5f467912c1837edfee3ea9a"
+        },
+        {
+          "output": "val/Syrphidae/0003_8ed209c8cdca4950.jpg",
+          "source": "train/Syrphidae/DSC02149.jpg",
+          "sha256": "8ed209c8cdca4950d47d6c329408192a8f21558ff418f62c7ff37d782d754277"
+        },
+        {
+          "output": "val/Syrphidae/0004_406e9323fef0408a.jpg",
+          "source": "train/Syrphidae/DSC02622.jpg",
+          "sha256": "406e9323fef0408a443ac307763fe3a8b0805db8e27cf59b8dfccbcb26cdcc15"
+        },
+        {
+          "output": "val/Syrphidae/0005_f9f95ac9d140b571.jpg",
+          "source": "train/Syrphidae/DSC01910.jpg",
+          "sha256": "f9f95ac9d140b5718cffaea223ea93d9aeca3b2aae5ec68d2414d2dfb7ca33ef"
+        },
+        {
+          "output": "val/Syrphidae/0006_fcb46dbff4f116c9.jpg",
+          "source": "train/Syrphidae/DSC02074 (2).jpg",
+          "sha256": "fcb46dbff4f116c908b3e0315e076204a991ef76e0b3b7702a09f54c07c9ae2a"
+        },
+        {
+          "output": "val/Syrphidae/0007_c9378f82b345fede.jpg",
+          "source": "train/Syrphidae/DSC01995.jpg",
+          "sha256": "c9378f82b345fedeeacea8604337a7f6e1970f06595c2ac6f0db5da9d6c917b0"
+        },
+        {
+          "output": "val/Syrphidae/0008_1e9e6a1a23161a49.jpg",
+          "source": "train/Syrphidae/DSC02017.jpg",
+          "sha256": "1e9e6a1a23161a497d5e8f94bfc4856ce6a8277b7509b7f4d798d50948520dc9"
+        },
+        {
+          "output": "val/Syrphidae/0009_4844ea1b3756303e.jpg",
+          "source": "train/Syrphidae/DSC02064.jpg",
+          "sha256": "4844ea1b3756303e5208672d636d6e1afd059ede2ba19209ac5b0c25190e2cbf"
+        },
+        {
+          "output": "val/Syrphidae/0010_a67facaa4a62803c.jpg",
+          "source": "train/Syrphidae/DSC03771.jpg",
+          "sha256": "a67facaa4a62803c20e5294e8db8b44bfcbbc9178fd7ad2ac7eda24c8ce0bba2"
+        },
+        {
+          "output": "val/Syrphidae/0011_b8395bb315fc6a9d.jpg",
+          "source": "train/Syrphidae/DSC02491.jpg",
+          "sha256": "b8395bb315fc6a9d6010dee93fb1658918324294cf74bbad2382e397f70ca159"
+        },
+        {
+          "output": "val/Syrphidae/0012_64d16812bc493c90.jpg",
+          "source": "train/Syrphidae/DSC02598.jpg",
+          "sha256": "64d16812bc493c9098b9eb4aef870ef38af250c34fc64a72b85be8099fdd8b75"
+        },
+        {
+          "output": "val/Syrphidae/0013_bec8b2cbafc11cd7.jpg",
+          "source": "train/Syrphidae/DSC01987.jpg",
+          "sha256": "bec8b2cbafc11cd7f92f8a1e3a72c2a1145622c26188786019a93f87a3ed83b3"
+        },
+        {
+          "output": "val/Syrphidae/0014_cf24b99d566ee291.jpg",
+          "source": "train/Syrphidae/DSC02310.jpg",
+          "sha256": "cf24b99d566ee291728146b212b3caf56960a6b2c8bac69f26236d3b84b776ca"
+        },
+        {
+          "output": "val/Syrphidae/0015_0d24b8cc66c788f9.jpg",
+          "source": "train/Syrphidae/DSC03699.jpg",
+          "sha256": "0d24b8cc66c788f9ac9e36f00406ffe08ef81e526b414817adb4d6a713975429"
+        },
+        {
+          "output": "val/Syrphidae/0016_28f3a9c7cd41171b.jpg",
+          "source": "train/Syrphidae/DSC02401.jpg",
+          "sha256": "28f3a9c7cd41171b66d43675d7efd9390d15f64f728c46ba587f53fd62560002"
+        },
+        {
+          "output": "val/Syrphidae/0017_00bf85554ed72049.jpg",
+          "source": "train/Syrphidae/DSC02022.jpg",
+          "sha256": "00bf85554ed720491c9bd2e729d2cdc18e295b965d1e84ba33c737b92eeb2886"
+        },
+        {
+          "output": "val/Syrphidae/0018_dab8535e3db0745b.jpg",
+          "source": "train/Syrphidae/DSC02594.jpg",
+          "sha256": "dab8535e3db0745b375e2e11b5f32523a4bb10b55b41f41ff29d04109c5defb4"
+        },
+        {
+          "output": "val/Syrphidae/0019_2bde08f015a88bdd.jpg",
+          "source": "train/Syrphidae/DSC02557.jpg",
+          "sha256": "2bde08f015a88bddefeffffe851b6f925fa78c5832eee7ac7367d26817559a15"
+        },
+        {
+          "output": "val/Syrphidae/0020_a9cc5b0fd1616084.jpg",
+          "source": "train/Syrphidae/DSC02271.jpg",
+          "sha256": "a9cc5b0fd1616084991e7d8ec5037ced1cf6d5b0444b3b2981c4becc0d9cc89a"
+        }
+      ]
+    },
+    {
+      "class_index": 25,
+      "model_label": "Tachinidae",
+      "common_name": "寄蝇科",
+      "available_unique_images": 738,
+      "train": [
+        {
+          "output": "train/Tachinidae/0001_976367313d0bbfa5.jpg",
+          "source": "train/Tachinidae/DSC05568.jpg",
+          "sha256": "976367313d0bbfa500ea5a3a05729fb70c9fcb1a3826b629ac8bac4c296910e6"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Tachinidae/0001_3bce9e4d566eebba.jpg",
+          "source": "train/Tachinidae/DSC05785.jpg",
+          "sha256": "3bce9e4d566eebba02ba9d8581bd3928d614e52e17df7d3142feb92274d8bf0d"
+        },
+        {
+          "output": "val/Tachinidae/0002_4fb8dc1ce5d028c9.jpg",
+          "source": "train/Tachinidae/DSC05675.jpg",
+          "sha256": "4fb8dc1ce5d028c94d1788b52767903a59746f04915d0150c8420698797aa182"
+        },
+        {
+          "output": "val/Tachinidae/0003_423c85e1bce0fbcb.jpg",
+          "source": "train/Tachinidae/DSC05471.jpg",
+          "sha256": "423c85e1bce0fbcbcf472a126d7e5f0c0aff93c8d0b30c03f587c2011b029764"
+        },
+        {
+          "output": "val/Tachinidae/0004_4f2cf00c5940095c.jpg",
+          "source": "train/Tachinidae/DSC05504.jpg",
+          "sha256": "4f2cf00c5940095c7d08df20dc31d4fcf474ac4f43eb795d696f67a7c65b47ac"
+        },
+        {
+          "output": "val/Tachinidae/0005_b148e7123ebb7bff.jpg",
+          "source": "train/Tachinidae/DSC05743.jpg",
+          "sha256": "b148e7123ebb7bff0a8e52d0fb92ee50553cdcf1526416163bf4eb777bfcd6e3"
+        },
+        {
+          "output": "val/Tachinidae/0006_e2298072a41677a7.jpg",
+          "source": "train/Tachinidae/DSC05607.jpg",
+          "sha256": "e2298072a41677a7946aa1c2c4580da187fbee26238c9dedbfe920ed7f088c15"
+        },
+        {
+          "output": "val/Tachinidae/0007_3a7ee78aa2ad177b.jpg",
+          "source": "train/Tachinidae/DSC05359.jpg",
+          "sha256": "3a7ee78aa2ad177b7ac432c29a3a4c3d1819f9870d84b460008d18424e74fadf"
+        },
+        {
+          "output": "val/Tachinidae/0008_e0eebc2665b59bbe.jpg",
+          "source": "train/Tachinidae/DSC05633.jpg",
+          "sha256": "e0eebc2665b59bbe086e1f9ae66a9275563372ecd3a357d023ce86ee21c86d21"
+        },
+        {
+          "output": "val/Tachinidae/0009_72e229ff19688212.jpg",
+          "source": "train/Tachinidae/DSC05884.jpg",
+          "sha256": "72e229ff19688212e6235f05479433980ca1bbf90c03c61f7a100d28dd1a0826"
+        },
+        {
+          "output": "val/Tachinidae/0010_5831618ac8fa351d.jpg",
+          "source": "train/Tachinidae/DSC05686.jpg",
+          "sha256": "5831618ac8fa351d4618613954dd7b28fe972fdba6c2a98ae38081eca48cee8b"
+        },
+        {
+          "output": "val/Tachinidae/0011_337069c102195eff.jpg",
+          "source": "train/Tachinidae/DSC05720.jpg",
+          "sha256": "337069c102195eff13f1cf8b295b3a568e7afc1bdbefd6a2d87f5af32d53e77e"
+        },
+        {
+          "output": "val/Tachinidae/0012_0ba8125802f8e18f.jpg",
+          "source": "train/Tachinidae/DSC05603.jpg",
+          "sha256": "0ba8125802f8e18ff27a78a8ce2244cdafb771f83d7c74f6a9fd4df8118bc58e"
+        },
+        {
+          "output": "val/Tachinidae/0013_2d7987388ec0fff9.jpg",
+          "source": "train/Tachinidae/DSC05789.jpg",
+          "sha256": "2d7987388ec0fff9836937dc43e9e499eb107e5e51dd80fc31b5eb5af2530008"
+        },
+        {
+          "output": "val/Tachinidae/0014_c09f4b03f5a6b01c.jpg",
+          "source": "train/Tachinidae/DSC05207.jpg",
+          "sha256": "c09f4b03f5a6b01cffa928bed994e0afad34559deb80e8d3cec7c96a16be3dac"
+        },
+        {
+          "output": "val/Tachinidae/0015_9a48a0595928ceaf.jpg",
+          "source": "train/Tachinidae/DSC05569.jpg",
+          "sha256": "9a48a0595928ceaf563a94476b0de803b2ac850b24d49dd3cace8dddb084396a"
+        },
+        {
+          "output": "val/Tachinidae/0016_8726a19cb1b6e612.jpg",
+          "source": "train/Tachinidae/DSC05408.jpg",
+          "sha256": "8726a19cb1b6e612887aa693ed60ccb707c1e592fd4b3760c05300f72f2ced38"
+        },
+        {
+          "output": "val/Tachinidae/0017_3f325627f4e45756.jpg",
+          "source": "train/Tachinidae/DSC05539.jpg",
+          "sha256": "3f325627f4e45756dcfa9c9f362642608726ebb022fdde893adcaffa5bfbbc64"
+        },
+        {
+          "output": "val/Tachinidae/0018_af86a44077e9f1e1.jpg",
+          "source": "train/Tachinidae/DSC05220.jpg",
+          "sha256": "af86a44077e9f1e16beecc8ef483c710741811061b29f63c30670c1f116820b2"
+        },
+        {
+          "output": "val/Tachinidae/0019_e645712414ea618b.jpg",
+          "source": "train/Tachinidae/DSC05762.jpg",
+          "sha256": "e645712414ea618bb441ae079989b4a0ff3f0312133305bf8548f5f43dd030a9"
+        },
+        {
+          "output": "val/Tachinidae/0020_00166003a5519a61.jpg",
+          "source": "train/Tachinidae/DSC05489.jpg",
+          "sha256": "00166003a5519a61066c46d0b6a28178dcda9711487afd37026c96f5f9d7d5b9"
+        }
+      ]
+    },
+    {
+      "class_index": 26,
+      "model_label": "Tenebrionidae",
+      "common_name": "拟步甲科",
+      "available_unique_images": 673,
+      "train": [
+        {
+          "output": "train/Tenebrionidae/0001_a8c414f29743e7b4.jpg",
+          "source": "train/Tenebrionidae/DSC01450.jpg",
+          "sha256": "a8c414f29743e7b413d7a0898b36920600eab8b35a0d72ad0c7b1471c7876641"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Tenebrionidae/0001_9b8730440c911106.jpg",
+          "source": "train/Tenebrionidae/DSC01627.jpg",
+          "sha256": "9b8730440c911106b030f58a7f178e8c14785694d10dff5e8385e311134f1203"
+        },
+        {
+          "output": "val/Tenebrionidae/0002_01f68052270f4eae.jpg",
+          "source": "train/Tenebrionidae/DSC01865.jpg",
+          "sha256": "01f68052270f4eae5fe2cad59f2e8022336f25fb000007de372e7da0d2a2a11b"
+        },
+        {
+          "output": "val/Tenebrionidae/0003_b1cec9bba5871c7a.jpg",
+          "source": "train/Tenebrionidae/DSC01830.jpg",
+          "sha256": "b1cec9bba5871c7a32df1359c811f0f774b94943d9a8e732850936d721349dbb"
+        },
+        {
+          "output": "val/Tenebrionidae/0004_39bd4b7f5b707716.jpg",
+          "source": "train/Tenebrionidae/DSC01808.jpg",
+          "sha256": "39bd4b7f5b707716af67b02c3ae0de5d02bdec1f806632a1d275e62401617aec"
+        },
+        {
+          "output": "val/Tenebrionidae/0005_8ee08d3735315a79.jpg",
+          "source": "train/Tenebrionidae/DSC01483.jpg",
+          "sha256": "8ee08d3735315a7932bb2be33763b9e30908c9b4698bf3619264153c285123c5"
+        },
+        {
+          "output": "val/Tenebrionidae/0006_68c91f7db90c88ca.jpg",
+          "source": "train/Tenebrionidae/DSC01927.jpg",
+          "sha256": "68c91f7db90c88cac498b093efa17f8370c876915ef93d11a61aebe9ed250d46"
+        },
+        {
+          "output": "val/Tenebrionidae/0007_f782d801db1e12f8.jpg",
+          "source": "train/Tenebrionidae/DSC02012.jpg",
+          "sha256": "f782d801db1e12f85423e7dd002aab44ca994003c454f43bdf52784b17aca33d"
+        },
+        {
+          "output": "val/Tenebrionidae/0008_2042c01be251786a.jpg",
+          "source": "train/Tenebrionidae/DSC02015.jpg",
+          "sha256": "2042c01be251786ae6e2f4a74d922c82aa0d1796c126ce149d3da3c94e5c849b"
+        },
+        {
+          "output": "val/Tenebrionidae/0009_f905c3c01f0c10a9.jpg",
+          "source": "train/Tenebrionidae/DSC01749.jpg",
+          "sha256": "f905c3c01f0c10a9babbc6ec9474fed94a753ff8fb51290d5e98a109b88720bf"
+        },
+        {
+          "output": "val/Tenebrionidae/0010_37d8815c3e5c1981.jpg",
+          "source": "train/Tenebrionidae/DSC01916.jpg",
+          "sha256": "37d8815c3e5c1981313ebdd71aa1b2b380e096fcc0039f7c883e59192d136217"
+        },
+        {
+          "output": "val/Tenebrionidae/0011_b20dadb7c09f1829.jpg",
+          "source": "train/Tenebrionidae/DSC01423.jpg",
+          "sha256": "b20dadb7c09f18291aac457b6620c065013ebc21e0fadca476b8746e76c5ce19"
+        },
+        {
+          "output": "val/Tenebrionidae/0012_274520d16e648357.jpg",
+          "source": "train/Tenebrionidae/DSC01408.jpg",
+          "sha256": "274520d16e64835743bdb1e9ad101ed372f8081a810be5900df1f8a4b00d35c2"
+        },
+        {
+          "output": "val/Tenebrionidae/0013_22f9cd8266959afa.jpg",
+          "source": "train/Tenebrionidae/DSC01569.jpg",
+          "sha256": "22f9cd8266959afab1b9eecc3b62b371bdf5a4b9ccd192188c30b68adf1eec72"
+        },
+        {
+          "output": "val/Tenebrionidae/0014_1890fd1872647ea4.jpg",
+          "source": "train/Tenebrionidae/DSC01370.jpg",
+          "sha256": "1890fd1872647ea4fa4fffd7455e9a599d57b4545aad319e5c0720e15e9578de"
+        },
+        {
+          "output": "val/Tenebrionidae/0015_e70eed2c703c7dc4.jpg",
+          "source": "train/Tenebrionidae/DSC01942.jpg",
+          "sha256": "e70eed2c703c7dc40c0c0975122f1969027d93add64cc3a81a78fb0622274516"
+        },
+        {
+          "output": "val/Tenebrionidae/0016_e83ec49ecfb17088.jpg",
+          "source": "train/Tenebrionidae/DSC01867.jpg",
+          "sha256": "e83ec49ecfb17088235406ae1f4490030326e8e44596ff076c008c4fc580d6a1"
+        },
+        {
+          "output": "val/Tenebrionidae/0017_e43ad5f70028dc5f.jpg",
+          "source": "train/Tenebrionidae/DSC01672.jpg",
+          "sha256": "e43ad5f70028dc5f8448be860e90631b747f95f3974bba6a86f4dc817a2158af"
+        },
+        {
+          "output": "val/Tenebrionidae/0018_7930fe25505d295f.jpg",
+          "source": "train/Tenebrionidae/DSC01651.jpg",
+          "sha256": "7930fe25505d295ffb3f5c0705892b3fc4a715c33d1eb8acb30711af1957e1a8"
+        },
+        {
+          "output": "val/Tenebrionidae/0019_f85e53223c52a21d.jpg",
+          "source": "train/Tenebrionidae/DSC01890.jpg",
+          "sha256": "f85e53223c52a21d7a889144c7484c83197285393c7d13df3c336606c3a04cca"
+        },
+        {
+          "output": "val/Tenebrionidae/0020_65660c1737e234a9.jpg",
+          "source": "train/Tenebrionidae/DSC01475.jpg",
+          "sha256": "65660c1737e234a95843531bc791d58d4af67c6fa08bce96709cfeb0c915bfeb"
+        }
+      ]
+    },
+    {
+      "class_index": 27,
+      "model_label": "Vespidae",
+      "common_name": "胡蜂科",
+      "available_unique_images": 3098,
+      "train": [
+        {
+          "output": "train/Vespidae/0001_7620b2d2189939e7.jpg",
+          "source": "train/Vespidae/DSC06600.jpg",
+          "sha256": "7620b2d2189939e7a1e47358b35c3f541cc5ff007973d4188babb69715b87338"
+        }
+      ],
+      "val": [
+        {
+          "output": "val/Vespidae/0001_04a082ab84113c34.jpg",
+          "source": "train/Vespidae/DSC09406.jpg",
+          "sha256": "04a082ab84113c34f27f4b97c585625aa3415d5a9826041baaaee6c0b1216481"
+        },
+        {
+          "output": "val/Vespidae/0002_098248501286416f.jpg",
+          "source": "train/Vespidae/DSC09033.jpg",
+          "sha256": "098248501286416fc72c2071d72f23067a76c7384f4371a303a2a23463a40520"
+        },
+        {
+          "output": "val/Vespidae/0003_59605724f931ad90.jpg",
+          "source": "train/Vespidae/DSC03044.jpg",
+          "sha256": "59605724f931ad90fba69fc6be5f853b1a691faa28d697ef94f23d107a857305"
+        },
+        {
+          "output": "val/Vespidae/0004_eb189e42afc13b9a.jpg",
+          "source": "train/Vespidae/DSC08838.jpg",
+          "sha256": "eb189e42afc13b9abb237829ca0dc1b94dcd36dc2c88b3d13a0059655a228a3d"
+        },
+        {
+          "output": "val/Vespidae/0005_4efc43557689e475.jpg",
+          "source": "train/Vespidae/DSC07630.jpg",
+          "sha256": "4efc43557689e4754e67a532122b48e4dfa6f56e22c9b7317a79c01131612598"
+        },
+        {
+          "output": "val/Vespidae/0006_2987a7ef5abecacd.jpg",
+          "source": "train/Vespidae/DSC09221.jpg",
+          "sha256": "2987a7ef5abecacd4e70cd55d465d8fef6e5406860e2bb7257acb987a96e6648"
+        },
+        {
+          "output": "val/Vespidae/0007_d3b98203db5c7bf6.jpg",
+          "source": "train/Vespidae/DSC08551.jpg",
+          "sha256": "d3b98203db5c7bf641e03b8609fafd70eddf71e6057c4ba133fdef0e0a50d188"
+        },
+        {
+          "output": "val/Vespidae/0008_9b1b47b09808f00c.jpg",
+          "source": "train/Vespidae/DSC08642.jpg",
+          "sha256": "9b1b47b09808f00c1ca270a87b26b2db94c91d2ab6f7cf444438b8c744cdbfee"
+        },
+        {
+          "output": "val/Vespidae/0009_49f3438b07ae8636.jpg",
+          "source": "train/Vespidae/DSC06468.jpg",
+          "sha256": "49f3438b07ae86360583c3ebbfc4528f34ce9921f3ce07fbb88f2810426a5551"
+        },
+        {
+          "output": "val/Vespidae/0010_8602a8d578de0d3b.jpg",
+          "source": "train/Vespidae/DSC08451.jpg",
+          "sha256": "8602a8d578de0d3be4b43991b9e139436acb9797c106eae855901438fb366e5f"
+        },
+        {
+          "output": "val/Vespidae/0011_8993de4be76b1fa2.jpg",
+          "source": "train/Vespidae/DSC03079.jpg",
+          "sha256": "8993de4be76b1fa2cf6f20f45c907d719f4a638e1c32ba390053fc1c10cd5222"
+        },
+        {
+          "output": "val/Vespidae/0012_a3c001de84dd737f.jpg",
+          "source": "train/Vespidae/DSC08268.jpg",
+          "sha256": "a3c001de84dd737fa896942fd399b499c380287aecd165a543993a0001386829"
+        },
+        {
+          "output": "val/Vespidae/0013_80b855480cc0eb0e.jpg",
+          "source": "train/Vespidae/DSC02766.jpg",
+          "sha256": "80b855480cc0eb0ea05bc84d0c2a845ef571eed1a3d62000c781847b83d88359"
+        },
+        {
+          "output": "val/Vespidae/0014_14f6799092c461c7.jpg",
+          "source": "train/Vespidae/DSC08441.jpg",
+          "sha256": "14f6799092c461c798f822f4b80cd061a6d5bb82ee45f5a4609d170dc990f6a6"
+        },
+        {
+          "output": "val/Vespidae/0015_09936f514ae67386.jpg",
+          "source": "train/Vespidae/DSC08925.jpg",
+          "sha256": "09936f514ae673867d6c0c96bd5aa513cb4cb0598581246dba97ac0b553d1e87"
+        },
+        {
+          "output": "val/Vespidae/0016_0bd5b51b5c37d554.jpg",
+          "source": "train/Vespidae/DSC07698.jpg",
+          "sha256": "0bd5b51b5c37d5540164232ca734ab6959aaa4475dd107b75fad76a50005bfbb"
+        },
+        {
+          "output": "val/Vespidae/0017_7ed8bfe78610c8a4.jpg",
+          "source": "train/Vespidae/DSC07658.jpg",
+          "sha256": "7ed8bfe78610c8a480e7372cb6a3705474233ec48b12ada6d08c726c744ce31e"
+        },
+        {
+          "output": "val/Vespidae/0018_05fac56da54f7d88.jpg",
+          "source": "train/Vespidae/DSC08332.jpg",
+          "sha256": "05fac56da54f7d88b4306b3492c6b759f4a3b9a7e1282b24ad39520d87828c8e"
+        },
+        {
+          "output": "val/Vespidae/0019_4d459ff3c4e750ce.jpg",
+          "source": "train/Vespidae/DSC09354.jpg",
+          "sha256": "4d459ff3c4e750ceb5b89ee87e25b331cd1aa5a5ce60c8110bded488480a1fb4"
+        },
+        {
+          "output": "val/Vespidae/0020_96d2bd2b71a5350f.jpg",
+          "source": "train/Vespidae/DSC08371.jpg",
+          "sha256": "96d2bd2b71a5350f17fadba9e5191a1a27a91bc1b5bfa956efa2283eb339d522"
+        }
+      ]
+    }
+  ]
+}

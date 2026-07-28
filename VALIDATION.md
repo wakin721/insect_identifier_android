@@ -10,7 +10,8 @@ Validation date: 2026-07-28
 - Checked `pubspec.yaml`, application version metadata, and required GitHub Actions build steps.
 - Checked all relative Dart imports, required Flutter assets, Android package paths, launcher-icon PNG headers and dimensions.
 - Compiled the Python validation and model-export scripts with Python 3.13.
-- Checked the workflow action versions and both FP32/W8A32 export commands.
+- Ran the deterministic calibration dataset builder unit tests.
+- Checked the workflow action versions and both FP32/W8A16 export commands.
 - Confirmed the project contains only the Android platform target.
 
 Run the same repository checks with:
@@ -25,7 +26,7 @@ The delivery environment does not contain the Flutter SDK, Android SDK, Gradle d
 
 ```bash
 python tool/export_model.py --quantize fp32
-python tool/export_model.py --quantize w8a32
+python tool/export_model.py --quantize w8a16 --data calibration
 flutter pub get
 flutter analyze
 flutter test

@@ -8,7 +8,7 @@ text is provided in `LICENSE`. The software is provided without warranty.
 
 This project uses the `ultralytics_yolo` Flutter plugin and the Ultralytics Python package for model export. Those components are distributed by Ultralytics under AGPL-3.0, with a separate enterprise license option available from Ultralytics.
 
-The W8A32 export workflow uses Google AI Edge Quantizer, distributed under
+The W8A16 export workflow uses Google AI Edge Quantizer, distributed under
 the Apache License 2.0. This is a build-time dependency and is not bundled
 as executable code in the Android application.
 

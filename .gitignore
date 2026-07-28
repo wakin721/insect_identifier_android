@@ -29,6 +29,7 @@ models/*_saved_model/
 __pycache__/
 *.py[cod]
 .venv/
+calibration_data/
 
 # Misc
 .DS_Store
