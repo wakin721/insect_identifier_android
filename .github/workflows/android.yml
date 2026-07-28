@@ -43,7 +43,7 @@ jobs:
         run: python tool/validate_project.py
 
       - name: Test calibration dataset builder
-        run: python -m unittest test/build_calibration_dataset_test.py
+        run: python -m unittest discover -s test -p 'build_calibration_dataset_test.py'
 
       - name: Restore exported LiteRT model
         id: model-cache

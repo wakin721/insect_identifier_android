@@ -449,7 +449,7 @@ def validate_build_configuration() -> None:
 
     workflow_requirements = [
         "python tool/validate_project.py",
-        "python -m unittest test/build_calibration_dataset_test.py",
+        "python -m unittest discover -s test -p 'build_calibration_dataset_test.py'",
         "python tool/export_model.py",
         "--quantize fp32",
         "--quantize w8a16",
