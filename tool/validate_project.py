@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_SHA256 = "c8721348aba1c541d124c0cd2b1fc7f89fe4ac5ddb4fbc18bf4132328c6f8e63"
+EXPECTED_SHA256 = "3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e608"
 EXPECTED_LABELS = [
     "Acrida cinerea",
     "Acrididae",
