@@ -11,7 +11,7 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-EXPECTED_MODEL_SHA256 = "c8721348aba1c541d124c0cd2b1fc7f89fe4ac5ddb4fbc18bf4132328c6f8e63"
+EXPECTED_MODEL_SHA256 = "3a9da0f028ca92357594fee769369f4ff4e2ac0f0652598b2fe2a20f3a40e608"
 
 
 def parse_args() -> argparse.Namespace:
