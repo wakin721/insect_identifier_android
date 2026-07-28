@@ -106,141 +106,96 @@ class _CropScreenState extends State<CropScreen> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           automaticallyImplyLeading: !_busy,
-          title: Text(_recognizing ? '正在识别昆虫' : '裁切昆虫主体'),
+          title: const Text('裁切昆虫主体'),
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
         ),
-        body: Stack(
+        body: Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Crop(
-                        image: widget.imageBytes,
-                        controller: _cropController,
-                        onCropped: _handleCropResult,
-                        aspectRatio: 1,
-                        initialRectBuilder:
-                            InitialRectBuilder.withSizeAndRatio(
-                          size: 0.86,
-                          aspectRatio: 1,
-                        ),
-                        interactive: true,
-                        fixCropRect: true,
-                        radius: 18,
-                        baseColor: Colors.black,
-                        maskColor: Colors.black.withAlpha(150),
-                        progressIndicator: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        overlayBuilder: (context, rect) =>
-                            const IgnorePointer(
-                          child: CustomPaint(
-                            painter: _CropGridPainter(),
-                          ),
-                        ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Crop(
+                    image: widget.imageBytes,
+                    controller: _cropController,
+                    onCropped: _handleCropResult,
+                    aspectRatio: 1,
+                    initialRectBuilder: InitialRectBuilder.withSizeAndRatio(
+                      size: 0.86,
+                      aspectRatio: 1,
+                    ),
+                    interactive: true,
+                    fixCropRect: true,
+                    radius: 18,
+                    baseColor: Colors.black,
+                    maskColor: Colors.black.withAlpha(150),
+                    progressIndicator: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    overlayBuilder: (context, rect) => const IgnorePointer(
+                      child: CustomPaint(
+                        painter: _CropGridPainter(),
                       ),
                     ),
                   ),
                 ),
-                SafeArea(
-                  top: false,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-                    child: Column(
-                      children: <Widget>[
-                        const Text(
-                          '双指缩放并拖动照片，使昆虫完整位于方框内',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: OutlinedButton(
-                                onPressed: _busy
-                                    ? null
-                                    : () => Navigator.of(context).pop(),
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: const Text('取消'),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              flex: 2,
-                              child: FilledButton.icon(
-                                onPressed: _busy ? null : _startCrop,
-                                icon: _busy
-                                    ? const SizedBox.square(
-                                        dimension: 18,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : const Icon(
-                                        Icons.auto_awesome_rounded,
-                                      ),
-                                label: Text(
-                                  _recognizing
-                                      ? '正在识别'
-                                      : _cropping
-                                          ? '正在裁切'
-                                          : '裁切并识别',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            if (_recognizing) ...<Widget>[
-              const ModalBarrier(
-                dismissible: false,
-                color: Colors.black54,
               ),
-              Center(
-                child: Card(
-                  color: const Color(0xFF202124),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 24,
+            ),
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+                child: Column(
+                  children: <Widget>[
+                    const Text(
+                      '双指缩放并拖动照片，使昆虫完整位于方框内',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white70),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
-                        CircularProgressIndicator(),
-                        SizedBox(height: 18),
-                        Text(
-                          '正在识别昆虫',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                    const SizedBox(height: 12),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: _busy
+                                ? null
+                                : () => Navigator.of(context).pop(),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('取消'),
                           ),
                         ),
-                        SizedBox(height: 6),
-                        Text(
-                          '本地模型正在分析裁切结果',
-                          style: TextStyle(color: Colors.white70),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          flex: 2,
+                          child: FilledButton.icon(
+                            onPressed: _busy ? null : _startCrop,
+                            icon: _busy
+                                ? const SizedBox.square(
+                                    dimension: 18,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Icon(Icons.auto_awesome_rounded),
+                            label: Text(
+                              _recognizing
+                                  ? '正在识别'
+                                  : _cropping
+                                      ? '正在裁切'
+                                      : '裁切并识别',
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ],
         ),
       ),

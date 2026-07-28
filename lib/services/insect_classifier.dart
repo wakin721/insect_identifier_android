@@ -125,6 +125,13 @@ class YoloInsectClassifier implements InsectClassifier {
           );
         },
       );
+    } catch (_) {
+      if (identical(_yolo, yolo)) {
+        _yolo = null;
+        _isLoaded = false;
+      }
+      unawaited(_disposeYolo(yolo));
+      rethrow;
     } finally {
       _modelLoading = null;
     }
@@ -157,13 +164,22 @@ class YoloInsectClassifier implements InsectClassifier {
     if (yolo == null) {
       return;
     }
+    await _disposeYolo(yolo);
+  }
+
+  Future<void> _disposeYolo(YOLO yolo) async {
     try {
       await _backgroundInferenceChannel.invokeMethod<void>(
         'disposeInstance',
         <String, Object>{'instanceId': yolo.instanceId},
-      );
-    } finally {
-      await yolo.dispose();
+      ).timeout(const Duration(seconds: 2));
+    } catch (_) {
+      // The native worker may be stuck inside a delegate call.
+    }
+    try {
+      await yolo.dispose().timeout(const Duration(seconds: 2));
+    } catch (_) {
+      // Disposal is best-effort; a new model uses a separate instance ID.
     }
   }
 

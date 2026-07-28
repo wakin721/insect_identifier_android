@@ -125,6 +125,73 @@ void main() {
     expect(controller.modelState, ModelRuntimeState.idle);
     controller.dispose();
   });
+
+  test('failed model with stuck disposal does not block replacement',
+      () async {
+    final failedClassifier = _FailedClassifierWithStuckDisposal();
+    final replacementClassifier = _LoadableClassifier();
+    var factoryCalls = 0;
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (_, _) {
+        factoryCalls += 1;
+        return factoryCalls == 1
+            ? failedClassifier
+            : replacementClassifier;
+      },
+    );
+
+    await controller.prepareModel();
+    expect(controller.modelState, ModelRuntimeState.error);
+
+    await controller
+        .switchInferenceConfiguration(
+          modelVariant: ModelVariant.w8a16,
+          useGpu: false,
+        )
+        .timeout(const Duration(milliseconds: 200));
+    await controller.prepareModel();
+
+    expect(controller.modelVariant, ModelVariant.w8a16);
+    expect(controller.useGpu, isFalse);
+    expect(replacementClassifier.isLoaded, isTrue);
+    expect(controller.modelState, ModelRuntimeState.ready);
+    failedClassifier.completeDisposal();
+    controller.dispose();
+  });
+
+  test('failed model can retry the same inference configuration',
+      () async {
+    final failedClassifier = _FailedClassifierWithStuckDisposal();
+    final replacementClassifier = _LoadableClassifier();
+    var factoryCalls = 0;
+    final controller = AppController(
+      taxonomy: await TaxonomyRepository.loadFromAssets(),
+      historyRepository: _MemoryHistoryRepository(),
+      classifierFactory: (_, _) {
+        factoryCalls += 1;
+        return factoryCalls == 1
+            ? failedClassifier
+            : replacementClassifier;
+      },
+    );
+
+    await controller.prepareModel();
+    expect(controller.modelState, ModelRuntimeState.error);
+
+    await controller.switchInferenceConfiguration(
+      modelVariant: ModelVariant.fp32,
+      useGpu: true,
+    );
+    await controller.prepareModel();
+
+    expect(factoryCalls, 2);
+    expect(replacementClassifier.isLoaded, isTrue);
+    expect(controller.modelState, ModelRuntimeState.ready);
+    failedClassifier.completeDisposal();
+    controller.dispose();
+  });
 }
 
 class _ControllableClassifier implements InsectClassifier {
@@ -196,4 +263,48 @@ class _TrackingClassifier implements InsectClassifier {
 
   @override
   Future<void> load() async {}
+}
+
+class _FailedClassifierWithStuckDisposal implements InsectClassifier {
+  final Completer<void> _disposeCompleter = Completer<void>();
+
+  @override
+  bool get isLoaded => false;
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> dispose() => _disposeCompleter.future;
+
+  @override
+  Future<void> load() {
+    throw StateError('model load failed');
+  }
+
+  void completeDisposal() {
+    _disposeCompleter.complete();
+  }
+}
+
+class _LoadableClassifier implements InsectClassifier {
+  bool _isLoaded = false;
+
+  @override
+  bool get isLoaded => _isLoaded;
+
+  @override
+  Future<List<RecognitionPrediction>> classify(Uint8List imageBytes) async {
+    return const <RecognitionPrediction>[];
+  }
+
+  @override
+  Future<void> dispose() async {}
+
+  @override
+  Future<void> load() async {
+    _isLoaded = true;
+  }
 }

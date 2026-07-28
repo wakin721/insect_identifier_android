@@ -27,7 +27,8 @@ class _DeveloperOptionsScreenState extends State<DeveloperOptionsScreen> {
 
   Future<void> _selectModel(ModelVariant variant) async {
     if (_switchingInference ||
-        variant == widget.developerSettingsController.modelVariant) {
+        (variant == widget.developerSettingsController.modelVariant &&
+            widget.appController.modelState != ModelRuntimeState.error)) {
       return;
     }
 

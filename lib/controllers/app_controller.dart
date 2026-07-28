@@ -170,7 +170,10 @@ class AppController extends ChangeNotifier {
     required ModelVariant modelVariant,
     required bool useGpu,
   }) async {
-    if (modelVariant == _modelVariant && useGpu == _useGpu) {
+    final configurationUnchanged =
+        modelVariant == _modelVariant && useGpu == _useGpu;
+    if (configurationUnchanged &&
+        _modelState != ModelRuntimeState.error) {
       return;
     }
     if (_recognizing) {
@@ -186,7 +189,17 @@ class AppController extends ChangeNotifier {
     _modelState = ModelRuntimeState.idle;
     _lastError = null;
     notifyListeners();
-    await previousClassifier.dispose();
+    unawaited(_disposeClassifier(previousClassifier));
+  }
+
+  Future<void> _disposeClassifier(InsectClassifier classifier) async {
+    try {
+      await classifier.dispose().timeout(const Duration(seconds: 5));
+    } catch (_) {
+      // A failed native delegate can also stall during disposal. The active
+      // classifier has already been replaced, so cleanup must not block the
+      // user from selecting and loading another configuration.
+    }
   }
 
   Future<void> deleteRecord(RecognitionRecord record) async {
@@ -210,7 +223,7 @@ class AppController extends ChangeNotifier {
 
   @override
   void dispose() {
-    unawaited(_classifier.dispose());
+    unawaited(_disposeClassifier(_classifier));
     super.dispose();
   }
 }
